@@ -1,28 +1,19 @@
-# Week 20 — Examination Feedback and Course Reflection
+# Week 20 — Exam feedback and course reflection
 
-**150 minutes.** This is a feedback and project-clarification session, with no new graded worksheet.
+**Software Security 2 (02005094) · 150 minutes · date, time and room to be announced (after the final exams, which run 8–16 March 2027).**
 
-Keep the correction and reflection record below during the session; no extra worksheet is assigned.
+In this last session you get your exam results back, ask about anything you don't understand, talk about your team project if needed, and look back at what you learned. **Nothing new is marked this week:** there is no worksheet, no extra project mark and nothing to submit.
 
-| Minutes | Activity |
+| Minutes | What happens |
 |---|---|
-| 0–20 | Return results and explain the assessment criteria |
-| 20–60 | Revisit practical evidence, corrections, controls and common misconceptions |
-| 60–105 | Remaining project clarification and individual-contribution discussion |
-| 105–140 | Reflect on learning outcomes and record improvements |
-| 140–150 | Close remaining questions and save follow-up actions |
+| 0–20 | Get your results back and hear how each part was marked |
+| 20–60 | Fix one important mistake and check your fix |
+| 60–105 | Project questions, and how your team shared the work |
+| 105–140 | Look back on what you learned and what you would do differently |
+| 140–150 | Last questions and next steps |
 
-The final project report, code and video of at most five minutes were submitted before Week 19.
-Clarification uses the existing project rubric and does not introduce a second project mark.
-The twelve individual worksheets total 30 course points; the complete course still totals 100.
+Bring your own exam results, your Week 18 and Week 19 work, and the project report, code and video your team submitted by 28 February. Keep other students' results private.
 
-## Notes to keep
+[Notes to keep during the session](feedback.md)
 
-- Assessment item and criterion needing clarification:
-- Original reasoning or result, and the evidence used to correct it:
-- What a positive and negative control show, and what they cannot prove:
-- Project contribution or evidence explained, if clarification is requested:
-- One concrete improvement to carry into the next project:
-- Remaining question or agreed follow-up:
-
-Use the existing project rubric for clarification; this session creates no additional project score or thirteenth graded worksheet.
+**How the course adds up:** the twelve weekly worksheets give 30 course points (2.5 each), and the whole course totals 100. Project questions are answered with the same project marking scheme as before.

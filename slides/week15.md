@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Software Security · Week 15"
+header: "Software Security 2 · 02005094 · Week 15"
 ---
 
 <!-- Current KOSEN class: 150 minutes = quiz/review10 + brief15 + shared practical100 + debrief20 + capture5. Full deck is pre-class/reference; select only the short live explanation. Both versions: common60 plus Conventional40 OR AIR20/10/10. Viva verifies existing work, no extra score or automatic-zero gate. -->
@@ -10,7 +10,7 @@ header: "Software Security · Week 15"
 
 # Week 15
 ## DevSecOps: Putting It Together
-Software Security · Nutthakorn Chalaemwongwan
+Software Security 2 · Tuesday 9 February 2027, 09:05–11:50
 
 <!-- Final technical teaching week. Hook: configured CI checks can catch selected defects on each run. Today the required core adds a bounded checker and records red-to-green evidence; the full scanner workflow and required merge protection are separate extension/configuration work. ~2 min. -->
 
@@ -177,7 +177,7 @@ fail-open
 - **Score:** Blue +1 per catch · Red +1 per defect that slips through (e.g. `chmod 777`, `FROM :latest` stay green) — then propose a rule that would catch it
 - **Flag:** leak it from the fail-open `/admin` in `insecure_service.py` (local run = public demo flag; personal flag only if an instance is actually issued)
 
-<!-- The full scanner game remains extended project practice. In class, capture one prepared bounded checker red result and a corrected green result; keep the legitimate-admin positive control and safe-log evidence. Game points do not add to the worksheet rubric. -->
+<!-- The full scanner game remains extended project practice. In class, capture one local bounded checker red result and a corrected green result; keep the legitimate-admin positive control and safe-log evidence. Game points do not add to the worksheet rubric. -->
 
 ---
 
@@ -215,11 +215,11 @@ red-team-pr
 
 - Your bounded `student_task.py` fail-closed and safe-log change
 - `python3 check_student.py` results: deny missing/invalid/error cases while preserving legitimate admin access
-- One prepared `student-check-ci.yml` red run and corrected green run under the same checks; record the local equivalent if CI is unavailable
+- One local `check_student.py` red result before your fix and a green result after it, under the same checks
 - Full scanner workflow and all three planted-defect families: extended project practice
 - **Assigned written version only:** Conventional Part 2/4 (20/20) or AIR Audit/EiPE/Prompt (20/10/10), after the shared practical 60.
 
-<!-- A hosted verifier/personal instance exists only when explicitly issued. Public demo flags are observations, not personal proof. The prepared bounded checker and full Semgrep/Trivy/Gitleaks workflow have different scopes. -->
+<!-- A hosted verifier/personal instance exists only when explicitly issued. Public demo flags are observations, not personal proof. The local bounded checker and the full Semgrep/Trivy/Gitleaks workflow have different scopes. -->
 
 ---
 
@@ -241,15 +241,11 @@ Next week: Capstone studio & CTF warm-up
 
 ---
 
-## Current class hand-in
+## This week's hand-in
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
-**100-minute core run sheet (time, not points):** Compare fail-open/closed 20; student authorization/logging fix 20; one prepared CI red run 30; corrected green/control run 20; evidence 10. The practical rubric is 20 + 20 + 20 = 60 points.
-
-Complete the bounded fail-closed/logging functions in `student_task.py` and run `python3 check_student.py`. Add that same command as a job step in the prepared lab repository: first retain its failing run, then the corrected passing run. A local run is the required fallback when an external CI queue is unavailable, under the same criteria. The existing full scanner workflow and all three defect families remain extended project practice. No new public repository, PR or external service is created by running the local checker. Test a legitimate admin as well as missing, unknown, non-admin and lookup-error cases.
+- **Class:** Tuesday 9 February 2027, 09:05–11:50 (150 minutes): quiz 10 + explanation/demo 15 + practical 100 + debrief 20 + evidence 5
+- **Everyone (60 points):** the four core tasks on your own machine: fail-open vs fail-closed, the red checker run, your `authorize()` and `event_fields()` with a green run, and the limits
+- **This week odd ID = AIR-Sec** (Audit-the-AI 20 + EiPE 10 + Prompt 10) · **even ID = Conventional** (Part 2 + Part 4, 40)
+- **Code link:** commit `student_task.py` to branch `wk15` in your fork
+- **Due:** Monday 15 February 2027, 23:59 · worksheet PDF to learn.zcr.ai/submit
+- The demo `FLAG{...}` is the same for everyone; nothing goes to ctf.zcr.ai. The GitHub pipeline and Break the Build are optional

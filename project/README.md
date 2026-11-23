@@ -24,7 +24,7 @@ Take a small web/API application (provided starter, or your own with instructor 
 | Vulnerability report (draft) | Week 11 |
 | Remediation + SBOM + signed artifact | Week 14 |
 | Capstone studio — WIP demo & peer review | Week 16 |
-| Final report + demo video link (graded) | Before Week 19 (the portal shows the exact deadline) |
+| Final report + demo video link (graded) | **Sunday 28 February 2027, 23:59** on learn.zcr.ai/submit |
 
 ## Rubric (100 pts)
 
@@ -37,12 +37,14 @@ Take a small web/API application (provided starter, or your own with instructor 
 | CI pipeline (works, fails build appropriately) | 10 |
 | Presentation & report clarity | 5 |
 
-**Due:** before Week 19 (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Sunday 28 February 2027, 23:59 (Thai time), on learn.zcr.ai/submit: one report PDF per team, with the code commit link and the unlisted video link inside. **Late:** −10% per started day; 0 after 10 days.
 
 ## Peer-contribution evaluation (individual fairness)
 
-The project is the only *graded* team work, so each member's mark is adjusted for actual
-contribution:
+There are two graded team assessments: this project (15%) and the
+[Week 19 final team practical](../labs/week19-final-ctf-capstone/README.md) (15%), which you
+sit in the same team. In the Week 19 exam, every member must be able to explain any station if
+the instructor asks. For the project, each member's mark is adjusted for actual contribution:
 - At submission, **each member privately rates every teammate** (including themselves) on a
   simple scale — e.g. *Full / Most / Some / Little* — with a one-line justification.
 - The team mark is **scaled per member** by the averaged rating (typically ×0.8–1.1; an
@@ -50,8 +52,8 @@ contribution:
 - Per-student lab flags + each member's own commit history (see Academic Integrity) corroborate
   who did what. A "single paste-everything" contribution is a red flag.
 
-This protects diligent students and removes the "carry a free-rider" problem — the reason team
-weight is kept bounded (15%) while mastery is graded individually.
+This protects diligent students and removes the "carry a free-rider" problem. It is also why
+each team assessment is kept to 15% while most of the course is graded individually.
 
 ## Team-to-team integrity
 

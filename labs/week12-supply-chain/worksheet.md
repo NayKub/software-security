@@ -1,27 +1,43 @@
 # Worksheet 12 — Software Supply-Chain Security
 
-## 150-minute class and assigned worksheet version
-
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
 > **Course:** Software Security (KOSEN69) · Week 12
 > **Aligned:** OWASP 2025 — A03 Software Supply Chain Failures · A08 Software or Data Integrity Failures · **CWE:** CWE-1104, CWE-829, CWE-1357, CWE-1395
 > **Signature game:** 📦 Dependency Confusion Heist
 >
 > **Ethics note:** This lab has **no live private/public registry to attack** — the dependency-confusion exercise is a controlled walkthrough (`dependency-confusion.md`) plus the interactive resolver simulation in Task 2, not a real package pull. **Never** plant or publish look-alike packages on the real PyPI or npm — that is an attack on every downstream user, and nothing in this lab requires it.
 
+## Class and assessment contract
+
+**Class: Tuesday 19 January 2027, 09:05–11:50 (150 minutes)** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief 20 + evidence/exit 5. Build the checker image before class (see below). In class you do the five **core tasks** in Part 3; everything under "Optional extension" is extra practice and adds no points.
+
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20) and even student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write your answers on the Week 12 answer sheet for your format (odd ID: Conventional file; even ID: AIR-Sec file), and say there which AI tool you used, if any.
+
+## Words you will see
+
+| Word | Meaning |
+| --- | --- |
+| **Dependency** | A package your code uses (here, the nine pinned in `requirements.txt`). |
+| **SCA** | Software Composition Analysis: a tool that checks your dependencies against lists of known vulnerabilities. |
+| **Dependency confusion** | An attacker publishes a public package with the same name as your private one but a higher version, hoping your installer picks theirs. |
+| **Index** | A package server, such as PyPI or a company's private server. "Merged" means the installer looks at several at once. |
+| **SBOM** | Software Bill of Materials: a list of the components in your software. A list, not a safety check. |
+| **Hash (SHA-256)** | A fingerprint of a file. Change one byte and the fingerprint changes completely. |
+| **Signature / public key** | A signature proves who signed a file, but only if you already trust that signer's public key. |
+| **Trust pin (fingerprint)** | The SHA-256 of the public key you were told, separately, to trust. |
+
 ## Part 1 — Student Information
 
-| Name | Student ID | Date | Group |
-|------|-----------|------|-------|
-|      |           |      |       |
+Fill these in at the top of your answer sheet:
+
+| Name | Student ID | Date | Code link (branch wk12) | AI tool used (if any) |
+|---|---|---|---|---|
+| | | | | |
 
 ## Part 2 — Lecture Questions
+
+Answer in 2–4 sentences each. Everyone should read these to prepare; only Conventional answers them for marks.
 
 1. Explain **dependency confusion** (substitution). If a requirement admits both private `acme-internal-utils 1.4.0` and public `99.0.0`, why can a merged-index highest-version resolver choose the public candidate? Would an exact `==1.4.0` pin admit `99.0.0`?
 2. How does **typosquatting** (`reqeusts`, `urlib3`) achieve code execution *at install time* before any of your code runs?
@@ -33,48 +49,80 @@ Both versions submit their own commands/results and explanation, and complete th
 
 ## Part 3 — Shared supervised practice (100 minutes)
 
-**Core run sheet (100 minutes):** Review SCA finding 20; resolver case 15; read/generate SBOM 20; student key-pin plus signature controls 30; hash/index control 15.
+**Core run sheet (100 minutes):** review the supplied SCA results (20) · resolver case (15) · read and generate the SBOM (20) · your key-pin control and signature checks (30) · hash and index control (15). Everything runs offline except the last `pip` step in core task 5, which downloads one package.
 
-**Student task for both versions:** Complete `trusted_key()` in `student_task.py`, then run `python3 check_student.py`. The supplied `signature-core/` packet contains a real RSA signature, a trusted public-key fingerprint, and an independently signed wrong-key control. Verification uses OpenSSL and no login. This is explicitly **key-based artifact verification**, not an OIDC/keyless-signing simulation. It demonstrates the key-trust prerequisite. Retain the real Cosign keyless/registry flow below as an instructor-prepared demo or extension; no external login or transparency-log publication is required for full worksheet marks. Prepare the SCA database, image and SBOM before class where downloads would consume the slot.
+**Prerequisites:** Docker and `python3` on your machine. On Windows, type every command in the Ubuntu app. The signature checker runs in a small Docker image with OpenSSL, so nothing else is needed.
 
-
-
-**Running the new checker:** Prepare Python 3 and OpenSSL on `PATH` before class. The Docker alternative below includes OpenSSL and avoids host dependency differences; this signature core does not need Flask:
-
+**Before class — build the checker image once, while online:**
 ```bash
-# In this lab folder, build/download BEFORE class:
+cd ~/software-security/labs/week12-supply-chain
 docker build -f Dockerfile.student -t softsec-student-checks:local .
-# Run after editing student_task.py; no network or listening port is used:
-docker run --rm --network none -v "$PWD:/work:ro" -w /work softsec-student-checks:local
 ```
 
-`python3 check_student.py` runs the same checks on a prepared host. An unfilled starter is expected to fail; retain that red result, implement the assigned functions, then save the green result. Do not copy an instructor answer into the public starter.
+Type every command below in this lab folder (`cd ~/software-security/labs/week12-supply-chain`).
 
-### Offline core commands
-
+**Core task 1 — Review the supplied SCA results (20 min).** List the pinned packages, then open the supplied scan:
 ```bash
-python3 sbom_core.py                  # real CycloneDX 1.5 component inventory
+cat requirements.txt
+```
+You should see nine pinned packages, each deliberately an old version. Open `sca-core.snapshot.json` in a text editor. It is a real pip-audit 2.10.1 run your instructor captured ahead of time (57 advisories across 5 packages): label it as supplied evidence, not your own scan. Pick three findings and record package, current version, advisory/CVE id and fixed version. *Deliverable:* the package list + your 3-row table + which OWASP/CWE this maps to (A03, CWE-1104/1395).
+
+**Core task 2 — Resolver case (15 min).** Run the bounded resolver model three ways:
+```bash
 python3 resolver_core.py --mode merged
 python3 resolver_core.py --mode single
-python3 check_student.py              # after implementing trusted_key()
+python3 resolver_core.py --mode merged --private 100.0.0 --public 99.0.0
 ```
+You should see `"selected_index": "public"` with `99.0.0`, then `"private"` with `1.4.0`, then `"private"` with `100.0.0`. The same idea is in the resolver simulation under Task 2 below. *Deliverable:* the three results + one sentence on why "keep my private version number higher" is not a real defense.
 
-`sbom_core.py` inventories the nine pinned entries in this lab's `requirements.txt`; `sbom-core.cdx.json` is its supplied reference output. It does **not** claim to list resolved transitive dependencies, installed image packages, CVEs or provenance. Identify Flask's component and explain the scope; the prepared image/Syft inventory remains the broader extension. `resolver_core.py` is an executable, bounded single-package numeric-version model; it demonstrates merged-vs-single-index selection without downloading packages, not pip's full dependency resolver. For an offline SCA case, inspect `sca-core.snapshot.json`: an actual pip-audit 2.10.1 run of these nine pins, with the run time, command and scope recorded. Advisory IDs/aliases/fixed versions are extracted; descriptions and severity are not supplied. Counts belong to that captured advisory database, not a promise of current completeness. Label it as supplied evidence and explain its conclusions rather than claiming a personal scan. For the offline hash control, independently compute SHA-256 of `signature-core/artifact.txt`, compare it with the issued manifest, then alter a temporary copy and show the mismatch. The original package `--require-hashes` download exercise remains extension practice.
+**Core task 3 — Read and generate the SBOM (20 min).**
+```bash
+python3 sbom_core.py
+```
+You should see a CycloneDX 1.5 JSON document (the same content as the supplied `sbom-core.cdx.json`). Find Flask's entry (`pkg:pypi/flask@1.1.4`). *Deliverable:* Flask's entry + one sentence on the scope: it lists the nine declared packages only, not transitive dependencies, installed packages, CVEs or provenance.
 
-**Full task bank:** the original tasks below are retained for preparation, the bounded core checkpoints and extension work. Follow the core run sheet above; detailed reference estimates below are not cumulative class requirements. Complete only your assigned written 40 after the practical.
+**Core task 4 — Your key-pin control (30 min) 🛡️.** The packet in `signature-core/` has a real signed artifact, the trusted signer's public key, and a second, valid signature made with a *different* key. Your job is the one check that decides whether a public key can be trusted at all.
+1. Run the checker before editing, and keep the result:
+   ```bash
+   docker run --rm --network none -v "$PWD:/work:ro" -w /work softsec-student-checks:local
+   ```
+   You should see `FAILED (errors=3)`. That is expected: nothing is written yet.
+2. Open `student_task.py` and complete `trusted_key(public_key, expected_sha256)`: return `True` only when the SHA-256 of the public-key **file's bytes**, written as lowercase hex, equals `expected_sha256`. You need to import one standard Python module for SHA-256; `Path` is already imported.
+3. Run the same checker command again. You should see `Ran 3 tests` and `OK`: the trusted signature passes, a tampered artifact fails, and a valid signature from the wrong key is rejected.
+- *Deliverable:* your `student_task.py` commit link, the before (`FAILED`) and after (`OK`) results in one stamped screenshot, and one sentence on why a valid signature is not enough without a trusted key.
 
+Submit your code link: commit `student_task.py` to branch `wk12` in your own fork and push (see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request).
 
+**Core task 5 — Hash and index control (15 min).** Check the artifact against the issued manifest, then tamper with a copy:
+```bash
+shasum -a 256 signature-core/artifact.txt
+cat signature-core/manifest.json
+cp signature-core/artifact.txt /tmp/tampered.txt
+echo "tampered" >> /tmp/tampered.txt
+shasum -a 256 /tmp/tampered.txt
+```
+You should see that the first hash equals `artifact_sha256` in the manifest, and the tampered copy's hash is completely different. Then see pip enforce hashes (this one needs the internet):
+```bash
+docker run --rm -v "$PWD":/w -w /w python:3.9-slim pip install --require-hashes -r requirements.txt
+```
+You should see `ERROR: Hashes are required in --require-hashes mode` with the hash pip found for Flask. *Deliverable:* the matching and changed hashes, the pip refusal, and one sentence on why a single trusted index plus required hashes stops a dependency-confusion swap.
+
+---
+
+## Optional extension — not needed for full marks
+
+The tasks below are the original, longer version of this lab. They need a live scanner, image builds or a browser login, so your instructor may demo them. Do them only if you have time; they add no points.
 
 **Reference-bank goals:** Run SCA on intentionally-outdated dependencies, generate an image SBOM, sign/verify an image, and defend against dependency confusion. The required core above uses the offline declared-component SBOM and real key-based artifact verification; image/keyless signing below is a prepared extension.
 
 **Prerequisites:** Docker; the lab folder (`requirements.txt`, `Dockerfile`, `app.py`, `sca_scan.sh`, `sign.sh`). `cosign` is **not** installed on your host — every `cosign` command in this worksheet runs inside a container, same as `sign.sh` does. For the sign step itself: a browser for the OIDC flow (your GitHub or Google login) — in class this is a guided demo one person drives, not something everyone repeats (see `sign.sh`'s header).
 
-**Full reference-bank setup (keyless signing is an instructor-prepared extension)**
+**Extension setup:** `bash sca_scan.sh` runs a live trivy + pip-audit scan of `requirements.txt`; `docker build -t week12-supplychain:lab .` builds the image; `bash sign.sh week12-supplychain:lab` makes a CycloneDX SBOM and signs and verifies the image with cosign (it needs a browser login):
 ```bash
-cd labs/week12-supply-chain
-bash sca_scan.sh                 # trivy fs + pip-audit on requirements.txt (+ optional image scan)
+cd ~/software-security/labs/week12-supply-chain
+bash sca_scan.sh
 docker build -t week12-supplychain:lab .
-bash sign.sh week12-supplychain:lab   # CycloneDX SBOM -> sbom.cdx.json, then cosign sign + verify
+bash sign.sh week12-supplychain:lab
 ```
 
 **What to submit per task:** the exact command(s) + output, a screenshot, and a 2–3 sentence remediation note mapping the finding to A03/A08 or the CWE.
@@ -160,27 +208,25 @@ idea.
 2. **Real breach:** analyze the **XZ Utils backdoor (CVE-2024-3094)**. Which OWASP/CWE applies, and would an SBOM + signing + provenance gate have caught a maliciously-modified upstream dependency? (Compare with SolarWinds or Log4Shell if useful.)
 3. **Best mitigation + SLSA self-assessment:** one paragraph — which SLSA level your defenses reach and why, and the single highest-leverage control for your team.
 
-## Grading rubric (100 per assigned version)
+## Grading rubric (100)
 
 | Criterion | Conventional | AIR-Sec |
 |---|---:|---:|
-| Shared main task and observed behavior | 20 | 20 |
-| Shared student control/fix and positive/negative tests | 20 | 20 |
-| Shared reproducible evidence, reasoning and limitations | 20 | 20 |
-| Ordinary Part 2 written questions | 20 | — |
-| Ordinary Part 4 reflection | 20 | — |
-| Audit-the-AI | — | 20 |
-| Explain-in-Plain-English | — | 10 |
-| Prompt Problem | — | 10 |
+| Common practical: main task and observations | 20 | 20 |
+| Common practical: your control and positive/negative tests | 20 | 20 |
+| Common practical: reproducible evidence, reasoning and limits | 20 | 20 |
+| Assigned Conventional Part 2 written questions | 20 | — |
+| Assigned Conventional Part 4 reflection | 20 | — |
+| Assigned Audit-the-AI | — | 20 |
+| Assigned Explain-in-Plain-English | — | 10 |
+| Assigned Prompt Problem | — | 10 |
 | **Total** | **100** | **100** |
 
-Do not add the unassigned version's 40 points. Required core controls and explanations carry the shared 60; optional games/bonus tasks do not add to the 100 or prevent full marks. Viva is a check of the submitted work within these points, not an additional mark or automatic-zero rule.
-
-**Due:** 23:59 (Thai time) the night before next week's class (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Monday 25 January 2027, 23:59 (Thai time); check learn.zcr.ai/submit for the exact time. **Late:** −10% per started day; 0 after 10 days.
 
 ---
 
-## Evidence & Integrity (required)
+## Evidence & Integrity — common to both versions
 
 - **Identity proof:** every screenshot/diagram must show a terminal running `printf '%s | %s | ' "$(whoami)" '<YOUR-STUDENT-ID>'; date '+%F %T %Z'` **in the
   same image as the evidence**. When the evidence is a browser page, a DevTools panel or a
@@ -188,15 +234,14 @@ Do not add the unassigned version's 40 points. Required core controls and explan
   cropped window carries nothing that identifies you, and the lab's own output is
   byte-identical for the whole cohort *by design*, so the stamp is the only thing that makes
   the shot yours. Generic or borrowed evidence is not accepted.
-- **Personalized flag (if this lab issues one):** ____________________
-  *Flags are unique per student — submitting another student's flag is a violation. How to submit: **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).*
-- **Explain in your own words** *(graded on your reasoning, not copied text):*
+- **No flag this week:** everything is offline evidence and your own control; there is nothing to submit on ctf.zcr.ai. Submit the worksheet PDF at **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).
+- **Common practical reasoning** *(graded within the common 60, not as another EiPE score):*
   1. What did you do, and **why did the vulnerability work**?
   2. **Why does your fix actually stop it** — and what could still break it?
 
 ---
 
-## 🤖 Assigned AIR-Sec — Audit-the-AI (20 points)
+## 🤖 Audit the AI — assigned AIR-Sec section (20)
 
 **Scored exhibit supplied for this assignment (deliberately incorrect):**
 
@@ -216,7 +261,7 @@ AI is a power tool you must **distrust** — you are graded on your *critique*, 
 
 ---
 
-## 🧠 Assigned AIR-Sec — EiPE (10) and Prompt Problem (10)
+## 🧠 Comprehension & Prompt — assigned AIR-Sec section (10 + 10)
 
 **A. Explain in Plain English (EiPE, 10 points).** In 2–3 sentences, in your own words, describe what this week's vulnerable code/endpoint actually *does* and *why it is exploitable* — explain the mechanism, don't dump jargon.
 

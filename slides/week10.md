@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Software Security · Week 10"
+header: "Software Security 2 · 02005094 · Week 10"
 ---
 
 <!-- Current KOSEN class: 150 minutes = quiz/review10 + brief15 + shared practical100 + debrief20 + capture5. Full deck is pre-class/reference; select only the short live explanation. Both versions: common60 plus Conventional40 OR AIR20/10/10. Viva verifies existing work, no extra score or automatic-zero gate. -->
@@ -10,7 +10,7 @@ header: "Software Security · Week 10"
 
 # Week 10
 ## API Security
-Software Security · Nutthakorn Chalaemwongwan
+Software Security 2 · Tuesday 5 January 2027, 09:05–11:50
 
 <!-- Welcome back after midterm. Hook: change one number in an API URL and read a stranger's car location — that's the #1 API bug, and it's everywhere. Today: the OWASP API Top 10, hands-on. ~2 min. -->
 
@@ -18,7 +18,7 @@ Software Security · Nutthakorn Chalaemwongwan
 
 ## Today
 
-- REST/GraphQL attack surface
+- How an API differs from a web page
 - OWASP **API Security Top 10**
 - BOLA & mass assignment
 - Rate limiting & resource consumption
@@ -65,7 +65,8 @@ GET /api/users/2/orders   → bob's orders — while authenticated as alice
 ```
 
 - Broken Object Level Authorization = IDOR, at API scale
-- The catch: the vulnerable endpoint doesn't check ownership **at all** — it hands back whatever `<id>`'s orders you ask for, full stop. There's no spoofable-but-present check to defeat; there's no check. (The `X-User-Id` header exists as this lab's stand-in for "auth," but on this route the code never even reads it.)
+- The vulnerable endpoint does not check ownership **at all**: it returns the orders for whatever `<id>` you ask for
+- The `X-User-Id` header is this lab's stand-in for "who is calling", but this route never even reads it
 
 ![BOLA shown as insecure versus secure. On the insecure API (:8080), alice (authenticated) sends GET /api/users/2/orders — asking for id 2, not hers — and because the code never reads who is calling, there is no check to spoof and none runs, so the server returns bob's orders with 200 OK. On the secure API (:8081) one ownership check produces a three-rung ladder: no identity header → 401 Unauthorized; alice (X-User-Id 1) requesting carol's id 3 → 403 Forbidden (she's known, but the object isn't hers); alice requesting her own id 1 → 200 OK. The whole fix is one question asked every request — does the caller own this object? — not escaping or a WAF rule, since the JSON was always well formed.](img/bola-ladder.svg)
 
@@ -157,14 +158,14 @@ rate-limit
 
 When you only have an IP/URL (Kali):
 
-```bash
-netdiscover                 # find hosts
-nmap -sV target             # ports/services (80/443?)
-nikto -h http://target      # web server issues
-dirb  http://target         # hidden paths
-wpscan --url http://target  # if WordPress
-hydra ... http-post-form    # password attack
-```
+| Tool | What it finds |
+| --- | --- |
+| `netdiscover` | hosts on the network |
+| `nmap -sV target` | open ports and services (80/443?) |
+| `nikto -h http://target` | web server issues |
+| `dirb http://target` | hidden paths |
+| `wpscan --url http://target` | WordPress problems |
+| `hydra` | password guessing (only on authorized targets) |
 
 *General awareness — no worksheet task uses these against today's target; useful for the CTF weeks later in the term.*
 
@@ -250,15 +251,12 @@ Next week: Memory-safety & exploitation
 
 ---
 
-## Current class hand-in
+## This week's hand-in
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
-**100-minute core run sheet (time, not points):** Probe BOLA/mass assignment/throttling 35; implement student authorization/binding 35; positive/negative controls 20; interpret limits 10. The practical rubric is 20 + 20 + 20 = 60 points.
-
-Complete `student_task.py` and run `python3 check_student.py`. The reference `solution_api.py` remains available for comparison, but the submitted student functions must be your own. Both versions submit the function diff, test transcript and explanation. `X-User-Id` is a deliberately supplied identity assumption for authorization teaching; accepting that header is not production authentication.
+- **Class:** Tuesday 5 January 2027, 09:05–11:50 (150 minutes): quiz 10 + explanation/demo 15 + practical 100 + debrief 20 + evidence 5
+- **Everyone (60 points):** Tasks 0–3 on ports 8080/8081, your two controls in `student_task.py`, the checker before (`FAILED`) and after (`OK`), and your explanation
+- **This week odd ID = Conventional** (Part 2 + Part 4, 40) · **even ID = AIR-Sec** (Audit-the-AI 20 + EiPE 10 + Prompt 10)
+- **Code link:** commit `student_task.py` to branch `wk10` in your fork
+- **Due:** Monday 11 January 2027, 23:59 · worksheet PDF to learn.zcr.ai/submit
+- The demo `FLAG{...}` values are the same for everyone: paste them as evidence; nothing goes to ctf.zcr.ai
+- `X-User-Id` is a teaching stand-in for identity, not real authentication

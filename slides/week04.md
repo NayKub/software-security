@@ -17,7 +17,7 @@ Software Security 2 · Nutthakorn Chalaemwongwan · Shinya Oyama
 
 **KOSEN class: 150 minutes.** Quiz/review 10 + brief/demo 15 + practical 100 + debrief 20 + capture 5. Full slide explanations are preparation/reference.
 
-**Worksheet:** common practical 60 + assigned Conventional written 40 **or** AIR-Sec Audit 20 / EiPE 10 / Prompt 10. Each totals 100; viva verifies understanding within the rubric. Extensions add no graded points.
+**Worksheet:** common practical 60 + assigned 40. **This week: odd student IDs do Conventional (Part 2 + Part 4), even student IDs do AIR-Sec (Audit 20 / EiPE 10 / Prompt 10); the mapping swaps every week.** Each totals 100. Your instructor may ask you to show or repeat a step. Extensions add no graded points.
 
 
 - Why injection still matters
@@ -56,7 +56,7 @@ Software Security 2 · Nutthakorn Chalaemwongwan · Shinya Oyama
 ## SQL injection — how it works
 
 ```sql
--- vulnerable (this week's app.py, SQLite)
+-- vulnerable (this week's vulnerable_app.py, SQLite)
 "SELECT * FROM users WHERE username = '" + input + "'"
 ```
 
@@ -152,7 +152,7 @@ db.execute("...WHERE username = ? AND password = ?", (user, pw))
 
 - Login forms, search boxes, URL params, JSON fields, headers
 - Error messages leak schema → enumeration
-- Today's lab: raw payloads via browser/curl against `app.py` — no scanner needed to see the mechanism
+- Today's lab: raw payloads via browser/curl against `vulnerable_app.py` — no scanner needed to see the mechanism
 - Burp Suite / `sqlmap` are real-world tools worth knowing (sandbox-only, ethically) — not required for this week's tasks
 
 <!-- Point out injection isn't just login boxes — any input reaching an interpreter. Note verbose DB errors are a gift to attackers (schema leakage). Be clear Burp/sqlmap are industry-awareness, not something this week's worksheet has them install — every task here is a plain URL/curl payload. ~3 min. -->
@@ -261,7 +261,7 @@ Three core hits and one optional upload extension against this week's own app �
 > 📋 **Worksheet 4** — `labs/week04-injection/worksheet.md` (Part 3) · **prebuild while online:** `docker compose build` · **kickoff:** `docker compose up --no-build --pull never` → http://localhost:8080
 
 ```bash
-docker run --rm -p 80:80 vulnerables/web-dvwa   # optional extra target (or Juice Shop)
+docker run --rm -p 127.0.0.1:80:80 vulnerables/web-dvwa
 ```
 
 1. Find an injectable parameter, bypass auth
@@ -279,7 +279,7 @@ docker run --rm -p 80:80 vulnerables/web-dvwa   # optional extra target (or Juic
 - Findings: each injection point + payload + impact (CWE-mapped)
 - The **fixed** code (prepared statements / validation)
 - Proof the payload no longer works
-- **Assigned AIR-Sec 40: Audit / EiPE / Prompt; Conventional uses written 40** (see worksheet)
+- **This week: odd student IDs do Conventional written 40; even student IDs do AIR-Sec 40 (Audit / EiPE / Prompt)** (see worksheet)
 
 <!-- Set expectations: before AND after code + proof. Only the assigned AIR-Sec 40 uses Audit/EiPE/Prompt; Conventional students submit their written 40. The weekly quiz no longer asks for their payload/flag (that question was dropped — quiz runs before the lab, so it couldn't be answered) — the payload + flag are required in the worksheet's Task 1 and Evidence & Integrity section instead. -->
 

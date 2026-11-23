@@ -8,7 +8,7 @@ header: "Software Security 2 · KOSEN 02005094 · Week 7"
 # Week 7 · Pre-midterm review
 ## Weeks 1–6
 
-Current KOSEN class: **150 minutes**. No new examinable content.
+**Tuesday 15 December 2026, 09:05–11:50 (150 minutes).** No new topics, nothing to submit.
 
 <!-- Current 02005094 policy only. Do not use old 300-minute review or MFU session clocks. -->
 
@@ -16,9 +16,9 @@ Current KOSEN class: **150 minutes**. No new examinable content.
 
 ## Today: 150 minutes
 
-- 0–30: cumulative review quiz
+- 0–30: cumulative review quiz on learn.zcr.ai (code given in class)
 - 30–50: selected Jeopardy clues and reasoning
-- 50–120: two bounded mocks, 35 minutes each
+- 50–120: two practice checkpoints (redo Week 4 and Week 6 patches), 35 minutes each
 - 120–145: correction, explanation and revision
 - 145–150: save personal next steps
 
@@ -42,7 +42,7 @@ For each: root cause → student correction → legitimate and negative controls
 
 Debrief: Week 3 rehash only after correct login; Week 2 scanner error is not a clean result.
 
-Mock work is formative. Game/first-blood/House scores are engagement only.
+The practice checkpoints are not marked. Game, first-blood and House points are just for fun.
 
 ---
 
@@ -50,9 +50,9 @@ Mock work is formative. Game/first-blood/House scores are engagement only.
 
 W8 written 8% + W9 individual practical 12%.
 
-Each sitting: 150-minute slot, 130 working minutes plus 20 administration.
+Each midterm sitting: 165 minutes, 145 working minutes plus 20 administration.
 
-Four bounded practical stations; no hash-cracking or ECB requirement in current Software core.
+Four practical stations; no hash-cracking or ECB requirement in current Software core.
 
 <!-- W19 is 15%, not 25%. CTFd dynamic/flag scores do not replace the fixed academic rubric. -->
 

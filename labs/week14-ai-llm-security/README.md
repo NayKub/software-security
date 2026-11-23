@@ -1,24 +1,22 @@
 # Week 14 — Security of AI / LLM-Powered Applications
 
-## 150-minute class and assigned worksheet version
+## Class and assessment contract
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
+**Class: Tuesday 2 February 2027, 09:05–11:50 (150 minutes)** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief 20 + evidence/exit 5. Build the lab image before class (see below). In class you do the five **core tasks** in Part 3; the "Optional extension" (including Agent Breaker) adds no points.
 
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20) and even student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
 
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. The demo flag is the same for everyone and is the expected evidence; nothing is submitted on ctf.zcr.ai. Write which AI tool you used, if any, on the answer sheet.
 
-**Shared practical core:** Disclosure case 20; unsafe-output case 20; student output-control edit 30; legitimate/attack controls 20; limitations 10.
-
-Complete `render_model_output()` in `student_task.py` and run `python3 check_student.py`: redact the assigned secret and HTML-escape the output before it reaches the text sink. Preserve the existing vulnerable and guarded bots. They are deterministic mocks: these results do not establish protection for real model reasoning, RAG retrieval or tool execution. Agent Breaker and the indirect-injection thought exercise remain optional extension practice. External game scores earn **0 required worksheet points**; the previous game allocation is absorbed into the shared practical rubric.
+**Due:** Monday 8 February 2027, 23:59 (Thai time).
 
 **OWASP Top 10 for LLM Applications (2025):** LLM01 Prompt Injection · LLM02 Sensitive Info Disclosure · LLM05 Improper Output Handling · LLM06 Excessive Agency · LLM08 Vector/Embedding Weaknesses · LLM10 Unbounded Consumption
 
 ## ✅ This week — what to do
-1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); run `docker compose build` in this lab folder while online, then skim last week's recap.
-2. **Slides, then class** — read `slides/week14.md` and read the worksheet's **Part 2** as preparation; complete only the assigned written version; class opens with the weekly quiz (~10 min) and a short explanation + demo (15 min).
-3. **Lab (in class)** — follow the shared practical core and complete **Worksheet 14** (`worksheet.md`, shared practical plus the assigned Conventional or AIR-Sec written section). Kickoff: `docker compose up --no-build --pull never` → `:8082` (insecure) / `:8083` (guarded). Follow the 100-minute core run sheet in Part 3; the full original task bank is retained for preparation and extension.
-4. **Submit before the next class** (shared core plus assigned written version) — worksheet PDF → `learn.zcr.ai/submit` · code → GitHub · weekly quiz → `learn.zcr.ai/quiz`. (How: [SUBMISSION.md](../../SUBMISSION.md).)
+1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); while online run `cd ~/software-security/labs/week14-ai-llm-security` then `docker compose build`. Skim last week's recap.
+2. **Slides, then class** — read `slides/week14.md` and the worksheet's Part 2 to prepare. Class opens with the weekly quiz (10 min) and a short explanation and demo (15 min).
+3. **Lab (in class)** — start both bots with `docker compose up --no-build --pull never` (insecure on `:8082`, guarded on `:8083`) and do the five core tasks in the worksheet's Part 3. Then do the written section for your student ID this week (odd: Conventional 40; even: AIR-Sec 20/10/10), after class if needed.
+4. **Submit by Monday 8 February 2027, 23:59** — worksheet PDF → `learn.zcr.ai/submit` · code → GitHub (commit link to `student_task.py` on branch `wk14`) · weekly quiz → `learn.zcr.ai/quiz`. (How: [SUBMISSION.md](../../SUBMISSION.md).)
 5. **Project** — apply this week's lesson to your [NoteVault project](../../project/README.md) where it fits.
 
 *Time breakdown: [AGENDA.md](../../AGENDA.md). Grading: see the worksheet rubric.*

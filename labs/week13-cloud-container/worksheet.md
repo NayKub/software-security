@@ -1,27 +1,40 @@
 # Worksheet 13 — Cloud & Container Security
 
-## 150-minute class and assigned worksheet version
-
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
 > **Course:** Software Security (KOSEN69) · Week 13
 > **Aligned to:** OWASP 2025 **A02 Security Misconfiguration** · **CWE-732** (incorrect permission assignment), **CWE-16** (configuration), **CWE-526** (secret exposed through an environment variable), plus CWE-798 (hard-coded credential — OWASP files this under **A07**), CWE-250, CWE-538, CWE-269, CWE-1104
 > **Signature game:** 🔍 *Misconfig Hunt* (CloudGoat-style) — each misconfig you find **and** fix = a flag.
 
 > ⚠️ **Ethics note:** All artifacts here are deliberately broken for teaching and are marked *"Sandbox/teaching only; for authorized lab use."* Scan, exploit, and harden **only** these lab files (or systems you own / are authorized to test). Never point Trivy or these techniques at third-party cloud accounts or images without written permission.
 
+## Class and assessment contract
+
+**Class: Tuesday 26 January 2027, 09:05–11:50 (150 minutes)** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief 20 + evidence/exit 5. Pull the Trivy image and build the insecure image before class (see below). In class you do the four **core tasks** in Part 3; the "Optional extension" adds no points.
+
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10) and even student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write your answers on the Week 13 answer sheet for your format (odd ID: AIR-Sec file; even ID: Conventional file), and say there which AI tool you used, if any.
+
+## Words you will see
+
+| Word | Meaning |
+| --- | --- |
+| **Misconfiguration** | A setting that makes a system less safe than it should be, such as running as root or putting a password in a file. |
+| **Trivy** | A free scanner. `trivy config` checks Dockerfiles for risky settings. It does **not** read AWS IAM policy files. |
+| **Image / layer** | A Docker image is built in layers, one per Dockerfile line. Anyone with the image can read every layer, including old `ENV` values. |
+| **IAM policy** | A JSON document that says who may do which actions on which cloud resources. |
+| **Least privilege** | Give only the exact actions and resources a job needs, nothing more. |
+| **Wildcard `*`** | "Everything". `"Action": "*"` means every action. |
+| **Blast radius** | How much damage is possible if a key or account is stolen. |
+
 ---
 
 ## Part 1 — Student Information
 
-| Name | Student ID | Date | Group |
-|------|-----------|------|-------|
-|      |           |      |       |
+Fill these in at the top of your answer sheet:
+
+| Name | Student ID | Date | Code link (branch wk13) | AI tool used (if any) |
+|---|---|---|---|---|
+| | | | | |
 
 ---
 
@@ -29,7 +42,7 @@ Both versions submit their own commands/results and explanation, and complete th
 
 **Scope:** These exercises inspect local configuration; they do not prove effective permissions in a deployed AWS account.
 
-Answer in your own words (2–4 sentences each).
+Answer in your own words (2–4 sentences each). Everyone should read these to prepare; only Conventional answers them for marks.
 
 1. Explain the **shared-responsibility model**. In `harden.md` it says "the cloud provider secures *of* the cloud; you secure what you put *in* it." Give one concrete example of each side for an S3-backed app.
 2. `iam-policy-insecure.json` uses `"Action": "*"` and `"Resource": "*"`. Describe **why this violates least privilege** and map it to CWE-732 vs CWE-269 — what is the difference between the two CWEs here?
@@ -41,22 +54,51 @@ Answer in your own words (2–4 sentences each).
 
 ## Part 3 — Shared supervised practice (100 minutes)
 
-**Core run sheet (100 minutes):** Scan the selected Dockerfile 20; manual container/IAM review 20; student least-privilege policy 35; allow/deny controls and explanation 25.
+**Core run sheet (100 minutes):** scan the Dockerfiles (20) · manual container and IAM review (20) · write your least-privilege policy (35) · allow/deny results and explanation (25).
 
-**Student task for both versions:** Implement `build_policy()` in `student_task.py` and run `python3 check_student.py`. Submit your policy, a diff and permitted/denied example results. The checker is a deliberately bounded evaluator for this exercise, **not AWS IAM policy simulation or proof of deployed permissions**. Real AWS authorization, permissions boundaries, SCPs and runtime controls are outside this local static case. Keep the Dockerfile scan versus manual IAM-review distinction from the original tasks.
+**Prerequisites:** Docker and `python3`. On Windows, type every command in the Ubuntu app.
 
-**Offline core scan:** From this lab folder, after `docker pull aquasec/trivy:latest` before class, run:
-
+**Before class — while online, pull the scanner and build the insecure image** (the build downloads `python:latest`, so do it at home):
 ```bash
-docker run --rm --network none --pull never -v "$PWD:/src:ro" aquasec/trivy:latest \
-  config --skip-check-update --severity MEDIUM,HIGH,CRITICAL /src
+cd ~/software-security/labs/week13-cloud-container
+docker pull aquasec/trivy:latest
+docker build -f Dockerfile.insecure -t week13-insecure:lab .
 ```
 
-On a fresh Trivy cache, a warning may say it fell back to embedded checks. The run is usable only if the report lists both Dockerfiles and the expected findings; record the image version and actual rule IDs instead of treating a missing report as zero findings. This command scans Dockerfiles, not the standalone IAM JSON.
+Type every command below in this lab folder (`cd ~/software-security/labs/week13-cloud-container`).
 
-**Full task bank:** the original tasks below are retained for preparation, the bounded core checkpoints and extension work. Follow the core run sheet above; detailed reference estimates below are not cumulative class requirements. Complete only your assigned written 40 after the practical.
+**Core task 1 — Scan the Dockerfiles (20 min).** Run Trivy offline on this folder:
+```bash
+docker run --rm --network none --pull never -v "$PWD:/src:ro" aquasec/trivy:latest config --skip-check-update --severity MEDIUM,HIGH,CRITICAL /src
+```
+You should see a table with `Dockerfile.hardened` = 0 and `Dockerfile.insecure` = 4 failures: `DS-0001` (MEDIUM, `FROM python:latest`), `DS-0002` (HIGH, no `USER`, so it runs as root) and `DS-0031` (CRITICAL, twice: secrets in `ENV`). A warning about "embedded checks" is normal. Then open `Dockerfile.insecure` and read its six `# DEFECT:` comments: three match a Trivy rule, and three (`COPY . .`, `chmod -R 777`, unpinned `pip install`) are found only by reading. *Deliverable:* the scan output + a 6-row table: defect → CWE → Trivy rule and severity, or "manual review — no Trivy rule".
 
+**Core task 2 — Manual container and IAM review (20 min).** Trivy does not read IAM JSON, so you review it yourself, then see the leaked secrets:
+```bash
+cat iam-policy-insecure.json
+docker history --no-trunc week13-insecure:lab
+```
+You should see one statement with `"Action": "*"`, `"Resource": "*"` and no `Condition`, then image layers that show `API_TOKEN=…` and `AWS_SECRET_ACCESS_KEY=…` in plain text. *Deliverable:* a 3-row table (problem → CWE → why), one sentence on the blast radius if these credentials leaked, and where the secrets should live instead.
 
+**Core task 3 — Write your least-privilege policy (35 min) 🛡️.**
+1. Run the checker before editing, and keep the result:
+   ```bash
+   python3 check_student.py
+   ```
+   You should see `FAILED (errors=3)`. That is expected: nothing is written yet.
+2. Open `student_task.py` and complete `build_policy(bucket, prefix)`. Return a policy dictionary (`Version` plus a `Statement` list) with **two** Allow statements: one that allows `s3:ListBucket` on the bucket itself (`arn:aws:s3:::BUCKET`) **only** when the requested `s3:prefix` matches your prefix (a `Condition` with `StringLike`), and one that allows `s3:GetObject` only on objects under that prefix (`arn:aws:s3:::BUCKET/PREFIX*`). No other actions. Compare the shape with `iam-policy-leastpriv.json`, but build the strings from the `bucket` and `prefix` arguments.
+3. Run the same checker again. You should see `Ran 3 tests` and `OK`.
+- *Deliverable:* your `student_task.py` commit link, the before (`FAILED`) and after (`OK`) results in one stamped screenshot, and your policy.
+
+Submit your code link: commit `student_task.py` to branch `wk13` in your own fork and push (see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request).
+
+**Core task 4 — Allow/deny results and explanation (25 min).** The checker's three tests show what your policy allows (`GetObject` and `ListBucket` under `app/`) and denies (another prefix, another bucket, `DeleteObject`, `PutObject`). Explain each result in one line. Then explain the limits: this is a small local checker, not AWS IAM, and a clean Trivy result does not prove the IAM policy or the deployed workload is safe. *Deliverable:* the allow/deny list with one-line reasons + 2–3 sentences on the limits.
+
+---
+
+## Optional extension — not needed for full marks
+
+The tasks below are the original, longer version of this lab (rebuilding the hardened image, CVE scans, the full Misconfig Hunt tally). Do them only if you have time; they add no points.
 
 **Learning goals:** find cloud/container misconfigurations with Trivy, map each to a CWE, and rebuild the IAM policy + Dockerfile to least privilege / hardened so the findings drop.
 
@@ -64,20 +106,10 @@ On a fresh Trivy cache, a warning may say it fell back to embedded checks. The r
 
 ### Environment setup (real commands)
 
+`bash scan.sh` is the provided wrapper (an online Trivy config scan of the Dockerfiles; IAM JSON is reviewed manually). The last two commands build the hardened image and scan it for CVEs (online):
 ```bash
-cd labs/week13-cloud-container
-
-# Option A — the provided wrapper (trivy config over the Dockerfiles; IAM JSON is reviewed manually, see Task 2):
+cd ~/software-security/labs/week13-cloud-container
 bash scan.sh
-
-# Option B — run Trivy directly (MEDIUM is in the filter on purpose: one of the
-# three rules Task 1 asks you to cite is rated MEDIUM, and HIGH,CRITICAL hides it):
-docker run --rm -v "${PWD}:/src" aquasec/trivy:latest config --severity MEDIUM,HIGH,CRITICAL /src
-
-# Build the insecure image too — Task 3 inspects it:
-docker build -f Dockerfile.insecure -t week13-insecure:lab .
-
-# (Optional) build + CVE-scan the hardened image:
 docker build -f Dockerfile.hardened -t week13-hardened:lab .
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL week13-hardened:lab
 ```
@@ -101,9 +133,10 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:lates
 - **Task 3 — Secrets & storage (full reference exercise: 25 min).** *Goal:* show secrets must not live in the image. *Steps:* explain how `ENV API_TOKEN` / `AWS_SECRET_ACCESS_KEY` are exposed via `docker history --no-trunc week13-insecure:lab` (or `docker inspect`); propose where they belong instead (secrets manager / mounted secret / orchestrator secret per `harden.md`). *Deliverable:* 2–3 sentence remediation + the `.dockerignore` entries you would add to stop `COPY . .` leaking `.git`/`.env` (CWE-538).
 
 - **Task 4 — Hardened-Dockerfile + least-priv-IAM defense (full reference exercise: 50 min).** *Goal:* prove the "after" is clean. *Steps:* (a) **`bash scan.sh` scans the whole folder every time, so re-running it gives the identical combined table — nothing to compare against itself.** Read the `Dockerfile.hardened` row from that same table (it's `0`), or scan each file on its own to see the drop directly:
+  The first line gives Task 0's baseline on its own; the second gives today's reduced count:
   ```bash
-  docker run --rm -v "$PWD":/src aquasec/trivy:latest config --severity MEDIUM,HIGH,CRITICAL /src/Dockerfile.insecure   # Task 0's baseline, isolated
-  docker run --rm -v "$PWD":/src aquasec/trivy:latest config --severity MEDIUM,HIGH,CRITICAL /src/Dockerfile.hardened  # today's reduced count
+  docker run --rm -v "$PWD":/src aquasec/trivy:latest config --severity MEDIUM,HIGH,CRITICAL /src/Dockerfile.insecure
+  docker run --rm -v "$PWD":/src aquasec/trivy:latest config --severity MEDIUM,HIGH,CRITICAL /src/Dockerfile.hardened
   ```
   (`scan.sh`'s own argument only selects an *image* for step 2's optional CVE scan — `bash scan.sh Dockerfile.hardened` does not make step 1 scan just that file, and running the image-scan step with that argument looks for a nonexistent image literally named `Dockerfile.hardened`.) Confirm the IAM fix manually per Task 2 by diffing `iam-policy-leastpriv.json` against the insecure policy; (b) for the Dockerfile, point to the fix for each Task-1 defect (digest pin, multi-stage venv, distroless runtime, `USER 65532:65532`, no secrets in `ENV`, copy only `app.py`); (c) for IAM, confirm the rewrite scopes `s3:GetObject` to `arn:aws:s3:::lab-app-bucket/app/*` and adds the `s3:prefix` `Condition`; (d) list the extra runtime flags from `harden.md` (`--read-only`, `--cap-drop ALL`, `--security-opt no-new-privileges`). *Deliverable:* before/after finding counts, the defect→fix mapping, and the diffed policy/Dockerfile with one sentence per fix.
 
@@ -119,27 +152,25 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:lates
 
 ---
 
-## Grading rubric (100 per assigned version)
+## Grading rubric (100)
 
 | Criterion | Conventional | AIR-Sec |
 |---|---:|---:|
-| Shared main task and observed behavior | 20 | 20 |
-| Shared student control/fix and positive/negative tests | 20 | 20 |
-| Shared reproducible evidence, reasoning and limitations | 20 | 20 |
-| Ordinary Part 2 written questions | 20 | — |
-| Ordinary Part 4 reflection | 20 | — |
-| Audit-the-AI | — | 20 |
-| Explain-in-Plain-English | — | 10 |
-| Prompt Problem | — | 10 |
+| Common practical: main task and observations | 20 | 20 |
+| Common practical: your control and positive/negative tests | 20 | 20 |
+| Common practical: reproducible evidence, reasoning and limits | 20 | 20 |
+| Assigned Conventional Part 2 written questions | 20 | — |
+| Assigned Conventional Part 4 reflection | 20 | — |
+| Assigned Audit-the-AI | — | 20 |
+| Assigned Explain-in-Plain-English | — | 10 |
+| Assigned Prompt Problem | — | 10 |
 | **Total** | **100** | **100** |
 
-Do not add the unassigned version's 40 points. Required core controls and explanations carry the shared 60; optional games/bonus tasks do not add to the 100 or prevent full marks. Viva is a check of the submitted work within these points, not an additional mark or automatic-zero rule.
-
-**Due:** 23:59 (Thai time) the night before next week's class (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Monday 1 February 2027, 23:59 (Thai time); check learn.zcr.ai/submit for the exact time. **Late:** −10% per started day; 0 after 10 days.
 
 ---
 
-## Evidence & Integrity (required)
+## Evidence & Integrity — common to both versions
 
 - **Identity proof:** every screenshot/diagram must show a terminal running `printf '%s | %s | ' "$(whoami)" '<YOUR-STUDENT-ID>'; date '+%F %T %Z'` **in the
   same image as the evidence**. When the evidence is a browser page, a DevTools panel or a
@@ -147,15 +178,14 @@ Do not add the unassigned version's 40 points. Required core controls and explan
   cropped window carries nothing that identifies you, and the lab's own output is
   byte-identical for the whole cohort *by design*, so the stamp is the only thing that makes
   the shot yours. Generic or borrowed evidence is not accepted.
-- **Personalized flag (if this lab issues one):** ____________________
-  *Flags are unique per student — submitting another student's flag is a violation. How to submit: **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).*
-- **Explain in your own words** *(graded on your reasoning, not copied text):*
+- **No CTF flag this week:** the "flags" in the Misconfig Hunt are just points in the game; nothing is submitted on ctf.zcr.ai. Submit the worksheet PDF at **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).
+- **Common practical reasoning** *(graded within the common 60, not as another EiPE score):*
   1. What did you do, and **why did the vulnerability work**?
   2. **Why does your fix actually stop it** — and what could still break it?
 
 ---
 
-## 🤖 Assigned AIR-Sec — Audit-the-AI (20 points)
+## 🤖 Audit the AI — assigned AIR-Sec section (20)
 
 **Scored exhibit supplied for this assignment (deliberately incorrect):**
 
@@ -175,7 +205,7 @@ AI is a power tool you must **distrust** — you are graded on your *critique*, 
 
 ---
 
-## 🧠 Assigned AIR-Sec — EiPE (10) and Prompt Problem (10)
+## 🧠 Comprehension & Prompt — assigned AIR-Sec section (10 + 10)
 
 **A. Explain in Plain English (EiPE, 10 points).** In 2–3 sentences, in your own words, describe what this week's vulnerable code/endpoint actually *does* and *why it is exploitable* — explain the mechanism, don't dump jargon.
 

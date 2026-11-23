@@ -17,7 +17,7 @@ Software Security 2 · Nutthakorn Chalaemwongwan · Shinya Oyama
 
 **KOSEN class: 150 minutes.** Quiz/review 10 + brief/demo 15 + practical 100 + debrief 20 + capture 5. Full slide explanations are preparation/reference.
 
-**Worksheet:** common practical 60 + assigned Conventional written 40 **or** AIR-Sec Audit 20 / EiPE 10 / Prompt 10. Each totals 100; viva verifies understanding within the rubric. Extensions add no graded points.
+**Worksheet:** common practical 60 + assigned 40. **This week: odd student IDs do Conventional (Part 2 + Part 4), even student IDs do AIR-Sec (Audit 20 / EiPE 10 / Prompt 10); the mapping swaps every week.** Each totals 100. Your instructor may ask you to show or repeat a step. Extensions add no graded points.
 
 
 - Authn vs authz
@@ -243,7 +243,7 @@ GET /uploads/backdoor.php?cmd=ls%20-l                200   ← RCE
 
 ## 🗺️ Game — IDOR Treasure Hunt + JWT Forgery
 
-1. Tamper object IDs to reach **another user's** data (horizontal — read bob's order) → the local flag is demo evidence; use only an individually issued hosted flag when assigned
+1. Tamper object IDs to reach **another user's** data (horizontal — read bob's order) → the shared local demo flag is the expected evidence; nothing is submitted on ctf.zcr.ai
 2. Forge a JWT two ways: `alg:none`, then sign with the exposed weak HMAC secret
 3. **Defend:** complete `student_patch.py`, then use `student_checks.py` to prove legitimate access works and cross-user or forged-token access fails. Compare `solution_app.py` only after your own tests.
 
@@ -269,7 +269,7 @@ GET /uploads/backdoor.php?cmd=ls%20-l                200   ← RCE
 - IDOR + JWT findings with impact
 - Your `student_patch.py` commit and `student_checks.py` results
 - Proof legitimate access works and forged-token / cross-user access fails
-- **Assigned AIR-Sec 40: Audit / EiPE / Prompt; Conventional uses written 40** (see worksheet)
+- **This week: odd student IDs do Conventional written 40; even student IDs do AIR-Sec 40 (Audit / EiPE / Prompt)** (see worksheet)
 
 <!-- Before/after + proof must come from the student's patch. The supplied solution is comparison material. -->
 

@@ -114,7 +114,7 @@ Run `student_checks.py` and `student_app.py`. Verify: normal comment **works**; 
 ## Assessment and exit
 
 - **Common practical 60:** XSS observations 20, CSRF with controls 15, student patch 25.
-- **Assigned 40:** Conventional questions **or** AIR-Sec Audit the AI 20 + EiPE 10 + Prompt 10.
-- Save code, browser evidence, request headers and your own explanation. Check the live assignment for the deadline.
+- **Assigned 40, this week:** odd student IDs do AIR-Sec (Audit the AI 20 + EiPE 10 + Prompt 10); even student IDs do Conventional questions. The mapping swaps every week.
+- Save code, browser evidence, request headers and your own explanation. Due Mon 7 Dec 23:59 (late until 17 Dec, −10% per started day).
 
 **Sources:** [OWASP XSS prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html); [OWASP CSRF prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html); [OWASP Top 10:2025](https://top10.owasp.org/2025/).

@@ -6,8 +6,8 @@ header: "Software Security 2 · KOSEN02005094 · Week 8 · Midterm"
 ---
 
 # Week 8 — Midterm written examination
-## Current KOSEN02005094 sitting
-Weeks 1–6
+## KOSEN 02005094
+Weeks 1–6 · Tuesday 22 December 2026, 09:05–11:50 · our usual classroom
 
 <!-- Confirm the current sitting paper, matching key and permitted aids before starting. This deck is KOSEN-specific; do not substitute it for MFU session papers. -->
 
@@ -15,10 +15,10 @@ Weeks 1–6
 
 ## Format and time
 
-- **150-minute slot:** administration10 + working/checking130 + collection10
-- **Ten questions ×10 raw =100:** five Basic and five Technical
-- Suggested pace: 12 minutes per question120 + checking10 =130 working minutes
-- Course contribution: **8%**, split Basic4 + Technical4
+- **165-minute slot:** administration 10 + working/checking 145 + collection 10
+- **Ten questions ×10 raw = 100:** five Basic and five Technical
+- Suggested pace: 12 minutes per question (120 minutes) + 25 minutes checking = 145 working minutes
+- Course contribution: **8%**, split Basic 4 + Technical 4
 
 <!-- Administration is not additional task time. Use the current sitting variant and its matching key; the public specimen is practice material. -->
 
@@ -36,18 +36,18 @@ Read the provided scenario/code and explain mechanisms, corrections, legitimate 
 ## Answer and checking guidance
 
 - Answer the ten questions on the issued current paper
-- Use the permitted aids announced for the sitting
+- Closed book: bring your student ID card and a pen; no notes, phone, calculator or computer
 - State assumptions and scope; accept equivalent technically sound designs
-- Reserve the final10 working minutes to check all answers
+- Reserve the final 10 working minutes to check all answers
 
-<!-- No new closed/open-book or AI rule is invented here; publish the sitting's permitted aids before release. -->
+<!-- Owner decision 18 Nov 2026: closed book; bring student ID card and pen. -->
 
 ---
 
 ## Collection and next session
 
-Stop task work when the130-minute working window ends; follow the proctor's collection instructions.
+Stop task work when the 145-minute working window ends; follow the proctor's collection instructions.
 
-Week9 is the individual four-station practical, with its own150-minute slot.
+Week 9 (Tuesday 29 December) is the individual four-station practical, also on paper and closed book.
 
 [Current specimen and scope](../labs/week08-midterm-written/exam.md)

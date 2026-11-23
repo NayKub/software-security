@@ -1,14 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
-<title id="title">Week 9 · Individual practical · four stations</title><desc id="desc">A: threat model / scanner triage ·35min ·25raw; B: successful-login password migration ·35min ·25raw; C: injection correction + controls ·30min ·25raw; D: JWT verification + ownership ·30min ·25raw. 130task +20brief/submit; Basic50/Technical50 →6+6coursepoints.</desc>
+<title id="title">Week 9 · Individual practical · four stations</title><desc id="desc">A: threat model and scanner triage, 35 minutes, 25 points. B: move old password records at login, 35 minutes, 25 points. C: fix injection and test it, 30 minutes, 25 points. D: check the login token and who owns the order, 30 minutes, 25 points. 145 minutes of tasks (130 on stations + 15 to check) plus 20 minutes for instructions and collecting papers (paper exam). Basic 50 + Technical 50 = 100 points, worth 6 + 6 course marks.</desc>
 <rect width="1000" height="520" fill="#0b1220"/>
 <text x="40" y="58" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="27" font-weight="bold">Week 9 · Individual practical · four stations</text>
 <rect x="40" y="90" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="126" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">A: threat model / scanner triage ·35min ·25raw</text>
+<text x="60" y="126" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">A · Threat model and scanner triage · 35 min · 25 points</text>
 <rect x="40" y="162" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="198" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">B: successful-login password migration ·35min ·25raw</text>
+<text x="60" y="198" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">B · Move old password records at login · 35 min · 25 points</text>
 <rect x="40" y="234" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="270" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">C: injection correction + controls ·30min ·25raw</text>
+<text x="60" y="270" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">C · Fix injection and test it · 30 min · 25 points</text>
 <rect x="40" y="306" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="342" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">D: JWT verification + ownership ·30min ·25raw</text>
-<text x="40" y="403" fill="#9bd4e4" font-family="Arial,sans-serif" font-size="18">130task +20brief/submit; Basic50/Technical50 →6+6coursepoints.</text>
+<text x="60" y="342" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">D · Check the login token and who owns the order · 30 min · 25 points</text>
+<text x="40" y="403" fill="#9bd4e4" font-family="Arial,sans-serif" font-size="18">145 minutes of tasks (130 on stations + 15 to check) + 20 for instructions and papers</text>
+<text x="40" y="433" fill="#9bd4e4" font-family="Arial,sans-serif" font-size="18">Basic 50 + Technical 50 = 100 points → 6 + 6 course marks</text>
 </svg>

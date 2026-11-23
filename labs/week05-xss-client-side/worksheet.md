@@ -4,11 +4,13 @@
 
 ## Class contract
 
-**150 minutes:** quiz/review 10, mechanism demo 15, common practical 100, debrief 20, save evidence 5. The task times below are planning budgets, not a student timing measurement. Prepare the lecture questions before class. Submit the common practical (60 points) and **one assigned format** (40 points): odd final student-ID digit = Conventional; even final digit, including 0 = AIR-Sec. Complete the assigned written format after class as needed. The other format and the extensions are optional reference practice. Check the live assignment for the exact deadline.
+**150 minutes:** quiz/review 10, mechanism demo 15, common practical 100, debrief 20, save evidence 5. The task times below are planning budgets, not a student timing measurement. Prepare the lecture questions before class. Submit the common practical (60 points) and **one assigned format** (40 points): **this week (Week 5): odd final student-ID digit = AIR-Sec; even final digit, including 0 = Conventional. The mapping swaps every week.** Complete the assigned written format after class as needed. The other format and the extensions are optional reference practice. Due Monday 7 December 2026, 23:59 (Thai time); late work loses 10% per started day and gets 0 after 10 days (17 December). Check the live assignment for the exact time.
 
-| Name | Student ID | Assigned format | Date |
-|---|---|---|---|
-| | | | |
+Fill these in at the top of your answer sheet (odd ID: AIR-Sec file; even ID: Conventional file):
+
+| Name | Student ID | Date | Code link (branch wk05) | Assigned format | AI tool used (if any) |
+|---|---|---|---|---|---|
+| | | | | | |
 
 **Authorized sandbox only.** Use the local lab and your own browser. `session=abc123` is a teaching value, never a real credential.
 
@@ -24,8 +26,10 @@
 
 Build the image once while online, then the class can run without a package download:
 
+On Windows, type every command in the Ubuntu app.
+
 ```bash
-cd labs/week05-xss-client-side
+cd ~/software-security/labs/week05-xss-client-side
 docker compose build
 docker compose up --no-build --pull never
 ```
@@ -91,4 +95,4 @@ Answer in your own words using evidence from the common practical:
 
 ## Evidence and submission
 
-Submit the worksheet PDF on `learn.zcr.ai/submit` and your `student_patch.py` code link. Put a terminal showing your student ID and current date beside the browser in each screenshot. Include the exact payload, request/response or visible effect, and a short explanation of why the control works. Your instructor may ask you to reproduce a result. The live assignment states the due time and late policy.
+Submit the worksheet PDF on `learn.zcr.ai/submit` and your `student_patch.py` commit link (commit it to branch `wk05` in your own fork and push; see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request). Put a terminal showing your student ID and current date beside the browser in each screenshot. Include the exact payload, request/response or visible effect, and a short explanation of why the control works. Your instructor may ask you to reproduce a result. The live assignment states the due time and late policy.

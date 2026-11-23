@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Software Security · Week 14"
+header: "Software Security 2 · 02005094 · Week 14"
 ---
 
 <!-- Current KOSEN class: 150 minutes = quiz/review10 + brief15 + shared practical100 + debrief20 + capture5. Full deck is pre-class/reference; select only the short live explanation. Both versions: common60 plus Conventional40 OR AIR20/10/10. Viva verifies existing work, no extra score or automatic-zero gate. -->
@@ -10,7 +10,7 @@ header: "Software Security · Week 14"
 
 # Week 14
 ## Security of AI / LLM-Powered Applications
-Software Security · Nutthakorn Chalaemwongwan
+Software Security 2 · Tuesday 2 February 2027, 09:05–11:50
 
 <!-- Hook: it's 2026 — your students will all ship AI features. Show that a single sentence can make an AI assistant ignore its rules and leak a secret. No exploit code, just text. ~2 min. -->
 
@@ -229,15 +229,11 @@ Next week: DevSecOps — putting it together
 
 ---
 
-## Current class hand-in
+## This week's hand-in
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
-**100-minute core run sheet (time, not points):** Disclosure case 20; unsafe-output case 20; student output-control edit 30; legitimate/attack controls 20; limitations 10. The practical rubric is 20 + 20 + 20 = 60 points.
-
-Complete `render_model_output()` in `student_task.py` and run `python3 check_student.py`: redact the assigned secret and HTML-escape the output before it reaches the text sink. Preserve the existing vulnerable and guarded bots. They are deterministic mocks: these results do not establish protection for real model reasoning, RAG retrieval or tool execution. Agent Breaker and the indirect-injection thought exercise remain optional extension practice. External game scores earn **0 required worksheet points**; the previous game allocation is absorbed into the shared practical rubric.
+- **Class:** Tuesday 2 February 2027, 09:05–11:50 (150 minutes): quiz 10 + explanation/demo 15 + practical 100 + debrief 20 + evidence 5
+- **Everyone (60 points):** the five core tasks: disclosure, unsafe output, your `render_model_output()` with the checker before (`FAILED`) and after (`OK`), the guarded-bot tests (use `curl -g` for the pasted flag) and the limits
+- **This week odd ID = Conventional** (Part 2 + Part 4, 40) · **even ID = AIR-Sec** (Audit-the-AI 20 + EiPE 10 + Prompt 10)
+- **Code link:** commit `student_task.py` to branch `wk14` in your fork
+- **Due:** Monday 8 February 2027, 23:59 · worksheet PDF to learn.zcr.ai/submit
+- The demo `FLAG{...}` is the same for everyone; nothing goes to ctf.zcr.ai. Agent Breaker is optional with no course marks

@@ -1,10 +1,12 @@
 # Week 16 — Formative project checkpoint
 
-**Assessment:** Formative — project checkpoint; no separate worksheet marks.
+**Class:** Tuesday 16 February 2027, 09:05–11:50 (150 minutes), in your existing project team of 2–3.
+
+**Assessment:** Formative — a project checkpoint for feedback; no separate worksheet marks, no due date and no late penalty for this sheet.
 
 > **Course:** Software Security (KOSEN69) · Week 16
 > **Aligned to:** All prior weeks + OWASP Top 10 (2025) — https://owasp.org/Top10/2025/ ; CWE mapping required throughout.
-> **Signature game:** practice **CTF tournament** (web · API · binary · supply-chain · cloud · LLM) previewing Week 19, plus cross-team peer review.
+> **Optional extra:** a practice scrimmage previewing Week 19 ([scrimmage.md](scrimmage.md)), plus cross-team peer review. The scrimmage gives no marks and needs no flags.
 
 > ⚠️ **Ethics note:** This is a **project studio**, not an exploit lab. Demo your attack → root cause → fix **only** against your own term-project application (see `project/README.md` in the repo root) or the provided practice-CTF targets. The final team practical is in **Week 19**. Submit the project report/code and recorded video (at most 5 minutes) before Week 19; project clarification takes place in Weeks 16 and 20. This worksheet is formative and is not a thirteenth graded Lab.
 
@@ -57,7 +59,7 @@ Answer as a team (2–4 sentences each).
 | 3:30–4:30 | Delivery | SBOM scope, trusted-signature verification, CI red/green result |
 | 4:30–5:00 | Limits | Outstanding risk and next action |
 
-This is feedback. The final recorded project video is also at most 5 minutes, submitted with the report before Week 19. Project marks follow only the existing project rubric.
+This is feedback. The final recorded project video is also at most 5 minutes, submitted with the report by Sunday 28 February 2027, 23:59. Project marks follow only the existing project rubric.
 
 ### C) Peer-review rubric (score the team you review, 1–5 each)
 
@@ -71,7 +73,7 @@ This is feedback. The final recorded project video is also at most 5 minutes, su
 | Pipeline / fail-closed | None → gate fails closed on HIGH/CRITICAL |
 | Demo & Q&A | Unclear → confident, handles tough questions |
 
-> Practice CTF: a short scrimmage mixing web, API, binary, supply-chain, cloud, and LLM challenges from Weeks 1–15. Record flags captured and which week's technique each used — this previews the Week 19 final.
+> Optional practice scrimmage: if your checklist is ready, pick one bounded task from [scrimmage.md](scrimmage.md). Record the root cause, your fix, one legitimate and one attack test, and which week's technique it used. No flags are needed; this previews the Week 19 final.
 
 ---
 
@@ -79,7 +81,7 @@ This is feedback. The final recorded project video is also at most 5 minutes, su
 
 1. **Lessons learned.** What surprised your team most while threat-modeling and fixing your own app?
 2. **What you'd harden next.** Given more time, which control would you add first (e.g., least-privilege IAM, image hardening, output handling, fail-closed paths), and why?
-3. **CTF takeaway.** Which practice-CTF category was hardest for your team, and what will you drill before Week 19?
+3. **Week 19 takeaway.** Which topic (web, API, memory safety, supply chain, cloud or AI) feels hardest for your team, and what will you practise before Week 19?
 
 ---
 
@@ -94,14 +96,14 @@ This is feedback. The final recorded project video is also at most 5 minutes, su
 | CI pipeline | 10 | Security gate fails closed on the stated threshold; red/green run linked |
 | Presentation & report clarity | 5 | Report and recorded video of at most 5 minutes explain the evidence and limits |
 
-**Feedback only:** retain the checklist and peer comments in the project working folder. There are no separate Week 16 worksheet marks or late penalties. The project deadline and rubric remain in the project guide and published assignment.
+**Feedback only:** retain the checklist and peer comments in the project working folder. There are no separate Week 16 worksheet marks or late penalties. The project deadline is Sunday 28 February 2027, 23:59 on learn.zcr.ai/submit; the rubric is in the project guide.
 
 ---
 
 ## Evidence and integrity for the project checkpoint
 
-Keep the actual patch, test output, commands and contribution notes. Use your own authorized project or the provided practice targets; do not disclose production credentials. No personalized flag, identity-stamped screenshot or external AI account is required for every checkpoint. The instructor can request clarification to establish authorship within the existing project criteria; there is no automatic zero from a single viva response.
+Keep the actual patch, test output, commands and contribution notes. Use your own authorized project or the provided practice targets; do not disclose production credentials. No personalized flag, identity-stamped screenshot or external AI account is required for every checkpoint. Your instructor may ask your team short questions to check that the work is yours; this only clarifies the existing project marks, and one answer alone never means zero.
 
 ## Conventional / AIR-Sec practice (formative)
 
-Choose the form used in your class. Conventional: answer the original Part 2 questions and Part 4 reflections above. AIR-Sec: audit a supplied or disclosed AI explanation against project evidence; correct it only where evidence warrants, explain the mechanism plainly, and propose a precise verification prompt. A correct AI answer can be accepted with verified evidence. These exercises are feedback, without separate 60/40 worksheet marks in Week 16. The complete prior exercise wording is retained in the historical reference worksheet in the course source.
+This week (Week 16) odd student IDs practise **Conventional** and even student IDs practise **AIR-Sec**; both are optional feedback. Conventional: answer the original Part 2 questions and Part 4 reflections above. AIR-Sec: audit a supplied or disclosed AI explanation against project evidence; correct it only where evidence warrants, explain the mechanism plainly, and propose a precise verification prompt. A correct AI answer can be accepted with verified evidence. These exercises are feedback, without separate 60/40 worksheet marks in Week 16. The complete prior exercise wording is retained in the historical reference worksheet in the course source.

@@ -8,17 +8,19 @@
 
 ## Class and assessment contract
 
-**Contact time: 150 minutes** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Pre-pull images and prepare tools before class. The full concepts, longer questions and extension tasks stay available for preparation/follow-up; the instructor uses the bounded core below in class.
+**Contact time: 150 minutes** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Build the lab image before class (see Environment setup below). In class you do Tasks 0–3 and 5; Task 4 is optional.
 
-**Both assigned versions include the same common practical 60 points.** Complete that core plus **one** assigned 40-point section: **Conventional** = Part 2 written questions 20 + Part 4 reflection 20; **AIR-Sec** = Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10. Each version totals 100. The unassigned section is reference practice, not another required 40 points. Only the named 100-minute core is assessed in the shared 60; other practical tasks are optional extension/reference unless explicitly used in the assigned written questions, and are not a prerequisite for full marks. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+**Both assigned versions include the same common practical 60 points.** Complete that core plus **one** assigned 40-point section (**this week: odd student IDs do Conventional, even student IDs do AIR-Sec; the mapping swaps every week**): **Conventional** = Part 2 written questions 20 + Part 4 reflection 20; **AIR-Sec** = Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10. Each version totals 100. The unassigned section is reference practice, not another required 40 points. Only the named 100-minute core is assessed in the shared 60; other practical tasks are optional extension/reference unless explicitly used in the assigned written questions, and are not a prerequisite for full marks. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
 
-Viva/reproduction checks verify the work within its existing rubric, with no separate score or automatic-zero rule. Complete the common practical evidence in either version, disclose any AI assistance, and use the normal name/Student ID and task-specific evidence requirements. Do not substitute a shared practice flag for proof from an actually assigned hosted instance.
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write your answers on the Week 4 answer sheet from Google Classroom, and say there which AI tool you used, if any.
 
 ## Part 1 — Student Information
 
-| Name | Student ID | Date | Group |
-|------|-----------|------|-------|
-|      |           |      |       |
+Fill these in at the top of the answer sheet:
+
+| Name | Student ID | Date | Code link (branch wk04) | AI tool used (if any) |
+|---|---|---|---|---|
+| | | | | |
 
 ## Part 2 — Lecture Questions
 
@@ -36,26 +38,29 @@ Answer in 2–4 sentences each.
 
 **100-minute core:** Baseline login (5), bounded login bypass (15), UNION observation (20), command-injection observation (20), student parameterization/input patch with controls (40).
 
-All original task/question text remains below. The minute labels are activity budgets; the extended task set is preparation/follow-up, not extra work to fit inside the 100-minute core. Complete Part 2/Part 4 only for the assigned Conventional 40, or Audit/EiPE/Prompt only for the assigned AIR-Sec 40.
+The minutes are a pacing guide. This week odd student IDs complete Part 2/Part 4 (Conventional 40) and even student IDs complete Audit/EiPE/Prompt (AIR-Sec 40).
 
 
 **Learning goals:** extract data via SQLi, achieve OS command injection, write and test your own bounded defense in `student_patch.py`, then compare the full `solution_app.py` reference (optional extension: unrestricted upload).
 
-**Prerequisites:** Docker + Docker Compose, `curl`, a browser. Working dir: `labs/week04-injection/`.
+**Prerequisites:** Docker + Docker Compose, `curl`, a browser. Working folder: `~/software-security/labs/week04-injection/`. On Windows, type every command in the Ubuntu app.
 
 **Before class, on home Wi-Fi:** run `docker compose build` once in this folder. The image installs `ping` and Flask, which Tasks 3 and 5 need. Build while online; classroom commands use the local image without downloading packages.
 
 ### Environment setup
 
 ```bash
-cd labs/week04-injection
-docker compose up --no-build --pull never  # runs the prebuilt vulnerable app; no download
-# vulnerable app -> http://localhost:8080   (service name: injection-lab, port 8080)
+cd ~/software-security/labs/week04-injection
+docker compose up --no-build --pull never
 ```
-Optional secondary targets:
+This runs the prebuilt vulnerable app (service `injection-lab`) at `http://localhost:8080` without downloading anything. If you see `No such image`, you have not built it yet: run `docker compose build` while online. Run every command below from this folder.
+
+Optional secondary targets (run one at a time; not graded): DVWA opens at `http://localhost`, Juice Shop at `http://localhost:3000`.
 ```bash
-docker run --rm -it -p 127.0.0.1:80:80 vulnerables/web-dvwa   # DVWA  -> http://localhost
-docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop  # Juice Shop -> http://localhost:3000
+docker run --rm -it -p 127.0.0.1:80:80 vulnerables/web-dvwa
+```
+```bash
+docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop
 ```
 
 **What to submit per task:** the exact **payload/command**, a **screenshot** of the response proving success, and a **2–3 sentence mitigation** in your own words.
@@ -78,11 +83,11 @@ sqli-parse
 
 **Task 2 — Credential dump via UNION SQLi (20 min, in class) 🐉 Hit #2.**
 - *Goal:* exfiltrate every username **and password** from the `users` table.
-- *Steps:* request `/search?q=' UNION SELECT username,password FROM users--`. Confirm `alice:alicepw` and `bob:bobpw` appear — plus a third `admin` row whose password field holds this lab's SQL-injection flag `FLAG{...}`.
+- *Steps:* request `/search?q=' UNION SELECT username,password FROM users--`. Confirm `alice:alicepw` and `bob:bobpw` appear — plus a third `admin` row whose password field holds a `FLAG{...}` value. This local demo flag is the same for everyone: paste it in the Task 2 box of your answer sheet as evidence. There is nothing to submit on ctf.zcr.ai this week.
 - *Deliverable:* payload + screenshot of the dumped credentials (including the `admin` flag row) + note on why column count must match.
 
 **Task 3 — OS command injection (20 min, in class) 🐉 Hit #3.**
-- *Goal:* run an arbitrary command through `/ping`, then read this lab's command-injection flag with it.
+- *Goal:* run an arbitrary command through `/ping`, then read the lab's demo flag file with it (same for everyone; paste it in the Task 3 box).
 - *Steps:* request `/ping?host=127.0.0.1;id` then `/ping?host=127.0.0.1;whoami` (URL-encode if needed). Capture the injected command's output. Then use the same injection to read the flag file the server keeps at `/flag.txt` (the space needs `--data-urlencode`, see the note on Task 1):
   ```bash
   curl -G "http://localhost:8080/ping" --data-urlencode "host=127.0.0.1;cat /flag.txt"
@@ -91,7 +96,7 @@ sqli-parse
 
 **Task 4 — Unrestricted upload (25 min, optional extension) 🐉 Hit #4.**
 - *Goal:* show the upload accepts a dangerous file type with no checks (CWE-434).
-- *Steps:* `GET /upload` (form), then upload a file named `shell.py`. Confirm `saved to /tmp/uploads/shell.py`. Via the browser form this just works; via `curl` the file field is named **`f`**: `curl -F "f=@shell.py" "http://localhost:8080/upload"`. Discuss: if `UPLOAD_DIR` were web-served or executed, this is the RCE chain (here the dir is **not** served, so document the missing control rather than claiming auto-RCE).
+- *Steps:* first make a small test file: `echo "print('hi')" > shell.py`. Then `GET /upload` (form) and upload `shell.py`. Confirm `saved to /tmp/uploads/shell.py`. Via the browser form this just works; via `curl` the file field is named **`f`**: `curl -F "f=@shell.py" "http://localhost:8080/upload"`. Discuss: if `UPLOAD_DIR` were web-served or executed, this is the RCE chain (here the dir is **not** served, so document the missing control rather than claiming auto-RCE).
 - *Deliverable (optional, ungraded):* upload command/screenshot + 2–3 sentences on why extension allow-listing matters. You may also re-fire the upload against `solution_app.py` and show `file type not allowed` (fix lines L86–93). This extension adds no points.
 
 **Task 5 — Defend / fix it (40 min, in class, guided) 🛡️ Warm-up cleared.**
@@ -115,7 +120,7 @@ The untouched TODOs are expected to fail. Your completed code must preserve Alic
 docker compose run --rm --no-deps --pull never --service-ports injection-lab python student_app.py
 ```
 
-Submit your `student_patch.py` commit link, test output, one legitimate case and each rejected attack with your explanation. A successful check of the reference alone does not demonstrate your own patch.
+Submit your `student_patch.py` commit link (commit it to branch `wk04` in your own fork and push; see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request), test output, one legitimate case and each rejected attack with your explanation. A successful check of the reference alone does not demonstrate your own patch.
 
 ### Compare the supplied reference
 
@@ -149,7 +154,7 @@ Re-fire the Task 1–3 payloads. Expected: `Login failed`, no credential dump, a
 
 The optional project/upload extension adds no extra graded points to the common 60 or assigned 40.
 
-**Due:** 23:59 (Thai time) the night before next week's class (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Monday 30 November 2026, 23:59 (Thai time); check learn.zcr.ai/submit for the exact time. **Late:** −10% per started day; 0 after 10 days.
 
 ---
 
@@ -161,8 +166,7 @@ The optional project/upload extension adds no extra graded points to the common 
   cropped window carries nothing that identifies you, and the lab's own output is
   byte-identical for the whole cohort *by design*, so the stamp is the only thing that makes
   the shot yours. Generic or borrowed evidence is not accepted.
-- **Personalized flag (if this lab issues one):** ____________________
-  *Flags are unique per student — submitting another student's flag is a violation. How to submit: **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).*
+- **Flags this week:** the local lab prints the same demo `FLAG{...}` values for everyone (Task 2 and Task 3). They are the expected evidence: paste them in the Task 2 and Task 3 boxes, with your stamped screenshots. Nothing is submitted on ctf.zcr.ai. Submit the worksheet PDF at **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).
 - **Common practical reasoning** *(graded within the common 60, not as another EiPE score):*
   1. What did you do, and **why did the vulnerability work**?
   2. **Why does your fix actually stop it** — and what could still break it?
@@ -173,11 +177,11 @@ The optional project/upload extension adds no extra graded points to the common 
 
 AI is a power tool you must **distrust** — you are graded on your *critique*, not the AI's answer.
 
-1. Audit a complete AI answer about this week's design, exploit or fix. Use the instructor-provided exhibit if one is assigned, or obtain an answer and paste it in full. A correct answer is allowed: verify its claims and state the remaining assumptions rather than inventing an error.
+1. Audit a complete AI answer about this week's design, exploit or fix. If your instructor gives you an AI answer to audit, use it; otherwise ask an AI assistant to fix `vulnerable_app.py` and paste its full answer. A correct answer is allowed: verify its claims and state the remaining assumptions rather than inventing an error.
 2. **Check what is correct, wrong, risky or conditional** — insecure code, an incomplete fix, a hallucinated API/function/CVE, an edge case or unsupported reasoning. Quote the exact line(s) and support the evaluation with evidence.
 3. Supply a verified correction where needed; if the answer is correct, supply the verification and limits. Explain your conclusion in 2–3 sentences. Do not manufacture a defect to satisfy the task.
 
-> Disclose your AI use in the Part 1 table. This is the assigned AIR-Sec Audit component (20 points); it is not added to the common 60 or to the Conventional 40.
+> Write which AI tool you used in the table at the top of your answer sheet. This is the assigned AIR-Sec Audit component (20 points); it is not added to the common 60 or to the Conventional 40.
 
 ---
 

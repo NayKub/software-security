@@ -87,7 +87,7 @@ def upload():
     if request.method == "GET":
         return '<form method=post enctype=multipart/form-data><input type=file name=f><input type=submit></form>'
     f = request.files["f"]
-    # CWE-434: unrestricted file upload — any extension saved to a served dir -> upload a .py/.sh and get RCE.
+    # CWE-434: unrestricted file upload — any name and extension is saved. If this dir were served or run, an uploaded .py/.sh could lead to RCE (here it is not served).
     dest = os.path.join(UPLOAD_DIR, f.filename)
     f.save(dest)
     return "saved to %s\n" % dest

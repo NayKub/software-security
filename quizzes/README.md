@@ -5,7 +5,7 @@ Two layers, both under the *Participation / quizzes* slice (10%):
 ## 1. Weekly quizzes (graded, low-stakes) — `weekly/`
 A short **~10-min quiz every teaching week** (start of class) for retrieval practice.
 - **6 questions** (5 MCQ auto-graded + 1 short answer).
-- **Drop the lowest 1–2** scores across the term (reduces anxiety; rewards consistency).
+- **Drop the lowest one** score across the term (reduces anxiety; rewards consistency).
 - Files: `weekly/week01.md … weekly/week15.md` (teaching weeks 1–6, 10–15).
 
 | Quiz | Covers |
@@ -19,11 +19,11 @@ used, the bug you found) — it is graded against your CTFd capture, so AI/copie
 don't match your own work score zero.
 
 ## 2. Cumulative review quizzes (pre-exam) — `quiz1.md`, `quiz2.md`
-Bigger 25-pt review quizzes used **in the review weeks** to prep for the exams.
+Bigger 25-pt review quizzes in the review weeks. The files below are **practice questions**: the real review quiz in Week 7 and Week 17 runs on `learn.zcr.ai/quiz` with a code given in class, and uses different questions.
 | Quiz | Covers | When |
 |------|--------|------|
-| [quiz1.md](quiz1.md) | Weeks 1–6 | Week 7 review (pre-midterm) |
-| [quiz2.md](quiz2.md) | Weeks 10–15 | Week 17 review (pre-final) |
+| [quiz1.md](quiz1.md) (practice) | Weeks 1–6 | Week 7 review (pre-midterm) |
+| [quiz2.md](quiz2.md) (practice) | Weeks 10–15 | Week 17 review (pre-final) |
 
 ---
 

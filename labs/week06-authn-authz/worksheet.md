@@ -8,17 +8,19 @@
 
 ## Class and assessment contract
 
-**Contact time: 150 minutes** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Pre-pull images and prepare tools before class. The full concepts, longer questions and extension tasks stay available for preparation/follow-up; the instructor uses the bounded core below in class.
+**Contact time: 150 minutes** (09:05–11:50) = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Build the lab image before class (see below). In class you do Tasks 0–3 and 5; Task 4 is optional.
 
-**Both assigned versions include the same common practical 60 points.** Complete that core plus **one** assigned 40-point section: **Conventional** = Part 2 written questions 20 + Part 4 reflection 20; **AIR-Sec** = Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10. Each version totals 100. The unassigned section is reference practice, not another required 40 points. Only the named 100-minute core is assessed in the shared 60; other practical tasks are optional extension/reference unless explicitly used in the assigned written questions, and are not a prerequisite for full marks. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20) and even student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
 
-Viva/reproduction checks verify the work within its existing rubric, with no separate score or automatic-zero rule. Complete the common practical evidence in either version, disclose any AI assistance, and use the normal name/Student ID and task-specific evidence requirements. Do not substitute a shared practice flag for proof from an actually assigned hosted instance.
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write your answers on the Week 6 answer sheet for your format (odd ID: Conventional file; even ID: AIR-Sec file), and say there which AI tool you used, if any.
 
 ## Part 1 — Student Information
 
-| Name | Student ID | Date | Group |
-|------|-----------|------|-------|
-|      |           |      |       |
+Fill these in at the top of your answer sheet:
+
+| Name | Student ID | Date | Code link (branch wk06) | AI tool used (if any) |
+|---|---|---|---|---|
+| | | | | |
 
 ![Diagram of one request passing two gates: Gate 1 authentication accepts an alg:none forgery, a weak-secret forgery, and alice's real token, then Gate 2 authorization fails to check ownership so alice's valid token reads bob's /api/orders/2 as IDOR, with the solution_app.py fixes for both.](img/authn-vs-authz.svg)
 
@@ -42,11 +44,11 @@ The minute labels are activity budgets. Task 4 is optional follow-up practice an
 **Learning goals:** observe IDOR and two JWT forgeries (`alg:none` and weak secret), then implement ownership and token verification in `student_patch.py` and prove the controls with `student_checks.py`. `solution_app.py` is a comparison reference.
 
 
-**Prerequisites:** Docker + Docker Compose and `curl` on the host; optionally Burp Suite. Working dir: `labs/week06-authn-authz/`. The prebuilt image supplies Python, Flask and PyJWT for the target, token minting and student checks. No host Python or PyJWT install is required.
+**Prerequisites:** Docker + Docker Compose and `curl` on the host; optionally Burp Suite. Working folder: `~/software-security/labs/week06-authn-authz/`. On Windows, type every command in the Ubuntu app. The prebuilt image supplies Python, Flask and PyJWT for the target, token minting and student checks. No host Python or PyJWT install is required.
 
 **Before class — build once while online, then self-check offline:**
 ```bash
-cd labs/week06-authn-authz
+cd ~/software-security/labs/week06-authn-authz
 docker compose build
 docker run --rm --network none kosen-swsec-week06:local python -c 'import flask,jwt; print("Week 6 image ready")'
 ```
@@ -54,20 +56,14 @@ docker run --rm --network none kosen-swsec-week06:local python -c 'import flask,
 ### Environment setup
 
 ```bash
-docker compose up --no-build --pull never   # runs vulnerable_app.py from the prebuilt image
-# vulnerable app -> http://localhost:8080   (service name: authz-lab, port 8080)
+docker compose up --no-build --pull never
 ```
-Run this in the same lab folder used for the build. Open a second terminal there for the commands below.
-Optional secondary target / proxy:
+This runs `vulnerable_app.py` from the prebuilt image (service `authz-lab`) at `http://localhost:8080`. If you see `No such image`, you have not built it yet: run `docker compose build` while online. Run this in the same lab folder used for the build. Open a second terminal there for the commands below.
+Optional secondary target / proxy (not graded): Juice Shop opens at `http://localhost:3000`.
 ```bash
-docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop  # -> http://localhost:3000
-# Burp Suite: put the proxy listener AND the browser proxy on 127.0.0.1:8081.
-# NOT 8080 — the lab app already owns host 8080 (docker-compose.yml, "127.0.0.1:8080:5000").
-# Burp's own default listener is 8080, so you must change it: leave it there and
-# either the listener refuses to start ("Address already in use") or, if it does
-# bind, the browser's proxy address is the target's address and every request
-# goes straight to the app instead of through Burp — you intercept nothing.
+docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop
 ```
+If you use Burp Suite, put the proxy listener **and** the browser proxy on `127.0.0.1:8081`, not 8080: the lab app already owns host port 8080. Burp's default listener is 8080, so change it; otherwise the listener refuses to start ("Address already in use") or every request goes straight to the app and you intercept nothing.
 
 **What to submit per task:** the exact **command/token**, a **screenshot** of the JSON response, and a **2–3 sentence mitigation**.
 
@@ -87,9 +83,10 @@ Confirm `/api/orders/1` returns alice's Laptop order. *Deliverable: screenshot o
 - *Goal:* read **bob's** order with **alice's** token.
 - *Steps:*
   ```bash
-  curl -s http://localhost:8080/api/orders/1 -H "Authorization: Bearer $TOKEN"   # yours
-  curl -s http://localhost:8080/api/orders/2 -H "Authorization: Bearer $TOKEN"   # bob's — leaks!
+  curl -s http://localhost:8080/api/orders/1 -H "Authorization: Bearer $TOKEN"
+  curl -s http://localhost:8080/api/orders/2 -H "Authorization: Bearer $TOKEN"
   ```
+  The first request is your own order (alice's Laptop); the second leaks bob's `Phone` order, including a demo `FLAG{...}` that is the same for everyone. Paste it in the Task 1 box as evidence; nothing is submitted on ctf.zcr.ai.
 - *Deliverable:* both responses + screenshot of bob's `Phone` order + why the missing ownership check (CWE-639) is the root cause.
 
 ```sim
@@ -125,7 +122,7 @@ jwt-forge
     python -c 'import jwt; print(jwt.encode({"sub":"admin"}, key="", algorithm="none"))')
   curl -s http://localhost:8080/api/admin -H "Authorization: Bearer $FORGED"
   ```
-  You should get `FLAG{...}`. Then confirm alice's **real** token gets `403 forbidden` on the same endpoint — proof the server's role check (`if user != "admin"`) is fine; the break is purely that authentication accepted a forged identity.
+  You should get a demo `FLAG{...}` (the same for everyone; paste it in the optional Task 4 box). Then confirm alice's **real** token gets `403 forbidden` on the same endpoint — proof the server's role check (`if user != "admin"`) is fine; the break is purely that authentication accepted a forged identity.
 - *Deliverable:* the forged token + screenshot of the flag + the `403` for alice's real token, and 2–3 sentences: why IDOR can't reach this (horizontal access vs. **vertical** privilege escalation), and why the app's own `if user != "admin"` check didn't save it.
 
 **Task 5 — Defend / fix it (45 min, in class) 🛡️.**
@@ -148,7 +145,7 @@ The untouched TODOs fail. Your implementation must allow Alice's own order and B
 docker compose run --rm --no-deps --service-ports authz-lab python student_app.py
 ```
 
-Submit your patch commit, positive and negative tests, and why authentication and object authorization are distinct decisions. The supplied `solution_app.py` stays as the complete reference; running that file alone does not demonstrate your implementation.
+Submit your patch commit link (commit `student_patch.py` to branch `wk06` in your own fork and push; see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request), positive and negative tests, and why authentication and object authorization are distinct decisions. The supplied `solution_app.py` stays as the complete reference; running that file alone does not demonstrate your implementation.
 
 ## Part 4 — Reflection
 
@@ -170,7 +167,7 @@ Submit your patch commit, positive and negative tests, and why authentication an
 | Assigned Prompt Problem | — | 10 |
 | **Total** | **100** | **100** |
 
-**Due:** 23:59 (Thai time) the night before next week's class (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Monday 14 December 2026, 23:59 (Thai time); check learn.zcr.ai/submit for the exact time. **Late:** −10% per started day; 0 after 10 days.
 
 ---
 
@@ -182,8 +179,7 @@ Submit your patch commit, positive and negative tests, and why authentication an
   cropped window carries nothing that identifies you, and the lab's own output is
   byte-identical for the whole cohort *by design*, so the stamp is the only thing that makes
   the shot yours. Generic or borrowed evidence is not accepted.
-- **Personalized flag (if this lab issues one):** ____________________
-  *Flags are unique per student — submitting another student's flag is a violation. How to submit: **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).*
+- **Flags this week:** the local lab prints the same demo `FLAG{...}` values for everyone (Task 1 and optional Task 4). They are the expected evidence: paste them in those boxes with your stamped screenshots. Nothing is submitted on ctf.zcr.ai. Submit the worksheet PDF at **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).
 - **Common practical reasoning** *(graded within the common 60, not as another EiPE score):*
   1. What did you do, and **why did the vulnerability work**?
   2. **Why does your fix actually stop it** — and what could still break it?
@@ -194,11 +190,11 @@ Submit your patch commit, positive and negative tests, and why authentication an
 
 AI is a power tool you must **distrust** — you are graded on your *critique*, not the AI's answer.
 
-1. Audit a complete AI answer about this week's design, exploit or fix. Use the instructor-provided exhibit if one is assigned, or obtain an answer and paste it in full. A correct answer is allowed: verify its claims and state the remaining assumptions rather than inventing an error.
+1. Audit a complete AI answer about this week's design, exploit or fix. If your instructor gives you an AI answer to audit, use it; otherwise ask an AI assistant to fix `vulnerable_app.py` and paste its full answer. A correct answer is allowed: verify its claims and state the remaining assumptions rather than inventing an error.
 2. **Check what is correct, wrong, risky or conditional** — insecure code, an incomplete fix, a hallucinated API/function/CVE, an edge case or unsupported reasoning. Quote the exact line(s) and support the evaluation with evidence.
 3. Supply a verified correction where needed; if the answer is correct, supply the verification and limits. Explain your conclusion in 2–3 sentences. Do not manufacture a defect to satisfy the task.
 
-> Disclose your AI use in the Part 1 table. This is the assigned AIR-Sec Audit component (20 points); it is not added to the common 60 or to the Conventional 40.
+> Write which AI tool you used in the table at the top of your answer sheet. This is the assigned AIR-Sec Audit component (20 points); it is not added to the common 60 or to the Conventional 40.
 
 ---
 

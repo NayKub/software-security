@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Software Security · Week 11"
+header: "Software Security 2 · 02005094 · Week 11"
 ---
 
 <!-- Current KOSEN class: 150 minutes = quiz/review10 + brief15 + shared practical100 + debrief20 + capture5. Full deck is pre-class/reference; select only the short live explanation. Both versions: common60 plus Conventional40 OR AIR20/10/10. Viva verifies existing work, no extra score or automatic-zero gate. -->
@@ -10,7 +10,7 @@ header: "Software Security · Week 11"
 
 # Week 11
 ## Memory-Safety & Exploitation
-Software Security · Nutthakorn Chalaemwongwan
+Software Security 2 · Tuesday 12 January 2027, 09:05–11:50
 
 <!-- Hook: feed random bytes to a C program until it crashes, then turn that crash into "execute my code." This week is the closest to classic hacking — and to why the world is moving to Rust. ~2 min. -->
 
@@ -109,7 +109,7 @@ clang -g -fsanitize=address,fuzzer fuzz_harness.c -o fuzz && ./fuzz   # libFuzze
 - **Stack canaries** — detect overwrite at function return, *after* the copy already happened
 - **ASLR** / **PIE** — randomize addresses
 - **NX/DEP** — blocks executing shellcode planted *on the stack* — irrelevant to this exploit, which returns into existing code (`win()`), never injects shellcode
-- On **this lab's hardened build, FORTIFY fires first** — `*** buffer overflow detected ***: terminated`. The canary never gets a chance to speak. Verify the order yourself before teaching it as "canary catches it" — that's the wrong answer this lab's own materials were rewritten to correct.
+- On **this lab's hardened build, FORTIFY fires first** — `*** buffer overflow detected ***: terminated`. The canary never gets a chance to run. Check this yourself in Task 3: it is FORTIFY, not the canary, that stops the payload.
 
 <!-- THE key correction this slide needed: FORTIFY_SOURCE checks at the copy call, before the function even returns — so on the hardened build it always wins the race against the canary, which only checks at return time. This lab's own interactive sim literally calls "the canary detects it" the week's most reliable wrong answer — don't teach it. NX is a real mitigation but not for THIS exploit (ret2win, no injected shellcode) — say so explicitly rather than implying all four defenses equally harden the one attack just demonstrated. Worksheet Q4 grades naming all four (canary/PIE/NX/FORTIFY) + what each defeats — FORTIFY must be on this slide. ~5 min. -->
 
@@ -137,7 +137,7 @@ clang -g -fsanitize=address,fuzzer fuzz_harness.c -o fuzz && ./fuzz   # libFuzze
 
 ## 💥 Game — Fuzzing Race → Pwn the Binary
 
-1. **Round 1 (Fuzzing Race):** first team to crash the target wins
+1. **Round 1 (Fuzzing Race):** who crashes the target first? (everyone submits their own evidence)
 2. **Round 2 (Pwn):** exploit the overflow / format string
 3. **Round 3 (Defend):** test the supplied hardened build, then implement the bounded safe counting function in `student_safe.rs`; a full rewrite is extension practice
 
@@ -176,15 +176,11 @@ Next week: Software supply-chain security
 
 ---
 
-## Current class hand-in
+## This week's hand-in
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
-**100-minute core run sheet (time, not points):** Seeded fuzz/replay 20; measure and try ret2win 25; hardened control 20; student safe-routine edit 25; interpret evidence 10. The practical rubric is 20 + 20 + 20 = 60 points.
-
-Use the instructor-preflighted isolated Linux toolchain for the C exploits; collect the actual architecture, compiler and measured offset. Complete the safe `count_chars()` function in `student_safe.rs` and run `python3 check_student.py`; that benign Rust task can also run on the host. It checks Unicode counting, metacharacters and orderly invalid-input rejection. Do not equate memory safety with a promise that a program can never panic or encounter an input/resource error.
+- **Class:** Tuesday 12 January 2027, 09:05–11:50 (150 minutes): quiz 10 + explanation/demo 15 + practical 100 + debrief 20 + evidence 5
+- **Everyone (60 points):** fuzz and replay a crash, measure and try ret2win, run the hardened build, complete `count_chars()` in `student_safe.rs` and show the checker before and after, and explain the evidence
+- **This week odd ID = AIR-Sec** (Audit-the-AI 20 + EiPE 10 + Prompt 10) · **even ID = Conventional** (Part 2 + Part 4, 40)
+- **Code link:** commit `student_safe.rs` to branch `wk11` in your fork
+- **Due:** Monday 18 January 2027, 23:59 · worksheet PDF to learn.zcr.ai/submit
+- Run the C programs only inside the toolbox container; the demo `FLAG{...}` is the same for everyone and nothing goes to ctf.zcr.ai

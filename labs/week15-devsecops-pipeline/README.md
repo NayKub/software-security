@@ -1,24 +1,22 @@
 # Week 15 — DevSecOps: Putting It Together
 
-## 150-minute class and assigned worksheet version
+## Class and assessment contract
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
+**Class: Tuesday 9 February 2027, 09:05–11:50 (150 minutes)** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief 20 + evidence/exit 5. Build the lab image before class (see below). In class you do the four **core tasks** in Part 3, all on your own machine; the GitHub pipeline and the Red/Blue game are an optional extension with no points.
 
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10) and even student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
 
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. The demo flag is the same for everyone and is the expected evidence; nothing is submitted on ctf.zcr.ai. Write which AI tool you used, if any, on the answer sheet.
 
-**Shared practical core:** Compare fail-open/closed 20; student authorization/logging fix 20; one prepared CI red run 30; corrected green/control run 20; evidence 10.
-
-Complete the bounded fail-closed/logging functions in `student_task.py` and run `python3 check_student.py`. Add that same command as a job step in the prepared lab repository: first retain its failing run, then the corrected passing run. A local run is the required fallback when an external CI queue is unavailable, under the same criteria. The existing full scanner workflow and all three defect families remain extended project practice. No new public repository, PR or external service is created by running the local checker. Test a legitimate admin as well as missing, unknown, non-admin and lookup-error cases.
+**Due:** Monday 15 February 2027, 23:59 (Thai time).
 
 **OWASP 2025:** A09 Security Logging & Alerting Failures, A10 Mishandling of Exceptional Conditions
 
 ## ✅ This week — what to do
-1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); run `docker compose build` in this lab folder while online, then skim last week's recap.
-2. **Slides, then class** — read `slides/week15.md` and read the worksheet's **Part 2** as preparation; complete only the assigned written version; class opens with the weekly quiz (~10 min) and a short explanation + demo (15 min).
-3. **Lab (in class)** — follow the shared practical core and complete **Worksheet 15** (`worksheet.md`, shared practical plus the assigned Conventional or AIR-Sec written section). Two run paths: **(a)** start the prepared local target with `docker compose up --no-build --pull never` → the **insecure** service on `:8090` (fails OPEN) vs the **secure** service on `:8091` (fails CLOSED + logs); **(b)** use the prepared CI repository for the pipeline gate, or the local checker if Actions is unavailable. Follow the 100-minute core run sheet in Part 3; the full original task bank is retained for preparation and extension.
-4. **Submit before the next class** (shared core plus assigned written version) — worksheet PDF → `learn.zcr.ai/submit` · code → GitHub · weekly quiz → `learn.zcr.ai/quiz`. (How: [SUBMISSION.md](../../SUBMISSION.md).)
+1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); while online run `cd ~/software-security/labs/week15-devsecops-pipeline` then `docker compose build`. Skim last week's recap.
+2. **Slides, then class** — read `slides/week15.md` and the worksheet's Part 2 to prepare. Class opens with the weekly quiz (10 min) and a short explanation and demo (15 min).
+3. **Lab (in class)** — start both services with `docker compose up --no-build --pull never` (insecure fails OPEN on `:8090`, secure fails CLOSED and logs on `:8091`) and do the four core tasks in the worksheet's Part 3 on your own machine. Then do the written section for your student ID this week (odd: AIR-Sec 20/10/10; even: Conventional 40), after class if needed. The GitHub pipeline and Red/Blue game are optional.
+4. **Submit by Monday 15 February 2027, 23:59** — worksheet PDF → `learn.zcr.ai/submit` · code → GitHub (commit link to `student_task.py` on branch `wk15`) · weekly quiz → `learn.zcr.ai/quiz`. (How: [SUBMISSION.md](../../SUBMISSION.md).)
 5. **Project** — apply this week's lesson to your [NoteVault project](../../project/README.md) where it fits.
 
 *Time breakdown: [AGENDA.md](../../AGENDA.md). Grading: see the worksheet rubric.*
@@ -38,7 +36,7 @@ Use this lab's own pipeline template as the starting point: [`security-ci.yml`](
 - **Score:** Blue gets points for each catch, Red for each bypass.
 
 ## Hand-in and extended pipeline practice
-Required core: the student function diff, local failing-then-passing checker output, and one prepared CI red/green run where available, with the relevant logs and explanation. The full scanner PR exercise below is retained as extended project practice; its scoreboard does not add course points.
+Required core: the student function diff, local failing-then-passing checker output, the fail-open/fail-closed responses and log line, and your explanation. The full scanner PR exercise below is retained as extended project practice; its scoreboard does not add course points.
 
 ## References
 - https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html

@@ -1,14 +1,14 @@
 # Midterm written — current KOSEN specimen A
 
-**Course: Software Security 2 (02005094) · Week 8 · 150-minute class slot: 10 minutes administration + 130 minutes working/checking + 10 minutes collection.**
+**Course: Software Security 2 (02005094) · Week 8 · Tuesday 22 December 2026, 09:05–11:50 · 165-minute class slot: 10 minutes administration + 145 minutes working/checking + 10 minutes collection.**
 
 **Raw 100: Basic 50 + Technical 50. Course weight: 8% (4 Basic + 4 Technical).** Covers Weeks 1–6.
 
 Name: __________________ Student ID: ______________ Date: ___________
 
-This public specimen fixes scope and workload. The instructor uses a separate prepared sitting variant. Answer only the ten questions below. Each is 10 raw points, with a suggested 12 minutes (120 minutes total), then use 10 minutes to review within the 130-minute working window. Administrative time is not additional task time. Use your own explanation and the provided sandbox/code only; permitted aids follow the published sitting notice. Precise mechanisms and tested-design reasoning matter more than memorized catalogue IDs.
+This public specimen fixes scope and workload. The real exam paper is different and is handed out at the exam. Answer only the ten questions below. Each is 10 raw points, with a suggested 12 minutes (120 minutes total), then use 25 minutes to review within the 145-minute working window. Administrative time is not additional task time. This is a paper exam and closed book: write your answers in your own words on the paper. Bring your student ID card and a pen (blue or black); no notes, phone, calculator or computer. Precise mechanisms and tested-design reasoning matter more than memorized catalogue IDs.
 
-![Current examination blueprint: 150-minute slot, 130 working minutes, Basic 50 Technical 50.](img/exam-blueprint.svg)
+![Current examination blueprint: 165-minute slot, 145 working minutes, Basic 50 Technical 50.](img/exam-blueprint.svg)
 
 ## 1. B1 · Basic — 10 points, about 12 minutes
 

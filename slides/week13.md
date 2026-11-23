@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Software Security · Week 13"
+header: "Software Security 2 · 02005094 · Week 13"
 ---
 
 <!-- Current KOSEN class: 150 minutes = quiz/review10 + brief15 + shared practical100 + debrief20 + capture5. Full deck is pre-class/reference; select only the short live explanation. Both versions: common60 plus Conventional40 OR AIR20/10/10. Viva verifies existing work, no extra score or automatic-zero gate. -->
@@ -10,7 +10,7 @@ header: "Software Security · Week 13"
 
 # Week 13
 ## Cloud & Container Security
-Software Security · Nutthakorn Chalaemwongwan
+Software Security 2 · Tuesday 26 January 2027, 09:05–11:50
 
 <!-- Hook: most cloud breaches aren't clever zero-days — they're a public S3 bucket or a `*:*` IAM policy. Today we hunt and fix those misconfigs. ~2 min. -->
 
@@ -212,15 +212,11 @@ Next week: AI / LLM application security
 
 ---
 
-## Current class hand-in
+## This week's hand-in
 
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
-**100-minute core run sheet (time, not points):** Scan the selected Dockerfile 20; manual container/IAM review 20; student least-privilege policy 35; allow/deny controls and explanation 25. The practical rubric is 20 + 20 + 20 = 60 points.
-
-Implement `build_policy()` in `student_task.py` and run `python3 check_student.py`. Submit your policy, a diff and permitted/denied example results. The checker is a deliberately bounded evaluator for this exercise, **not AWS IAM policy simulation or proof of deployed permissions**. Real AWS authorization, permissions boundaries, SCPs and runtime controls are outside this local static case. Keep the Dockerfile scan versus manual IAM-review distinction from the original tasks.
+- **Class:** Tuesday 26 January 2027, 09:05–11:50 (150 minutes): quiz 10 + explanation/demo 15 + practical 100 + debrief 20 + evidence 5
+- **Everyone (60 points):** the four core tasks: offline Trivy scan, manual container/IAM review, your `build_policy()` with the checker before (`FAILED`) and after (`OK`), and the allow/deny explanation
+- **This week odd ID = AIR-Sec** (Audit-the-AI 20 + EiPE 10 + Prompt 10) · **even ID = Conventional** (Part 2 + Part 4, 40)
+- **Code link:** commit `student_task.py` to branch `wk13` in your fork
+- **Due:** Monday 1 February 2027, 23:59 · worksheet PDF to learn.zcr.ai/submit
+- No CTF flag this week; image CVE scans and the full hardened rebuild are optional

@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
-<title id="title">Week 19 · Team practical · four stations</title><desc id="desc">A: API boundary and fields ·30min ·25raw; B: memory safety and input boundary ·35min ·25raw; C: trusted artifact and least privilege ·30min ·25raw; D: AI output and fail-closed CI ·35min ·25raw. 130task +20brief/submit; raw100Technical →15coursepoints; no project Q&amp;A.</desc>
+<title id="title">Week 19 · Team practical · four stations</title><desc id="desc">A: API checks and fields · 30 min · 25 marks; B: memory safety and input checks · 35 min · 25 marks; C: trusted signed file and least privilege · 30 min · 25 marks; D: AI output and deny on error · 35 min · 25 marks. 130 minutes on stations + 20 for instructions and submission; 100 Technical marks = 15 course points; no project questions during the exam.</desc>
 <rect width="1000" height="520" fill="#0b1220"/>
 <text x="40" y="58" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="27" font-weight="bold">Week 19 · Team practical · four stations</text>
 <rect x="40" y="90" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="126" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">A: API boundary and fields ·30min ·25raw</text>
+<text x="60" y="126" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">A: API checks and fields · 30 min · 25 marks</text>
 <rect x="40" y="162" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="198" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">B: memory safety and input boundary ·35min ·25raw</text>
+<text x="60" y="198" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">B: memory safety and input checks · 35 min · 25 marks</text>
 <rect x="40" y="234" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="270" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">C: trusted artifact and least privilege ·30min ·25raw</text>
+<text x="60" y="270" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">C: trusted signed file and least privilege · 30 min · 25 marks</text>
 <rect x="40" y="306" width="920" height="58" rx="8" fill="#152238" stroke="#4f9cbe"/>
-<text x="60" y="342" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">D: AI output and fail-closed CI ·35min ·25raw</text>
-<text x="40" y="403" fill="#9bd4e4" font-family="Arial,sans-serif" font-size="18">130task +20brief/submit; raw100Technical →15coursepoints; no project Q&amp;A.</text>
+<text x="60" y="342" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="21">D: AI output and deny on error · 35 min · 25 marks</text>
+<text x="40" y="403" fill="#9bd4e4" font-family="Arial,sans-serif" font-size="18">130 min on stations + 20 min other · 100 Technical marks = 15 course points</text>
 </svg>

@@ -1,33 +1,45 @@
 # Worksheet 15 — DevSecOps: Putting It Together
 
-## 150-minute class and assigned worksheet version
-
-**Class:** quiz/review 10 + explanation/demo 15 + supervised practice 100 + debrief 20 + evidence capture 5 minutes. Prepare tools, images and access before class. The full reference tasks remain below; their standalone estimates are not an instruction to finish the entire bank during the class.
-
-**Assessment:** all students complete the shared practical **60/100** plus **one assigned version's 40/100**. Conventional uses the ordinary Part 2 questions (20) and Part 4 reflection (20). AIR-Sec uses Audit-the-AI (20), Explain-in-Plain-English (10) and Prompt Problem (10). The unassigned written version is reference practice, not an extra requirement. Each teaching worksheet contributes **2.5 course points**, making 12 individual worksheets worth 30 in total.
-
-Both versions submit their own commands/results and explanation, and complete the student patch and control tests where assigned. Personal flags are used only for an actually issued instance; a local demo flag alone does not demonstrate understanding. Viva/reproduction checks verify the existing work within its rubric: no additional points or automatic-zero gate.
-
-
 > **Course:** Software Security (KOSEN69) · Week 15
 > **Aligned to:** OWASP 2025 **A09 Security Logging & Alerting Failures** · **A10 Mishandling of Exceptional Conditions** (scanners also cover A02/A03/A07) · **CWE-636** (fail open), CWE-532 (logging sensitive data), CWE-209, CWE-489, CWE-798
 > **Signature game:** 🔴🔵 *Break the Build* (Red vs Blue) — Blue scores per catch, Red scores per bypass.
 
 > ⚠️ **Ethics note:** The pipeline and `sample-service.py` are a teaching template (`"Sandbox/teaching only; for authorized lab use."`). Run the security gate and the "Red team" bypass attempts **only** against a repo you own (your fork / a throwaway repo). Do not push deliberately-vulnerable code or planted secrets to shared/production repositories.
 
+## Class and assessment contract
+
+**Class: Tuesday 9 February 2027, 09:05–11:50 (150 minutes)** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief 20 + evidence/exit 5. Build the lab image before class (see below). In class you do the four **core tasks** in Part 3, all on your own machine; the GitHub pipeline and the Red/Blue game are an optional extension with no points.
+
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10) and even student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write your answers on the Week 15 answer sheet for your format (odd ID: AIR-Sec file; even ID: Conventional file), and say there which AI tool you used, if any.
+
+## Words you will see
+
+| Word | Meaning |
+| --- | --- |
+| **DevSecOps** | Building security checks into everyday development, so problems are caught automatically. |
+| **CI pipeline** | Steps GitHub (or another service) runs on every push, such as tests and security scans. A failing step turns the build red. |
+| **Fail-closed / fail-open** | When something goes wrong, fail-closed **denies** access; fail-open accidentally **allows** it. |
+| **Exception** | An error in running code. `except Exception` catches almost any error. |
+| **Security log** | A record of who tried what and whether it was allowed. It must never contain passwords or tokens. |
+| **Red / green run** | A test run that fails (red) or passes (green). Here, red before your fix and green after. |
+
 ---
 
 ## Part 1 — Student Information
 
-| Name | Student ID | Date | Group |
-|------|-----------|------|-------|
-|      |           |      |       |
+Fill these in at the top of your answer sheet:
+
+| Name | Student ID | Date | Code link (branch wk15) | AI tool used (if any) |
+|---|---|---|---|---|
+| | | | | |
 
 ---
 
 ## Part 2 — Lecture Questions
 
-Answer in your own words (2–4 sentences each).
+Answer in your own words (2–4 sentences each). Everyone should read these to prepare; only Conventional answers them for marks.
 
 1. `README-pipeline.md` says each tool runs **twice** (report step, then gate step). Explain what each step is for: why the report step never fails, why the upload step uses `if: always()`, why the Security tab can show findings that the gate lets through (hint: the severity filter), and which step turns the build red.
 2. What is the difference between **fail-closed** and **fail-open**? In `sample-service.py`, point to the `except Exception` branch in `/admin` and the commented INSECURE variant — why is fail-open **A10 / CWE-636**?
@@ -39,12 +51,54 @@ Answer in your own words (2–4 sentences each).
 
 ## Part 3 — Shared supervised practice (100 minutes)
 
-**Core run sheet (100 minutes):** Compare fail-open/closed 20; student authorization/logging fix 20; one prepared CI red run 30; corrected green/control run 20; evidence 10. Build the local target with `docker compose build` before class; Flask is installed in the image rather than during startup.
+**Core run sheet (100 minutes):** compare fail-open and fail-closed (20) · red run and reading the tests (30) · write your fix and get a green run (40) · limits (10). Everything runs on your own machine; no GitHub account, repository or pull request is needed for full marks.
 
-**Student task for both versions:** Complete the bounded fail-closed/logging functions in `student_task.py` and run `python3 check_student.py`. Add that same command as a job step in the prepared lab repository: first retain its failing run, then the corrected passing run. A local run is the required fallback when an external CI queue is unavailable, under the same criteria. The existing full scanner workflow and all three defect families remain extended project practice. No new public repository, PR or external service is created by running the local checker. Test a legitimate admin as well as missing, unknown, non-admin and lookup-error cases.
+**Prerequisites:** Docker, `curl` and `python3`. On Windows, type every command in the Ubuntu app.
 
-**Full task bank:** the original tasks below are retained for preparation, the bounded core checkpoints and extension work. Follow the core run sheet above; detailed reference estimates below are not cumulative class requirements. Complete only your assigned written 40 after the practical.
+**Before class — build the lab image once, while online:**
+```bash
+cd ~/software-security/labs/week15-devsecops-pipeline
+docker compose build
+```
 
+**In class — start both services** in terminal window A (it keeps running and shows the logs; that is correct):
+```bash
+cd ~/software-security/labs/week15-devsecops-pipeline
+docker compose up --no-build --pull never
+```
+The **insecure** service is on `http://localhost:8090` and the **secure** one on `http://localhost:8091`. Type the commands below in a second window, in the same folder.
+
+**Core task 1 — Fail-open vs fail-closed (20 min).** Ask both services for the admin page with no login, then as a real admin:
+```bash
+curl -s localhost:8090/admin
+curl -s localhost:8091/admin
+curl -s localhost:8091/admin -H 'Authorization: alice-token'
+```
+You should see the insecure service answer `{"panel":"UNLOCKED","secret":"FLAG{...}"}` with **no** login (fail-open; the demo flag is the same for everyone and is the expected evidence, nothing goes to ctf.zcr.ai), the secure service answer `{"error":"forbidden"}`, and alice still get in. In window A, the secure service logs a line with `event=authz_failure` and `reason=unauthenticated`, but no token. *Deliverable:* the three responses, the log line, and the exact line in `insecure_service.py` that fails open (A10 / CWE-636).
+
+**Core task 2 — Red run and the tests (30 min).** Run the checker before editing, and keep the result:
+```bash
+python3 check_student.py
+```
+You should see `FAILED (errors=4)`. That is expected: nothing is written yet. Open `check_student.py` and read the four tests: a real admin is allowed; missing, unknown and non-admin tokens are denied; a lookup **error** is denied; and the log record holds only the outcome and the error's type, never its message. *Deliverable:* the red result + one line per test saying what it checks.
+
+**Core task 3 — Write your fix and get a green run (40 min) 🛡️.** Open `student_task.py` and complete both functions:
+- `authorize(lookup_user, token, admins)`: return `True` only when the token is present, `lookup_user(token)` succeeds and returns a user, and that user is in `admins`. If `lookup_user` raises **any** error, return `False` (fail closed).
+- `event_fields(allowed, error=None)`: return `{"outcome": "allow"}` when allowed; otherwise `{"outcome": "deny"}`, plus `"error_type"` set to the error's **class name** when an error is given. Never put the error message or a token in the record.
+
+Run the same checker again. You should see `Ran 4 tests` and `OK`. *Deliverable:* your `student_task.py` commit link, the red (`FAILED`) and green (`OK`) results in one stamped screenshot, and which test each part of your code satisfies.
+
+Submit your code link: commit `student_task.py` to branch `wk15` in your own fork and push (see [SUBMISSION.md](../../SUBMISSION.md); do not open a pull request).
+
+**Core task 4 — Limits (10 min).** In 3–4 sentences: what does a green checker prove, what does it not prove, and why does a green CI run not mean every vulnerability is gone? *Deliverable:* your explanation.
+
+Stop the services when you finish: press Ctrl+C in window A, then run `docker compose down`.
+
+---
+
+## Optional extension — not needed for full marks
+
+The tasks below are the original, longer version of this lab: the full Semgrep/Trivy/Gitleaks pipeline in your own public repo and the Red/Blue "Break the Build" game. They need GitHub Actions and add no points.
 
 > The task budgets below add up to 205 min. That is deliberate over-provisioning, not a schedule:
 > Tasks 2–4 are dominated by Actions queue and scan wall-clock. Push the gate in class (Task 2);
@@ -59,30 +113,28 @@ Answer in your own words (2–4 sentences each).
 
 ### Environment setup (real commands)
 
+**A) Wire the gate into a public repo you own.** Copy this lab folder's files to the ROOT of the new repo, then run these inside it. `git add .` adds the workflow AND the lab files it scans (adding only `.github/` would leave nothing to scan); the push runs the workflow:
 ```bash
-# --- A) Wire the gate into a repo you own (README-pipeline.md §1) ---
-# Copy the files of this lab folder to the ROOT of a new public repo you own,
-# then run these commands inside that repo:
 mkdir -p .github/workflows
 cp security-ci.yml .github/workflows/security-ci.yml
-git add .                                           # the workflow AND the lab files it scans —
-                                                      # `git add .github/...` alone leaves
-                                                      # sample-service.py etc. untracked, so the
-                                                      # pushed workflow has nothing to find
+git add .
 git commit -m "ci: add security gate (Semgrep + Trivy + Gitleaks)"
-git push        # runs on push/PR to main
+git push
+```
 
-# --- B) Run the sample service locally (logging + fail-closed) ---
-# from this lab folder (labs/week15-devsecops-pipeline in the course clone).
-# Plain `pip install flask` fails on current macOS/Homebrew Python and some
-# managed WSL installs ("externally-managed-environment") — use a venv:
-python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+**B) Run the sample service locally.** From this lab folder, make a virtual environment (plain `pip install flask` is refused on some systems), install Flask and start the service:
+```bash
+cd ~/software-security/labs/week15-devsecops-pipeline
+python3 -m venv .venv
+source .venv/bin/activate
 pip install flask
 python sample-service.py
-# In another shell (same venv not needed, curl has no Python dependency):
-curl -s -X POST localhost:5001/login -H 'Content-Type: application/json' -d '{"token":"nope"}'   # 401 authn_failure
-curl -s localhost:5001/admin -H 'Authorization: bob-token'    # 403 authz_failure
-curl -s localhost:5001/admin -H 'Authorization: alice-token'  # 200 (admin)
+```
+In another window, expect 401 (`authn_failure`), 403 (`authz_failure`) and 200 (admin):
+```bash
+curl -s -X POST localhost:5001/login -H 'Content-Type: application/json' -d '{"token":"nope"}'
+curl -s localhost:5001/admin -H 'Authorization: bob-token'
+curl -s localhost:5001/admin -H 'Authorization: alice-token'
 ```
 
 **What to submit per task:** the command / PR link, the relevant output or log lines / Actions step result, a screenshot, and a 2–3 sentence note on the control involved (cite the A0x / CWE).
@@ -94,10 +146,11 @@ curl -s localhost:5001/admin -H 'Authorization: alice-token'  # 200 (admin)
 - **Task 1 — Logging & fail-closed (full reference exercise: 35 min, A09/A10).** *Goal:* prove fail-closed behavior. *Steps:* read `/admin` in `sample-service.py`; explain why the broad `except Exception` returns **403, not the secret**, and why `type(exc).__name__` (not the message) is logged (CWE-209). Identify the line that would make it fail *open* (the commented INSECURE variant). *Deliverable:* the log lines + a 2–3 sentence explanation of fail-closed vs fail-open.
 
 - **Task 1b — Break the Build, live (full reference exercise: 25 min, A10 / CWE-636).** *Goal:* exploit a real fail-open, then prove the fix. *Steps:* from the current lab directory (Setup B already put you there — `cd labs/week15-devsecops-pipeline` again from inside it fails, "no such file or directory"), run `docker compose up -d --no-build --pull never` after the pre-class build (spawns the **insecure** service on `:8090` and the **secure** one on `:8091`). As **Red**, hit the insecure admin route with **no** Authorization header — the fail-open path leaks the admin panel *and* the flag (a local run returns the public demo flag; a personal flag applies only if the instructor has actually issued an instance):
-  ```
-  curl -s localhost:8090/admin                                  # {"panel":"UNLOCKED","secret":"FLAG{devsecops_...}"}  <- fail OPEN
-  curl -s localhost:8091/admin                                  # {"error":"forbidden"}   (403)  <- fail CLOSED + logged
-  curl -s localhost:8091/admin -H 'Authorization: alice-token'  # still UNLOCKS for a real admin (anti-cheat)
+  Expected: the first leaks `{"panel":"UNLOCKED","secret":"FLAG{...}"}` (fail OPEN); the second is `{"error":"forbidden"}` with 403 (fail CLOSED and logged); the third still unlocks for a real admin:
+  ```bash
+  curl -s localhost:8090/admin
+  curl -s localhost:8091/admin
+  curl -s localhost:8091/admin -H 'Authorization: alice-token'
   ```
   Submit the leaked `FLAG{...}`. *Deliverable:* the flag, the two contrasting `/admin` responses (`:8090` leak vs `:8091` deny), and the exact line in `insecure_service.py` that fails open. *The local checker tests rejection and legitimate admin behavior. Use a hosted verifier only when the instructor has actually issued that environment; this worksheet does not assert that one is configured.*
 
@@ -105,17 +158,16 @@ curl -s localhost:5001/admin -H 'Authorization: alice-token'  # 200 (admin)
 
 - **Task 3 — Blue team: pass the gate (full reference exercise: 30 min).** *Goal:* a green build. *Steps:* ensure the protected repo has no HIGH/CRITICAL findings and no secrets; fix or justify-and-document any (no blanket-ignore, per README §4). Expect a red baseline before you change anything:
   - **Semgrep flags every `uses: …@vN` tag (pin it to a commit SHA).** `security-ci.yml`'s own `aquasecurity/trivy-action@ed142fd0...` lines are the worked example of the *result* — here's how to get there for `actions/checkout@v4` and `github/codeql-action/upload-sarif@v3`:
+    Each command prints `<sha>  refs/tags/v4`; replace `uses: actions/checkout@v4` with `uses: actions/checkout@<that sha>` and keep a `# v4` comment:
     ```bash
     git ls-remote https://github.com/actions/checkout v4
     git ls-remote https://github.com/github/codeql-action v3
-    # <sha>  refs/tags/v4   -- replace `uses: actions/checkout@v4` with
-    # uses: actions/checkout@<that sha>  # v4
     ```
     Also fix `host="0.0.0.0"` (needed so Docker can publish the port — justify it with a `# nosemgrep` comment and a reason).
   - **Gitleaks flags the docs' own `-H 'Authorization: alice-token'` examples** (`curl-auth-header`, a false positive). The fingerprint is `<commit-sha>:<file>:<rule-id>:<line>` and the commit SHA is specific to **your** repo, so there is no value to copy here — get your real ones and add each as its own line in `.gitleaksignore` with a comment:
+    Each finding prints a line like `Fingerprint: <sha>:README-pipeline.md:curl-auth-header:92`:
     ```bash
     docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:latest detect -s /repo -v
-    # each finding prints a line like:  Fingerprint: <sha>:README-pipeline.md:curl-auth-header:92
     ```
     ```
     # .gitleaksignore — false positives only, never a real secret (reviewed, see worksheet Task 3)
@@ -140,27 +192,25 @@ curl -s localhost:5001/admin -H 'Authorization: alice-token'  # 200 (admin)
 
 ---
 
-## Grading rubric (100 per assigned version)
+## Grading rubric (100)
 
 | Criterion | Conventional | AIR-Sec |
 |---|---:|---:|
-| Shared main task and observed behavior | 20 | 20 |
-| Shared student control/fix and positive/negative tests | 20 | 20 |
-| Shared reproducible evidence, reasoning and limitations | 20 | 20 |
-| Ordinary Part 2 written questions | 20 | — |
-| Ordinary Part 4 reflection | 20 | — |
-| Audit-the-AI | — | 20 |
-| Explain-in-Plain-English | — | 10 |
-| Prompt Problem | — | 10 |
+| Common practical: main task and observations | 20 | 20 |
+| Common practical: your control and positive/negative tests | 20 | 20 |
+| Common practical: reproducible evidence, reasoning and limits | 20 | 20 |
+| Assigned Conventional Part 2 written questions | 20 | — |
+| Assigned Conventional Part 4 reflection | 20 | — |
+| Assigned Audit-the-AI | — | 20 |
+| Assigned Explain-in-Plain-English | — | 10 |
+| Assigned Prompt Problem | — | 10 |
 | **Total** | **100** | **100** |
 
-Do not add the unassigned version's 40 points. Required core controls and explanations carry the shared 60; optional games/bonus tasks do not add to the 100 or prevent full marks. Viva is a check of the submitted work within these points, not an additional mark or automatic-zero rule.
-
-**Due:** 23:59 (Thai time) the night before next week's class (exact time on learn.zcr.ai/submit). **Late:** −10% per started day; 0 after 10 days.
+**Due:** Monday 15 February 2027, 23:59 (Thai time); check learn.zcr.ai/submit for the exact time. **Late:** −10% per started day; 0 after 10 days.
 
 ---
 
-## Evidence & Integrity (required)
+## Evidence & Integrity — common to both versions
 
 - **Identity proof:** every screenshot/diagram must show a terminal running `printf '%s | %s | ' "$(whoami)" '<YOUR-STUDENT-ID>'; date '+%F %T %Z'` **in the
   same image as the evidence**. When the evidence is a browser page, a DevTools panel or a
@@ -168,15 +218,14 @@ Do not add the unassigned version's 40 points. Required core controls and explan
   cropped window carries nothing that identifies you, and the lab's own output is
   byte-identical for the whole cohort *by design*, so the stamp is the only thing that makes
   the shot yours. Generic or borrowed evidence is not accepted.
-- **Personalized flag (if this lab issues one):** ____________________
-  *Flags are unique per student — submitting another student's flag is a violation. How to submit: **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).*
-- **Explain in your own words** *(graded on your reasoning, not copied text):*
+- **Flags this week:** the insecure service leaks the same demo `FLAG{...}` for everyone in Core task 1. It is the expected evidence: paste it in that box with your stamped screenshot, and leave any "Personalized flag" field blank. Nothing is submitted on ctf.zcr.ai. Submit the worksheet PDF at **learn.zcr.ai/submit** (full guide: [SUBMISSION.md](../../SUBMISSION.md)).
+- **Common practical reasoning** *(graded within the common 60, not as another EiPE score):*
   1. What did you do, and **why did the vulnerability work**?
   2. **Why does your fix actually stop it** — and what could still break it?
 
 ---
 
-## 🤖 Assigned AIR-Sec — Audit-the-AI (20 points)
+## 🤖 Audit the AI — assigned AIR-Sec section (20)
 
 **Scored exhibit supplied for this assignment (deliberately incorrect):**
 
@@ -196,7 +245,7 @@ AI is a power tool you must **distrust** — you are graded on your *critique*, 
 
 ---
 
-## 🧠 Assigned AIR-Sec — EiPE (10) and Prompt Problem (10)
+## 🧠 Comprehension & Prompt — assigned AIR-Sec section (10 + 10)
 
 **A. Explain in Plain English (EiPE, 10 points).** In 2–3 sentences, in your own words, describe what this week's vulnerable code/endpoint actually *does* and *why it is exploitable* — explain the mechanism, don't dump jargon.
 

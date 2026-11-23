@@ -6,20 +6,20 @@ header: "Software Security 2 · KOSEN 02005094 · Week 16"
 ---
 
 # Week 16 · Formative capstone studio
-## 150 minutes · teams 2–3
+## Tuesday 16 February 2027, 09:05–11:50 · teams 2–3
 
 No separate worksheet marks. This supports the existing 15% project; it is not a thirteenth Lab.
 
 ---
 
-## Today: 10 +100 +30 +10 =150
+## Today: 10 + 100 + 30 + 10 = 150 minutes
 
 - 0–10: brief and select remaining risks
 - 10–110: build, test and peer review
 - 110–140: instructor project clarification
 - 140–150: save evidence and next actions
 
-Optional peer preview≤5 minutes inside the100-minute block; no serial15-minute slot required for every team.
+Optional peer preview of at most 5 minutes inside the 100-minute block; teams do not each need a 15-minute presentation.
 
 ---
 
@@ -48,12 +48,12 @@ Feedback stays formative. Optional scrimmage work uses remaining time only.
 
 ---
 
-## Before Week 19
+## Project deadline: Sunday 28 February 2027
 
-Submit project report +code +recorded video **at most 5 minutes**.
+Submit the project report + code + a recorded video of **at most 5 minutes** by 23:59 on learn.zcr.ai/submit (one report PDF per team, with the code and video links inside).
 
-Project clarification:Weeks 16/20. Week 19 is the separate 150-minute team practical, four bounded stations/raw 100; no project Q&A takes exam time.
+Project questions: Weeks 16 and 20. Week 19 is the separate 150-minute team practical (four stations, 100 points); no project questions take exam time.
 
-The project's peer-adjusted raw mark is capped at 100 before ×0.15.
+The project mark (after peer adjustment) is out of 100 and counts 15% of the course.
 
 [Current checklist](../labs/week16-capstone/worksheet.md)

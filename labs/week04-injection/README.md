@@ -4,17 +4,17 @@
 
 ## Class and assessment contract
 
-**Contact time: 150 minutes** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Pre-pull images and prepare tools before class. The full concepts, longer questions and extension tasks stay available for preparation/follow-up; the instructor uses the bounded core below in class.
+**Contact time: 150 minutes** = quiz/review 10 + explanation/demo 15 + supervised practical 100 + debrief/reasoning 20 + evidence/exit 5. Build the lab image before class. In class you do Tasks 0–3 and 5; Task 4 is optional.
 
-**Both assigned versions include the same common practical 60 points.** Complete that core plus **one** assigned 40-point section: **Conventional** = Part 2 written questions 20 + Part 4 reflection 20; **AIR-Sec** = Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10. Each version totals 100. The unassigned section is reference practice, not another required 40 points. Only the named 100-minute core is assessed in the shared 60; other practical tasks are optional extension/reference unless explicitly used in the assigned written questions, and are not a prerequisite for full marks. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
+**Common practical 60 points + one assigned 40-point section.** This week odd student IDs do **Conventional** (Part 2 written questions 20 + Part 4 reflection 20) and even student IDs do **AIR-Sec** (Audit-the-AI 20 + Explain-in-Plain-English 10 + Prompt Problem 10); the mapping swaps every week. Each version totals 100. Each of the twelve individual teaching worksheets contributes `score / 100 × 2.5` course points.
 
-Viva/reproduction checks verify the work within its existing rubric, with no separate score or automatic-zero rule. Complete the common practical evidence in either version, disclose any AI assistance, and use the normal name/Student ID and task-specific evidence requirements. Do not substitute a shared practice flag for proof from an actually assigned hosted instance.
+Your instructor may ask you to show or repeat any step. This only checks that the work is yours; it does not change the score. Write which AI tool you used, if any, on the answer sheet.
 
 ## ✅ This week — what to do
 1. **Before class** — Docker Desktop working (see Week 1 *Lab 0*); skim last week's recap.
 2. **Slides, then class** — prepare the concepts before class. The 150-minute slot includes quiz/review 10, a brief/demo 15, the common practical core 100, debrief 20 and evidence/exit 5.
-3. **Lab (in class)** — complete the bounded common practical core. Baseline login (5), bounded login bypass (15), UNION observation (20), command-injection observation (20), student parameterization/input patch with controls (40). Then complete only the assigned Conventional written 40 or AIR-Sec 20/10/10; use preparation/follow-up time for the full selected written answers and extensions.
-4. **Submit before the next class** (homework tasks included) — worksheet PDF → `learn.zcr.ai/submit` · fixed code → GitHub · weekly quiz → `learn.zcr.ai/quiz`. (How/where: [SUBMISSION.md](../../SUBMISSION.md).)
+3. **Lab (in class)** — complete the bounded common practical core. Baseline login (5), bounded login bypass (15), UNION observation (20), command-injection observation (20), student parameterization/input patch with controls (40). Then complete the written section for your student ID this week (odd: Conventional 40; even: AIR-Sec 20/10/10), after class if needed.
+4. **Submit before the next class** (homework tasks included) — worksheet PDF → `learn.zcr.ai/submit` · fixed code → GitHub (commit link on branch `wk04`) · weekly quiz → `learn.zcr.ai/quiz`. (How/where: [SUBMISSION.md](../../SUBMISSION.md).)
 5. **Project** — add this week's finding + fix to your NoteVault report.
 
 *Time breakdown and grading: [Week 4 worksheet](worksheet.md).*

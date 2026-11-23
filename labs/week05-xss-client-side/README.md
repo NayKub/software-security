@@ -4,12 +4,12 @@
 
 ## Class flow
 
-10-minute quiz/review + 15-minute mechanism demo + 100-minute common practical + 20-minute debrief + 5-minute evidence exit. The quiz covers contextual output encoding, CSP and SameSite. The practical is worth 60 points; each student completes only their assigned Conventional or AIR-Sec format for the remaining 40. Follow-up writing is outside the 100-minute core. The minute budgets have not been validated with a representative student.
+10-minute quiz/review + 15-minute mechanism demo + 100-minute common practical + 20-minute debrief + 5-minute evidence exit. The quiz covers contextual output encoding, CSP and SameSite. The practical is worth 60 points; each student completes one 40-point written format: **this week odd student IDs do AIR-Sec and even student IDs do Conventional** (the mapping swaps every week). Follow-up writing is outside the 100-minute core. Submit your `student_patch.py` commit link from branch `wk05` (see [SUBMISSION.md](../../SUBMISSION.md)). The minute budgets have not been validated with a representative student.
 
 ## Prepare once, then run offline
 
 ```bash
-cd labs/week05-xss-client-side
+cd ~/software-security/labs/week05-xss-client-side
 docker compose build
 docker compose up --no-build --pull never
 ```

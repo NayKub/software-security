@@ -17,7 +17,7 @@ Software Security 2 · Nutthakorn Chalaemwongwan · Shinya Oyama
 
 **KOSEN class: 150 minutes.** Quiz/review 10 + brief/demo 15 + practical 100 + debrief 20 + capture 5. Full slide explanations are preparation/reference.
 
-**Worksheet:** common practical 60 + assigned Conventional written 40 **or** AIR-Sec Audit 20 / EiPE 10 / Prompt 10. Each totals 100; viva verifies understanding within the rubric. Extensions add no graded points.
+**Worksheet:** common practical 60 + written 40. **This week everyone does both written parts:** Conventional (Part 2 + Part 4) **and** AIR-Sec (Audit the AI + Explain in Plain English + Prompt Problem), 40 points in total. The worksheet totals 100. Your instructor may ask you to show or repeat a step. Extensions add no graded points.
 
 
 - Two courses, two angles: Cryptography explains *how it breaks*; we find *where it hides in code*
@@ -183,7 +183,7 @@ random.choice("0123456789")   # CWE-330      ->  secrets.token_urlsafe(16)
 - The four-mistake table (line · mistake · CWE · flagged by a tool?) + the repeated ECB block marked
 - Token sample + estimate · key line + git-history point
 - `migrate.py` → `ALL PASS` · fixed version + before/after table
-- Every screenshot: **whoami + student ID + timestamp in-frame** · **Assigned AIR-Sec 40: Audit / EiPE / Prompt; Conventional uses written 40** (see worksheet)
+- Every screenshot: **whoami + student ID + timestamp in-frame** · **Written 40, everyone does both: Conventional Part 2 + Part 4 and AIR-Sec Audit / EiPE / Prompt** (see worksheet)
 
 <!-- Graded output. Optional extension (homework): scan NoteVault and record its crypto findings for the project report. -->
 

@@ -1,53 +1,55 @@
-# Final written — current KOSEN specimen A
+# Final written exam — practice paper
 
-**Course: Software Security 2 (02005094) · Week 18 · 150-minute class slot: 10 minutes administration + 130 minutes working/checking + 10 minutes collection.**
+**Course: Software Security 2 (02005094) · Week 18 · 150-minute exam: 10 minutes instructions + 130 minutes writing and checking + 10 minutes collection.**
 
-**Raw 100: Basic 50 + Technical 50. Course weight: 10% (5 Basic + 5 Technical).** Covers the whole term, emphasis Weeks 10–15; Week 16 adds no new examinable content.
+**100 marks: Basic 50 + Technical 50. Counts 10% of the course (5% Basic + 5% Technical).** Covers the whole term, mostly Weeks 10–15; Week 16 adds no new exam content.
 
 Name: __________________ Student ID: ______________ Date: ___________
 
-This public specimen fixes scope and workload. The instructor uses a separate prepared sitting variant. Answer only the ten questions below. Each is 10 raw points, with a suggested 12 minutes (120 minutes total), then use 10 minutes to review within the 130-minute working window. Administrative time is not additional task time. Use your own explanation and the provided sandbox/code only; permitted aids follow the published sitting notice. Precise mechanisms and tested-design reasoning matter more than memorized catalogue IDs.
+This practice paper shows the topics and the amount of work. The real exam paper is different and you receive it only on the day. Answer the ten questions below. Each is worth 10 marks; spend about 12 minutes on each (120 minutes), then use the last 10 minutes of the 130 to check your answers. The instruction and collection time is not extra writing time. Use only the information on the paper and the aids your instructor announces. Clear explanations of how an attack or fix works earn more marks than memorized ID numbers.
 
-![Current examination blueprint: 150-minute slot, 130 working minutes, Basic 50 Technical 50.](img/exam-blueprint-final.svg)
+![Exam plan: 150-minute exam, 130 minutes of writing, Basic 50 + Technical 50.](img/exam-blueprint-final.svg)
 
-## 1. B1 · Basic — 10 points, about 12 minutes
+## 1. B1 · Basic — 10 marks, about 12 minutes
 
-Define BOLA and mass assignment, and distinguish caller authentication from an object authorization decision. Give an example of an allowlisted creation field and a forbidden privilege field.
+Define BOLA and mass assignment, and explain the difference between checking *who the caller is* (authentication) and deciding *whether they may use this object* (authorization). Give an example of a field a client may set when creating an account, and a privilege field it must not set.
 
-## 2. B2 · Basic — 10 points, about 12 minutes
+## 2. B2 · Basic — 10 marks, about 12 minutes
 
-Explain what canaries, ASLR, NX and PIE each impede. State one benefit and one boundary of a memory-safe language; explain why one fixed ret2win offset is not portable across builds.
+Explain what canaries, ASLR, NX and PIE each make harder for an attacker. State one benefit and one limit of a memory-safe language, and explain why a ret2win offset that works on one build may not work on another.
 
-## 3. B3 · Basic — 10 points, about 12 minutes
+## 3. B3 · Basic — 10 marks, about 12 minutes
 
-Distinguish an SBOM, a vulnerability scan, a signature and a trusted signing identity. Explain why possession of a signature does not alone establish SLSA compliance or trust in the signer.
+Explain the difference between an SBOM, a vulnerability scan, a signature and a trusted signing identity. Explain why having a signature does not, on its own, prove SLSA compliance or that you should trust the signer.
 
-## 4. B4 · Basic — 10 points, about 12 minutes
+## 4. B4 · Basic — 10 marks, about 12 minutes
 
-Identify three risks in a root container with an embedded credential and a wildcard IAM policy. Explain what a local static policy checker can show and what still requires cloud/runtime verification.
+Name three risks in a container that runs as root, has a password or key built into it, and uses an IAM policy with `*` wildcards. Explain what a local policy checker can show, and what can only be confirmed in the real cloud account or at run time.
 
-## 5. B5 · Basic — 10 points, about 12 minutes
+## 5. B5 · Basic — 10 marks, about 12 minutes
 
-Distinguish direct and indirect prompt injection, unsafe HTML output, and excessive tool privilege. State why a model instruction by itself is not an authorization boundary.
+Explain the difference between direct and indirect prompt injection, unsafe HTML output, and giving a tool too much privilege. Explain why telling the model "do not do X" is not a real permission check.
 
-## 6. T1 · Technical — 10 points, about 12 minutes
+## 6. T1 · Technical — 10 marks, about 12 minutes
 
-An API permits caller alice to read bob/orders and accepts is_admin in account creation. Write owner/admin authorization and an allowlist excluding privileged fields. Give one legitimate request and one forbidden request for each control.
+An API lets the caller alice read bob's orders, and accepts `is_admin` when an account is created. Write an owner/admin check and a list of allowed creation fields that leaves out privilege fields. For each control, give one request that should work and one that should be refused.
 
-## 7. T2 · Technical — 10 points, about 12 minutes
+## 7. T2 · Technical — 10 marks, about 12 minutes
 
-A service handles untrusted UTF-8 input. Contrast byte count with Unicode scalar-value count, show safe invalid-input handling, and design a valid-input and malformed-byte test. Explain one remaining resource/security limit.
+A service receives UTF-8 text from users. Explain the difference between counting bytes and counting Unicode characters (scalar values), show how to handle invalid input safely, and design one test with valid input and one with broken bytes. Explain one limit that still remains (for example, very large input).
 
-## 8. T3 · Technical — 10 points, about 12 minutes
+## 8. T3 · Technical — 10 marks, about 12 minutes
 
-A validly signed artifact is presented with the wrong public key. Design verification that pins the trusted key before accepting the cryptographic result. Include valid/trusted, tampered and valid/wrong-key tests; state what an SBOM adds.
+A correctly signed file is checked with the wrong public key. Design a verification step that first checks the key is the trusted one, and only then accepts the signature result. Include three tests: valid signature with the trusted key, tampered file, and valid signature with the wrong key. State what an SBOM adds.
 
-## 9. T4 · Technical — 10 points, about 12 minutes
+## 9. T4 · Technical — 10 marks, about 12 minutes
 
-Design least-privilege S3 access that reads only releases/* in bucket course-artifacts and lists only that prefix. Separate object GetObject and bucket ListBucket resources/conditions. Give one allowed and two denied cases and distinguish policy review from a live AWS test.
+Design a least-privilege S3 policy that can read only `releases/*` in the bucket `course-artifacts` and list only that prefix. Keep `s3:GetObject` (on objects) and `s3:ListBucket` (on the bucket, with a prefix condition) separate. Give one allowed case and two denied cases, and explain the difference between reviewing the policy text and testing it in a live AWS account.
 
-## 10. T5 · Technical — 10 points, about 12 minutes
+## 10. T5 · Technical — 10 marks, about 12 minutes
 
-A document-fed assistant renders its reply as HTML and calls a privileged tool. A CI service catches authentication exceptions and grants admin. Specify independent output encoding, server tool authorization, fail-closed exception handling and safe audit logging; give positive and negative controls.
+This question has two parts, 5 marks each (spend about 6 minutes on each).
 
-The earlier paper is archived in the course source for optional reference. Its former timings/sections/mark allocation do not apply to this specimen.
+**(a) AI output and tool, 5 marks.** An assistant that reads documents shows its reply as HTML and can call a privileged tool. Describe HTML-escaping the reply and a server-side permission check before the tool runs. Give one allowed and one refused example.
+
+**(b) Deny on error, 5 marks.** A CI service catches login errors and then gives admin access. Describe denying access when an error happens, and logging that never records secrets. Give one allowed and one refused example.
