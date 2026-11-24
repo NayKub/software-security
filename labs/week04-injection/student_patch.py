@@ -1,5 +1,5 @@
 """Student task: complete the two bounded injection defenses. Sandbox only."""
-
+import ipaddress
 
 def authenticate(connection, username: str, password: str):
     """Return the matching (id, username) row or None.
@@ -7,7 +7,8 @@ def authenticate(connection, username: str, password: str):
     Bind the two values as SQLite parameters. Do not format input into SQL.
     The supplied connection has a users(id, username, password) table.
     """
-    raise NotImplementedError("TODO: parameterized authentication query")
+    sql = "SELECT id, username FROM users WHERE username = ? AND password = ?"
+    return connection.execute(sql, (username, password)).fetchone()    
 
 
 def ping_argv(host: str) -> list[str]:
@@ -17,4 +18,7 @@ def ping_argv(host: str) -> list[str]:
     Reject command separators, extra arguments, hostnames and invalid addresses
     with ValueError. The caller always uses shell=False.
     """
-    raise NotImplementedError("TODO: validate one IPv4 address and return argv")
+    if not isinstance(host, str):
+        raise ValueError("host must be a string")
+    ipaddress.IPv4Address(host)
+    return ["ping", "-c", "1", host]
