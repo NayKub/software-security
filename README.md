@@ -36,7 +36,7 @@ To reach the CTF arena's private-network challenges you'll also need WireGuard �
 | 5  | XSS & client-side risks | A05 | "XSS Golf" (shortest payload wins) |
 | 6  | Authn, sessions & access control | A01, A07 | "IDOR Treasure Hunt + JWT Forgery" |
 | **7**  | **🔁 Reflection & Review (pre-midterm)** | — | "Security Jeopardy" + mock CTF |
-| **8–9** | **📝 Midterm** (Wk8 written · Wk9 CTF practical) | — | covers Weeks 1–6 |
+| **8–9** | **📝 Midterm** (Wk8 written · Wk9 paper practical) | — | covers Weeks 1–6 |
 | 10 | API security | API Top 10 | Provided API: ownership + field allowlist controls |
 | 11 | Memory-safety & exploitation | — | "Fuzzing Race → Pwn the Binary" + Rust rewrite |
 | 12 | Software supply chain (deps + integrity) | A03, A08 | Offline resolver + SBOM + trusted-key signature checks |

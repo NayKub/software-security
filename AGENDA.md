@@ -48,12 +48,12 @@ The full mock banks remain optional practice. No thirteenth graded worksheet is 
 
 | Week | Mode | Task block | Administration | Course points |
 |---:|---|---:|---:|---:|
-| 8 | Individual midterm written | 130 | 20 | 8 |
-| 9 | Individual midterm practical | 130 | 20 | 12 |
+| 8 | Individual midterm written | 145 | 20 | 8 |
+| 9 | Individual midterm practical | 145 | 20 | 12 |
 | 18 | Individual final written | 130 | 20 | 10 |
 | 19 | Team final practical, four bounded stations | 130 | 20 | 15 |
 
-A practical sitting uses 10 minutes to brief/check targets, 130 for tasks, and 10 for collection. Written sittings likewise reserve 20 minutes for administration. No project Q&A takes time from Week 19. CTFd dynamic points, first-blood and Houses XP remain engagement-only; use the fixed academic rubric and conversion.
+The Week 8 and Week 9 midterms are closed-book paper exams in the 09:05–11:50 slot (165 minutes): 10 minutes of instructions, 145 for tasks and checking, 10 for collection. The final practical sitting uses 10 minutes to brief/check targets, 130 for tasks, and 10 for collection. Written sittings likewise reserve 20 minutes for administration. No project Q&A takes time from Week 19. CTFd dynamic points, first-blood and Houses XP remain engagement-only; use the fixed academic rubric and conversion.
 
 ## Week 16: formative project studio
 

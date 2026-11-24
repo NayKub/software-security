@@ -133,7 +133,7 @@ jwt-forge
 
 ### Student patch — required common practical evidence
 
-Complete `student_patch.py`: verify a JWT with the supplied secret and audience, allow only HS256, require `sub`, `aud` and `exp`, and enforce ownership on the requested order. The provided harness already supplies legitimate short-lived tokens; obtain them through `/login` rather than borrowing a token from a different app/run.
+Complete `student_patch.py`: verify a JWT with the supplied secret and audience, allow only HS256, require `sub`, `aud` and `exp` (a token whose `sub` is empty must also be refused), and enforce ownership on the requested order. The provided harness already supplies legitimate short-lived tokens; obtain them through `/login` rather than borrowing a token from a different app/run.
 
 ```bash
 docker run --rm --network none -v "$PWD":/lab -w /lab kosen-swsec-week06:local python student_checks.py

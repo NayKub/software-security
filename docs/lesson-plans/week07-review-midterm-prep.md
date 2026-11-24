@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | **Course** | Software Security 2 (02005094, KOSEN-KMITL) |
-| **Week / date** | 7 · ⬚ |
-| **Contact time** | 150 min, one continuous block (`AGENDA.md`, *Week 7 & 17 — Review*): review quiz 30 + Security Jeopardy 35 + mock CTF 75 (ungraded; finished at home) + debrief 10 |
-| **Lab folder** | `labs/week07-review-midterm-prep` |
+| **Week / date** | 7 · Tuesday 15 December 2026, 09:05–11:50 |
+| **Contact time** | 150 min, one continuous block (`AGENDA.md`, *Review weeks 7 and 17*): cumulative quiz 30 + Jeopardy 20 + two practice checkpoints 70 (35 each) + debrief/logistics 25 + save evidence 5 |
+| **Lab folder** | `labs/week07-review-midterm-prep` — `README.md`, `mock-ctf.md` |
 | **Slides** | `slides/week07.md` |
 | **Type** | Review — **no new content**. Consolidates Weeks 1–6 |
 | **Standards consolidated** | OWASP 2025 **A01** Broken Access Control · **A02** Security Misconfiguration · **A04** Cryptographic Failures · **A05** Injection · **A06** Insecure Design · **A07** Authentication Failures · CWE-501, 798, 489, 327, 916, 330, 89, 78, 434, 79, 352, 1004, 639, 287, 347, 321 |
@@ -19,85 +19,86 @@ By the end of this week a student can:
 
 **Knowledge (K)**
 - K1 — Recall, without notes, the one-line core of each of Weeks 1–6 and name the CWE and OWASP 2025 category that goes with it.
-- K2 — State which of the six half-term topics is exercised by each mock-CTF challenge, and which two (threat modelling and tooling) are examined only in writing.
+- K2 — State which of the six half-term topics is rehearsed by each of today's two practice checkpoints, and which four (threat modelling, tooling, cryptography, XSS) are reached today only by Jeopardy and Quiz 1, not by a checkpoint.
 - K3 — Describe the shape of both midterm papers — what the Week 8 written exam asks for and what the Week 9 practical asks for — well enough to plan revision time against it.
 
 **Skills (P)**
-- P1 — Re-land each of the six mock-CTF challenges unaided by the worksheet's step-by-step instructions — under exam conditions for the 75 in-class minutes, and at home for any not reached in class.
-- P2 — For each challenge solved, give the one-line fix/mitigation — one of the three things the Week 9 submission table requires (flag, payload/command, one-line mitigation) — and, separately, name the CWE, which today's mock-CTF warm-up requires (`mock-ctf.md`) but the Week 9 table does not.
+- P1 — Re-implement the Week 4 and Week 6 student-patch fixes unaided, from a fresh untouched copy, under the same two-function shape the real exam rewards (parameterize/validate; verify-then-authorize) — in class for the 70-minute block.
+- P2 — For each checkpoint, give the one-line root cause and fix, and name the CWE — exactly what `mock-ctf.md` asks for and what the Week 8/9 papers also reward.
 - P3 — Produce a one-page cheat sheet that is their own compression of the half-term, not a transcription of the slides.
 - P4 — Identify, honestly, which topics they cannot yet do unaided, and say so in the debrief.
 
 **Attitude (A)**
-- A1 — Test only the sandbox targets supplied by the course, under [ETHICS.md](../../ETHICS.md) — this holds in a practice CTF exactly as it does in a graded one.
-- A2 — Treat the mock as calibration rather than performance: an unsolved challenge found today is worth more than a solved one copied from a neighbour.
-- A3 — Use the hints in `mock-ctf.md` after trying, not instead of trying — Week 9 offers none.
+- A1 — Work only against the supplied practice copies under [ETHICS.md](../../ETHICS.md) — this holds in a practice checkpoint exactly as it does in a graded one.
+- A2 — Treat the checkpoints as calibration rather than performance: an unsolved checkpoint found today is worth more than a solved one copied from a neighbour.
+- A3 — Practise writing the same fixes **by hand** as well — Week 9 is a paper exam with no computer.
 
 ## 2. Key ideas (the through-line)
 
 Weeks 1–6 look like six separate topics and are really one question asked six times: *where does
 untrusted data cross a boundary, and what does it get to control on the other side?* In Week 1 the
-boundary is drawn on a diagram; in Week 4 the data crosses it into a SQL parser; in Week 5 into an
-HTML parser; in Week 6 into an authorisation decision; in Week 3 into a key or a hash; in Week 2 a
-tool looks for the crossing on the developer's behalf and misses some of them. The review week's
-job is to make that single question retrievable under time pressure, because the exam will present
-it in an unfamiliar wrapper. The second job is calibration: students consistently over-rate what
-they can reproduce without the worksheet open beside them, and the mock CTF is the cheapest place
-to discover that.
+boundary is drawn on a diagram; in Week 4 the data crosses it into a SQL parser and a shell; in Week 5
+into an HTML parser; in Week 6 into an authorisation decision; in Week 3 into a key or a hash; in
+Week 2 a tool looks for the crossing on the developer's behalf and misses some of them. The review
+week's job is to make that single question retrievable under time pressure, because the exam will
+present it in an unfamiliar wrapper. The second job is calibration: students consistently over-rate
+what they can reproduce without the worksheet open beside them, and today's two checkpoints are the
+cheapest place to discover that.
 
 ## 3. Prior knowledge and preparation
 
 - **Students, before class:** review Weeks 1–6 — slides, their own submitted worksheets, and the
-  CWE/OWASP list (`labs/week07-review-midterm-prep/README.md`, step 1). Bring the machine they will
-  sit Week 9 on.
-- **Instructor, before class — the four mock-CTF targets:** pull `python:3.12-slim` and bring up
-  `labs/week03-cryptography`, `labs/week04-injection`, `labs/week05-xss-client-side` and
-  `labs/week06-authn-authz` once on the room network the day before. Each of the four compose files
-  runs its own `pip install` *at container start* (see §10) — this is four network round-trips per
-  student, not one.
-- **Instructor, before class — the Jeopardy board:** no board file ships in the repo. The presenter
+  CWE/OWASP list (`labs/week07-review-midterm-prep/README.md`). Bring the machine they will sit
+  Week 9 on, and confirm Docker still runs.
+- **Instructor, before class — the two checkpoint images.** The checkpoints need only the Week 4 and
+  Week 6 images already built in those weeks (`week04-injection-injection-lab:latest`,
+  `kosen-swsec-week06:local`) — no live server, no port, and no network access at class time; the
+  checkers run entirely in-process (`docker run --network none ...`). If a student's machine lost the
+  images, rebuilding is a single `docker compose build` in the real `labs/week04-injection` or
+  `labs/week06-authn-authz` folder while online, which `mock-ctf.md` itself says to do if `docker run`
+  reports the image missing.
+- **Instructor, before class — the Jeopardy board.** No board file ships in the repo. The presenter
   note in `slides/week07.md` says to prepare it beforehand — 6 categories × 5 values, questions
   seeded from the exam item bank (the banks live in the git-ignored `instructor/` directory:
   `instructor/exams/item-bank.md`, `instructor/quizzes/review-quiz-item-bank.md`).
-- **Instructor, before class — the quiz:** decide whether Quiz 1 runs closed book (`quizzes/quiz1.md`
-  reads "Closed book unless your instructor says otherwise") and whether the cheat sheet will be
-  admitted to the Week 8 written exam. `slides/week07.md` asks for that decision to be **announced
-  today**, because it changes how students build the sheet.
+- **Instructor, before class — the quiz.** `README.md` and `slides/week07.md` both say the cumulative
+  review quiz runs on `learn.zcr.ai/quiz`, the same portal as the weekly quizzes — **confirm the
+  Week 7 assessment has actually been created there before class** (as of this check it had not yet
+  been; other weeks' assessments are normally created well ahead of their class date). Decide whether
+  the cheat sheet will be admitted to the Week 8 written exam; `slides/week07.md` asks for that
+  decision to be **announced today**, because it changes how students build the sheet.
 - **Prerequisite state:** the Week 3, 4, 5 and 6 labs have been completed and submitted. A student
-  who never stood up one of those targets will lose the mock-CTF block to environment setup.
+  who never stood up the Week 4 or Week 6 target will lose checkpoint time to environment setup.
 
 ## 4. Consolidation plan — the six weeks under review
 
 | Wk | Topic | Signature exercise | Must be retrievable cold | Re-tested today by |
 |---:|---|---|---|---|
-| 1 | Security mindset & threat modelling | "Elevation of Privilege" STRIDE card game | STRIDE letters → property violated; what a trust boundary is; attack surface | Jeopardy (*Threat Modeling*); mock-CTF **warm-up** (3-element STRIDE table); Quiz 1 Part B |
-| 2 | Secure SDLC, tooling & fuzzing | "Bug Triage Race" | SAST vs DAST vs SCA vs fuzzing — what each sees, when it runs; true vs false positive | Jeopardy (*Tooling*); Quiz 1 Part A |
-| 3 | Cryptography used correctly (and misused) | "Capture the Hash" speedrun | hashing vs encryption vs encoding; why MD5 is wrong for passwords; salts; why ECB leaks; CSPRNG vs `random` | Mock-CTF **#6**; Jeopardy (*Crypto*) |
-| 4 | Injection & input handling | "SQLi Warm-up" | data vs code; why a parameterised query wins and escaping does not; `shell=True` → CWE-78 | Mock-CTF **#1, #2**; Jeopardy (*Injection*); Quiz 1 Part C |
-| 5 | XSS & client-side risks | "XSS Golf" | reflected vs stored vs DOM; contextual output encoding; CSP; `HttpOnly`/`SameSite`/`Secure` | Mock-CTF **#3**; Jeopardy (*XSS*) |
-| 6 | Authentication, sessions & access control | "IDOR Treasure Hunt + JWT Forgery" | authentication ≠ authorisation; IDOR; `alg:none`; weak HMAC secret; `exp`/`aud` | Mock-CTF **#4, #5**; Jeopardy (*Auth & Access*); Quiz 1 Part C |
+| 1 | Security mindset & threat modelling | Threat model + STRIDE on the sample app | STRIDE letters → property violated; what a trust boundary is; attack surface | Jeopardy (*Threat Modeling*); Quiz 1 Part B |
+| 2 | Secure SDLC, tooling & fuzzing | Scanner/secret-finding triage | SAST vs DAST vs SCA vs fuzzing — what each sees, when it runs; true vs false positive | Jeopardy (*Tooling*); Quiz 1 Part A |
+| 3 | Cryptography used correctly (and misused) | Legacy-password rehash-on-login (`migrate.py`) | hashing vs encryption vs encoding; why MD5 is wrong for passwords; salts; why ECB leaks | Jeopardy (*Crypto*); Quiz 1 Part B — **no checkpoint today** |
+| 4 | Injection & input handling | SQLi + command-injection patch (`student_patch.py`) | data vs code; why a parameterised query wins and escaping does not; `shell=True` → CWE-78 | **Checkpoint 1**; Jeopardy (*Injection*); Quiz 1 Part C |
+| 5 | XSS & client-side risks | Encoding + CSRF-token patch | reflected vs stored vs DOM; contextual output encoding; CSP; `HttpOnly`/`SameSite`/`Secure` | Jeopardy (*XSS*) — **no checkpoint today** |
+| 6 | Authentication, sessions & access control | JWT verification + ownership patch (`student_patch.py`) | authentication ≠ authorisation; IDOR; `alg:none`; weak HMAC secret; `exp`/`aud` | **Checkpoint 2**; Jeopardy (*Auth & Access*); Quiz 1 Part C |
 
-**Coverage gap to name out loud.** The mock CTF has no challenge for Week 1 or Week 2 — its six
-challenges are drawn from Weeks 3–6 only. Threat modelling and tooling are carried by the warm-up,
-the Jeopardy board and Quiz 1, and they are examined in the **Week 8 written paper**. A student who
-revises only from the mock CTF will walk into Week 8 having skipped two of the six weeks.
+**Coverage gap to name out loud.** Today's two practice checkpoints are drawn from Weeks 4 and 6
+only — the same two weeks whose student-patch shape the Week 9 practical's Stations C and D rehearse
+directly. Weeks 1, 2, 3 and 5 are **not** re-tested by a checkpoint today; they are carried by
+Jeopardy and Quiz 1, and Weeks 1, 2 and 3 are also examined directly in the **Week 9 practical**
+(Stations A and B). A student who revises only from today's two checkpoints will walk into Week 9
+having skipped two of its four stations.
 
 ## 5. Session run-sheet — 150 min
 
-Timings are AGENDA.md's review-week agenda (*Week 7 & 17 — Review (150 min)*). There is no break.
+Timings are `AGENDA.md`'s review-week agenda (*Review weeks 7 and 17*). There is no break.
 
 | Time | Block | What happens |
 |---|---|---|
-| 0:00–0:30 | **Cumulative review quiz** | Quiz 1 (`quizzes/quiz1.md`) — 25 pts, 30 min |
-| 0:30–1:05 | **Security Jeopardy** | Team quiz-show across the six topics |
-| 1:05–2:20 | **Mock CTF** | `labs/week07-review-midterm-prep/mock-ctf.md`, in the Week 9 format — the first 75 min in class; it is ungraded practice, so students finish the remaining challenges at home |
-| 2:20–2:30 | **Debrief** | Common mistakes (§6) + midterm logistics (§7) |
-
-*(The presenter notes in `slides/week07.md` still describe the longer review block: a ~5 h session,
-a 30-min quiz, roughly 60–75 min of Jeopardy and ~150 min of mock CTF. AGENDA.md now gives 35 min
-of Jeopardy and 75 min of mock CTF in class, and `mock-ctf.md` keeps ~150 min of challenges with
-about 75 of them in class and the rest at home. Follow AGENDA; the slide notes are documentation
-drift.)*
+| 0:00–0:30 | **Cumulative review quiz** | Quiz 1 (`quizzes/quiz1.md`, 25 pts) on `learn.zcr.ai/quiz` |
+| 0:30–0:50 | **Security Jeopardy** | Team quiz-show across the six topics |
+| 0:50–2:00 | **Two practice checkpoints** | `labs/week07-review-midterm-prep/mock-ctf.md` — Checkpoint 1 (Week 4, 35 min) then Checkpoint 2 (Week 6, 35 min), entirely in class |
+| 2:00–2:25 | **Debrief** | Common mistakes (§6) + midterm logistics (§7) |
+| 2:25–2:30 | **Save evidence** | Personal revision list |
 
 ### 5.1 Cumulative review quiz — 0:00–0:30
 
@@ -108,10 +109,12 @@ drift.)*
 | Blueprint | Part A multiple choice 10 × 1 pt · Part B short answer 3 × 3 pts · Part C spot-the-vulnerability 2 × 3 pts |
 | Covers | Threat modeling · SDLC/tooling/fuzzing · Cryptography · Injection · XSS · Auth & access control |
 | Conditions | Closed book unless the instructor states otherwise |
-| Delivery | Google Form (SUBMISSION.md; Forms are built with `instructor/make_quiz_forms.gs`), individual, one attempt, shuffled, locked to the school account. `quiz1.md` prints as the paper fallback |
+| Delivery | `learn.zcr.ai/quiz` — the same portal as the weekly quizzes, individual one-time code given in class. `quiz1.md` is the content reference and paper fallback |
 | Where it counts | The 10% weekly-quizzes / participation component |
 
-**Quiz time — decided.** The quiz keeps the 30 min that `quiz1.md` states (owner, 2026-10-31); Security Jeopardy gives up 5 min to make room, so the class stays 150 min.
+**Before this session:** confirm the Week 7 assessment exists on the portal — as of this check it
+had not yet been created (other weeks' assessments are normally created well ahead of their own
+class date, and Week 7's still had time before 15 Dec).
 
 Weeks 7 and 17 deliberately have **no** `quizzes/weekly/weekNN.md` 6-question quiz — the cumulative
 quiz *is* this week's retrieval practice.
@@ -120,81 +123,55 @@ quiz *is* this week's retrieval practice.
 or three MCQs and/or the Part B/C alternates from the review-quiz item bank into a cohort copy,
 keeping the total at 25 pts (10 × 1 + 3 × 3 + 2 × 3).
 
-### 5.2 Security Jeopardy — 0:30–1:05
+### 5.2 Security Jeopardy — 0:30–0:50
 
 - **Categories** — exactly the six in the lab README, one per week under review:
   *Threat Modeling · Tooling · Crypto · Injection · XSS · Auth & Access*.
 - **Board** — 6 categories × 5 point values, plus a **Final Jeopardy wager** at the end
   (`slides/week07.md` presenter note). Prepare it before the session; nothing ships in the repo.
-- **Fit** — the presenter note sizes that board for a ~60–75-min round; AGENDA gives the block
-  35 min and no breakdown. Whether the full board and the wager fit in 35 min, and what gives if
-  they do not, is ⬚ — no source says.
+- **Fit** — the block is 20 minutes; size the board and the wager to fit that, not the longer round a
+  full 6×5 board plus wager would normally want. Prefer fewer squares answered well over rushing the
+  whole board.
 - **Teams** — run by Houses (non-graded engagement layer, per course specification §7).
 - **Rules** — the team picks a square and answers; a wrong answer *loses* the points. Keep it fast.
 - **Points** — award them into the CTFd / Houses board if the scoreboard is running; the Awards
   mechanism for non-flag games is documented in `instructor/CTFd-SETUP.md` §6.
-- **Purpose** — this is the retrieval-practice slot for Weeks 1 and 2, which the mock CTF does not
-  reach. Weight the board accordingly rather than filling it with injection questions.
+- **Purpose** — this is the main retrieval-practice slot for Weeks 1, 2, 3 and 5, which today's
+  checkpoints do not reach. Weight the board accordingly rather than filling it with injection
+  questions.
 
-### 5.3 Mock CTF — 1:05–2:20
+### 5.3 Two practice checkpoints — 0:50–2:00
 
-**How it is run.** `labs/week07-review-midterm-prep/mock-ctf.md`: ~150 min of challenges — about
-75 min in class, and students finish the rest at home (it is ungraded practice). Individual
-**or pairs**, sandbox targets only, **hints included**, **ungraded (participation)**, no real exam
-flags.
-For each challenge the student records their payload/command plus a one-line fix, then self-checks
-against the linked solution file. Warm-up (concepts): draw a 3-element STRIDE table for any one
-target, and name the CWE for each challenge solved. Which challenges run in the 75 in-class minutes
-and which go home is ⬚ — neither AGENDA nor `mock-ctf.md` assigns them.
+**What it is.** `labs/week07-review-midterm-prep/mock-ctf.md`: students make a fresh, untouched
+practice copy of the Week 4 and Week 6 lab folders (`git archive origin/main labs/week04-injection |
+tar -x -C ~/practice`, same for `week06-authn-authz`) so their own graded `wk04`/`wk06` work is
+untouched, then redo the same two student-patch fixes against that copy. **Nothing is submitted and
+nothing is marked** — this is confirmed end-to-end: the untouched copy's checker fails by design, and
+a correct patch passes cleanly, with no server, no port and no network access needed at any point.
 
-| # | Challenge | Topic | Hint given in the file | Self-check against |
-|---|---|---|---|---|
-| 1 | Log in as another user without their password | SQLi (W4) | the username field isn't parameterized | `solution_app.py` |
-| 2 | Run a command on the server | cmd injection (W4) | `host` is passed to a shell | `solution_app.py` |
-| 3 | Pop `alert(1)` that another user would trigger | stored XSS (W5) | the comment body is rendered raw | `fixed_app.py` (CSP) |
-| 4 | Read an order that isn't yours | IDOR (W6) | change the id; no ownership check | `attack.md` |
-| 5 | Become admin with a crafted token | weak JWT (W6) | `alg:none` / weak secret `"secret"` | `attack.md` |
-| 6 | Recover a password from its hash | crypto (W3) | unsalted MD5 + a wordlist | `solution_skeleton.py` |
+| Checkpoint | Time | File | Task |
+|---|---:|---|---|
+| 1 | 35 min | `~/practice/labs/week04-injection/student_patch.py` | Complete `authenticate()` (bound SQL values) and `ping_argv()` (one parsed IPv4 argument list). Check: `docker run --rm --pull never --network none -e PYTHONDONTWRITEBYTECODE=1 -v "$PWD:/exam:ro" -w /exam week04-injection-injection-lab:latest python3 student_checks.py` |
+| 2 | 35 min | `~/practice/labs/week06-authn-authz/student_patch.py` | Complete `decode_identity()` (pinned HS256, required sub/aud/exp) and `owns_order()` (server-side ownership). Check: `docker run --rm --pull never --network none -e PYTHONDONTWRITEBYTECODE=1 -v "$PWD:/lab:ro" -w /lab kosen-swsec-week06:local python3 student_checks.py` |
 
-**Infrastructure needed.**
+Before either edit, the command prints `FAILED`; after a correct patch, `OK`. For each checkpoint a
+student records: the diff, the exact command and result, the root cause (the trust boundary crossed),
+one legitimate and one attack control, and one limit — the same shape of evidence Week 9 rewards.
 
-| Target | Start | Published port | Installed at container start | Also needed |
-|---|---|---|---|---|
-| `labs/week03-cryptography` | `docker compose up` | none | `pycryptodome`, `argon2-cffi` | `hashcat` or `john` + the `rockyou.txt` wordlist (worksheet 3 prerequisites) — **not** installed by the compose file |
-| `labs/week04-injection` | `docker compose up` | `8080:5000` | `flask` | a browser or `curl` |
-| `labs/week05-xss-client-side` | `docker compose up` | `8080:5000` | `flask` | a browser with DevTools |
-| `labs/week06-authn-authz` | `docker compose up` | `8080:5000` | `flask`, `pyjwt` | `curl` and host-side `python3` with `pyjwt` (worksheet 6 prerequisites) |
+**No infrastructure risk today.** Unlike a live-exploit lab, these checkpoints need no target server,
+no published port and no network access, so there is no port clash to brief and no image to pre-pull
+beyond what Weeks 4 and 6 already built. If a student's image is missing, `mock-ctf.md` itself gives
+the one-line fix: rebuild in the real lab folder while online.
 
-Three of the four targets publish host port **8080** — see §10, risk 1. No flag seeding is required
-for the mock: `vulnerable_app.py` in Weeks 4 and 6 falls back to public placeholder values when the
-`FLAG_*` environment variables are unset (`labs/week04-injection/vulnerable_app.py` L10–11,
-`labs/week06-authn-authz/vulnerable_app.py` L11–12). Week 9's graded per-student flags are **not**
-seeded onto students' machines either — they come from hosted CTFd instances (§7.2).
+**If a checkpoint is solved early.** Point the student at writing the same fix again **on paper**,
+without the computer — direct rehearsal for Week 9, which is a closed-book paper exam.
 
-**How scoring works.** The mock CTF is **ungraded** — `mock-ctf.md` marks it participation, with no
-flags and no point values, and the student's feedback loop is the self-check column above. The repo
-defines no scoring scheme for it: any points beyond participation are ⬚ (instructor's choice). If
-the CTFd scoreboard is running, the documented way to put the session on the same leaderboard as the
-weekly games is CTFd **Awards** (`instructor/CTFd-SETUP.md` §6: 1st/2nd/3rd = 300/200/100,
-first-blood +100, most creative +50). Do not describe CTFd's dynamic scoring or point-costing hints
-as the mock's scoring model — those apply to the flag-bearing challenge set, not to this session.
-
-**Formative checkpoints.** By 2:05 — an hour into the mock, as in the longer block — every student
-should have landed at least challenges 1 and 4: they are the two shortest paths and the two whose
-Week 9 counterparts carry 15 pts each. That hour assumed the targets were already up when the block
-started; when they come up now is ⬚ (§10, risk 2). A student still stuck on #1 at 2:05 is usually
-re-typing a payload rather than reading the query it produces; send them to the query comment in
-`labs/week04-injection/vulnerable_app.py` (lines 61–63). A student who has solved all six — in class
-or at home — should attempt the ECB-oracle work from Week 3: Week 9 has such a challenge and the
-mock does not (§7).
-
-### 5.4 Debrief — 2:20–2:30
+### 5.4 Debrief — 2:00–2:25, Save evidence — 2:25–2:30
 
 Run §6's misconception list against the room ("hands up who is shaky on this one") and drill the two
 or three that draw the most hands, then give the Week 8/9 logistics from §7. Close by collecting or
-sighting the one-page cheat sheet. AGENDA gives the debrief 10 min with no breakdown; whether all of
-that fits, and how the time splits between the drill and the logistics, is ⬚. The logistics in §7.4
-must be read out either way, because `slides/week07.md` asks for them in this session.
+sighting the one-page cheat sheet, then let students note their own personal revision list in the
+final 5 minutes.
 
 ## 6. Common misconceptions to re-test
 
@@ -205,120 +182,91 @@ because the naive version was wrong under reproduction.
 | # | Misconception | Where it comes from | How to re-test it today |
 |---|---|---|---|
 | 1 | Encoding, encryption and hashing are interchangeable | `slides/week07.md`; Week 3 lecture Q1 | Jeopardy *Crypto*; Quiz 1 Part B |
-| 2 | "The input was validated, so it's safe" — validation substitutes for parameterisation | `slides/week07.md`; Week 4 lecture Q3 | Ask for the fix line, not the payload, on mock-CTF #1 |
-| 3 | Authentication implies authorisation | `slides/week07.md`; Week 6 lecture Q1 — `get_order` *calls* `current_user()` and then ignores the result (`vulnerable_app.py` L63) | Mock-CTF #4, then "which line is missing?" |
+| 2 | "The input was validated, so it's safe" — validation substitutes for parameterisation | `slides/week07.md`; Week 4 lecture Q3 | Ask for the fix line, not just the payload, on Checkpoint 1 |
+| 3 | Authentication implies authorisation | `slides/week07.md`; Week 6 lecture Q1 — `get_order` *calls* `current_user()` and then ignores the result (`vulnerable_app.py`) | Checkpoint 2, then "which line is missing?" |
 | 4 | Client-side checks are a control | `slides/week07.md` | Jeopardy *Auth & Access* |
 | 5 | `' OR '1'='1` alone bypasses the login | Week 4 worksheet Task 1 — the trailing `--` is required: without it SQL binds `AND` tighter than `OR`, so `... OR '1'='1' AND password='x'` matches no row | Have them state, from the resulting SQL, why the comment is load-bearing |
-| 6 | The `<img>` XSS vector is the *shorter* payload | Week 5 worksheet Task 1 — `<img src=x onerror=alert(1)>` is actually 3 characters **longer** than `<script>alert(1)</script>`; it earns its place when `<script>` specifically is filtered, not on length | Jeopardy *XSS*: "why would you ever reach for `onerror`?" |
-| 7 | Hardening the cookie fixes CSRF | Week 5 worksheet Task 5 — the Task 4 PoC **still posts** against `fixed_app.py`, because `/comments` never checks the session cookie or a CSRF token before accepting the POST | "The CSP header is present and the attack still worked — why?" |
+| 6 | The `<img>` XSS vector is the *shorter* payload | Week 5 worksheet Task 1 — `<img src=x onerror=alert(1)>` is actually longer than `<script>alert(1)</script>`; it earns its place when `<script>` specifically is filtered, not on length | Jeopardy *XSS*: "why would you ever reach for `onerror`?" |
+| 7 | A CSRF token check and cookie hardening are the same fix | Week 5 worksheet Task 4 — the fixed app's CSRF defense is the server-checked token, not `SameSite`/`HttpOnly` alone; ports 8080/8081 are same-site, so `SameSite` does not by itself block the forged cross-origin POST | Jeopardy *XSS*: "why does the token matter even with the cookie hardened?" |
 | 8 | An accepted upload is remote code execution | Week 4 worksheet Task 4 — `UPLOAD_DIR` is not web-served in this lab, so the honest answer is *the missing control*, not a claimed RCE | Ask what two properties the directory and filename would both need |
-| 9 | Pinning the JWT algorithm alone secures the token | Week 6 lecture Q4 — the hardcoded HMAC secret `"secret"` is exploitable with `alg` pinned; the fix needs a strong random secret plus required `exp`/`aud` | Mock-CTF #5 — make them do the weak-secret variant, not just `alg:none` |
-| 10 | Scanner-clean means bug-free | Week 2 worksheet Task 8 (find a real bug Semgrep did not flag) and Task 4 (fuzzing finds what a pattern-matcher over the same four-line check will not) | Jeopardy *Tooling* |
-
-Two operational stumbles worth pre-empting in the same breath, because they cost minutes rather than
-marks: `hashes.txt` needs its comment lines stripped before `hashcat` will read it (Week 3 Task 1),
-and the PyJWT `alg:none` forgery needs `key=""` (Week 6 Task 2).
+| 9 | Pinning the JWT algorithm alone secures the token | Week 6 lecture Q4 — the hardcoded HMAC secret `"secret"` is exploitable with `alg` pinned; the fix needs a strong random secret plus required `exp`/`aud` | Checkpoint 2 — make them explain the weak-secret path, not just `alg:none` |
+| 10 | Scanner-clean means bug-free | Week 2 worksheet — a scanner exiting with a tool error is an incomplete check, not zero findings | Jeopardy *Tooling* |
 
 ## 7. Exam preparation
 
-### 7.1 Week 8 — written, 120 min, 100 pts
+### 7.1 Week 8 — written, 165-minute slot, 8% of the course
 
-Closed book unless stated otherwise. Blueprint, from `labs/week08-midterm-written/exam.md`:
+Closed-book paper exam. Per `labs/week08-midterm-written/README.md`: **10 minutes** of
+administration + **145 minutes** of working/checking + **10 minutes** of collection (165 minutes
+total). The current specimen paper (`exam.md`) has **ten questions**, raw 100 split **Basic 50 /
+Technical 50**, contributing 8% of the course. Scope: Weeks 1–6 — threat modeling, tooling,
+application crypto misuse/migration, injection, XSS, and authentication/authorization. Bring a
+student ID card and a pen; no notes, phone, calculator, computer or AI. The real paper is handed out
+on the day; the specimen is practice only.
 
-| Section | Focus | Marks |
+### 7.2 Week 9 — practical, 165-minute slot, 12% of the course
+
+**Individual, closed-book paper exam** — not a computer exam and not a hosted CTF. Per
+`labs/week09-midterm-practical/README.md`: **10 minutes** of instructions + **145 minutes** on four
+stations (about 130 on the stations, 15 to check) + **10 minutes** of collection. **Four stations
+(A–D), 25 points each, 100 raw = 12% of the course:**
+
+| Station | Topic | Minutes |
+|---|---|---:|
+| A | Threat model and scanner triage (Weeks 1–2, plus the Week 6 ownership idea) | 35 |
+| B | Moving old password records to Argon2id (Week 3) | 35 |
+| C | Parameterized SQL / safe argv (Week 4) | 30 |
+| D | Login token verification and object ownership (Week 6) | 30 |
+
+Students get printed code, scanner results and test output, and write their analysis, their fix as
+code, and their test results **by hand**. Week 5 is not on the practical.
+
+### 7.3 What today's checkpoints do *not* cover — say this explicitly
+
+Today's two checkpoints map directly onto Week 9's Stations **C** and **D** only — the same two
+functions, the same shape of evidence. They do **not** touch Stations A or B at all.
+
+| | Today's checkpoints | Week 9 |
 |---|---|---|
-| A | Concepts | 30 (6 × 5) |
-| B | Spot the Vulnerability — name it, give the CWE, give the fix | 20 (4 × 5) |
-| C | Applied SQL Injection | 30 |
-| D | Defense & Design | 20 (2 × 10) |
+| Stations covered | C (W4), D (W6) only | A (W1–2), B (W3), C (W4), D (W6) — all four |
+| Medium | Computer, real Docker checker | Paper — write code and tests by hand, no computer |
+| Targets | Your own practice copy, local Docker | Printed code, scanner results and test output |
+| Working | Individual | Individual |
+| Hints | None — same as the exam | None |
+| Stakes | Ungraded, practice | 100 pts, 12% of the course |
 
-**It will ask** for the four question types listed in `labs/week08-midterm-written/README.md`:
-build or critique a STRIDE model and identify trust boundaries; classify given vulnerabilities by
-CWE/OWASP; find and explain the flaw in a code snippet (injection, XSS, auth, crypto misuse); and
-secure-design short answers (least privilege, defence in depth, fail closed). For code answers it
-wants the **exact** payload or fix written out, in the student's own words otherwise.
-
-**It will not ask** for anything outside those four types, and it covers Weeks 1–6 only — no
-material from Weeks 10–19. Techniques that were *named but not examined* in the teaching weeks stay
-unexamined: blind and time-based SQL injection, for instance, were named in Week 4 and are not exam
-material ([week04 lesson plan](week04-injection.md) §4).
-
-**Section C reaches past the Week 4 lab — close the gap today.** Week 4 taught auth bypass, UNION
-with column matching, `shell=True` and unrestricted upload, all against a string-context SQLite
-login. Three of Section C's five sub-questions go further: injection into an **integer** parameter
-(C1), DBMS version fingerprinting across MySQL/MSSQL, Oracle and SQLite (C4), and a
-`group_concat` + `sqlite_master` subquery to dump table names (C5). None of those three appear
-anywhere in the Weeks 1–6 slides or labs — verified by search, not assumed. That is up to 18 of the
-paper's 100 marks on material a student revising only from their own worksheets has never met.
-Cover it in the Jeopardy *Injection* category, which is the natural slot and is otherwise the block
-with the least new work to do, and say plainly in the debrief that quoted-vs-unquoted context and
-DBMS fingerprinting are examinable.
-
-### 7.2 Week 9 — CTF practical, 150 min, 100 pts
-
-Individual, sandbox targets only, each student spawns their own instance of the hosted challenges in
-the course's CTFd (`ctf.zcr.ai`). Seven challenges: six at 15 pts
-and one at 10. For each challenge the submission table wants three things — the **flag**, the
-**payload or command**, and a **one-line mitigation**. There is partial credit for documented
-progress without the flag, which is the single most under-used mark on the paper: a student who can
-describe the mechanism and the fix should always write it down.
-
-Flags are **per-student** in Week 9 (SUBMISSION.md: a flag is traceable to the person it was issued
-to, and a duplicate implicates both parties). The platform issues the flag to the student who spawned
-the instance — all 7 challenges now have a hosted, per-student instance. A local `docker compose up`
-serves only public demo flags and is practice, not a valid submission
-(`docs/lesson-plans/week09-midterm-practical.md` §3). Submission route: flags + payload + mitigation
-via the CTF Form / Classroom.
-
-### 7.3 What today's mock does *not* cover — say this explicitly
-
-`mock-ctf.md` promises the "exact format of Week 9", and the six challenges do map one-to-one onto
-Week 9's first six. Five differences remain, and students should hear all five today:
-
-| | Mock CTF (today) | Week 9 |
-|---|---|---|
-| Time | ~150 min of challenges — about 75 min in class, the rest at home | one sitting: 0:00–0:10 rules + target check, 0:10–2:30 solve (AGENDA, *Week 9*) |
-| Challenges | 6 | **7** — the extra one is an ECB-oracle challenge (10 pts) drawn from Week 3, with **no counterpart in the mock** |
-| Targets and flags | Local Docker on your own machine; public `…_demo` flags | Instances you spawn yourself in the hosted CTFd; a per-student flag from your own instance for all 7 challenges |
-| Working | individual **or pairs** | individual |
-| Hints | included in the file | none |
-| Stakes | ungraded, participation | 100 pts |
-
-Anyone who reaches the end of the mock early should spend the remaining time on the Week 3 ECB
-oracle (`labs/week03-cryptography`, worksheet 3 Task 2) rather than polishing a solved challenge.
+Anyone who finishes both checkpoints early should revise Weeks 1, 2 and 3 for Stations A and B, which
+nothing today rehearses directly.
 
 ### 7.4 Logistics to read out in the debrief
 
-`slides/week07.md`'s closing note asks for the exam logistics to be stated in this session, and none
-of them are recorded in the repository:
+`slides/week07.md`'s closing note asks for the exam logistics to be stated in this session:
 
-- Week 8 (written) — date / time / room: ⬚
-- Week 9 (CTF practical) — date / time / room: ⬚
-- What to bring; whether the cheat sheet is admitted: ⬚
-- Week 9 machine and access readiness — the graded targets are hosted CTFd instances, so each student
-  needs a working CTFd login and a way to reach a spawned instance from the machine they will sit on;
-  anyone who cannot must be fixed before Week 9, not on the day. How students get accounts and
-  connect: ⬚. Local Docker from today's mock still matters for practice and for Crack It (challenge 6).
+- Week 8 (written) — Tuesday 22 December 2026, 09:05–11:50, usual classroom.
+- Week 9 (practical) — Tuesday 29 December 2026, 09:05–11:50, usual classroom.
+- What to bring: student ID card, a pen (blue or black). No computer, phone, notes, calculator or AI.
+- Whether the cheat sheet is admitted to the Week 8 written exam: the instructor's decision,
+  announced today.
 
 ### 7.5 Deliverable — the one-page cheat sheet
 
 Each student submits their own one-page cheat sheet. Building it *is* the studying — the compression
 is the learning, which is why it must not be a shared file. Whether it may be carried into the
-Week 8 written exam is the instructor's decision (⬚), and `slides/week07.md` asks for that decision
-to be announced **today** so students build the right artefact.
+Week 8 written exam is the instructor's decision, announced today so students build the right
+artefact.
 
 ## 8. Assessment for this week
 
 | Instrument | Evidence | Outcome | Weight |
 |---|---|---|---|
 | Cumulative review quiz — Quiz 1 (25 pts) | Quiz score | K1, K2 | Part of the 10% quizzes / participation component |
-| Mock CTF | Payload + one-line fix recorded per challenge, plus CWE named per challenge in the warm-up | P1, P2, A1 | **Ungraded** — participation |
+| Two practice checkpoints | Diff + command + result recorded per checkpoint | P1, P2, A1 | **Ungraded** — practice only |
 | Security Jeopardy | Team points | K1 | Non-graded engagement (Houses); CTFd Awards if the scoreboard is running |
-| One-page cheat sheet | The sheet | P3 | ⬚ (the repo states the deliverable, not a mark for it) |
+| One-page cheat sheet | The sheet | P3 | Not separately marked — a study aid |
 | Debrief self-assessment | Named weak areas | P4, A2 | Formative — feeds the instructor's Week 8/9 support list |
 
 There is **no worksheet** for Week 7: the lab folder holds `README.md` and `mock-ctf.md` only, and
-the week carries none of the 13 graded worksheets. The graded midterm follows in Weeks 8–9 (20% of
+the week carries none of the 12 graded worksheets. The graded midterm follows in Weeks 8–9 (20% of
 the course mark, course specification §4).
 
 ## 9. Materials
@@ -326,16 +274,12 @@ the course mark, course specification §4).
 - Lab: `labs/week07-review-midterm-prep/` — `README.md`, `mock-ctf.md`
 - Quiz: `quizzes/quiz1.md` (25 pts, 30 min) · quiz mechanics: `quizzes/README.md`
 - Slides: `slides/week07.md`
-- Mock-CTF targets: `labs/week03-cryptography`, `labs/week04-injection`,
-  `labs/week05-xss-client-side`, `labs/week06-authn-authz` (`docker compose up` in each)
-- Solution files the mock self-checks against: `solution_app.py` (W4, W6), `fixed_app.py` (W5),
-  `solution_skeleton.py` (W3), `attack.md` (W6)
+- Checkpoint targets: `labs/week04-injection` and `labs/week06-authn-authz` only (their already-built
+  images: `week04-injection-injection-lab:latest`, `kosen-swsec-week06:local`)
 - What comes next: `labs/week08-midterm-written/` · `labs/week09-midterm-practical/`
 - Instructor-only (git-ignored): `instructor/CTFd-SETUP.md` (scoreboard, Houses, Awards),
-  `instructor/make_quiz_forms.gs` (build the quiz Form), `instructor/ctf_integrity_report.py`
-  (attributes a submitted hosted flag and raises integrity signals at Week 9 marking — not needed for
-  today), the item banks under `instructor/exams/` and
-  `instructor/quizzes/`
+  the item banks under `instructor/exams/` and `instructor/quizzes/`, and the formative key
+  `instructor/exams/kosen-02005094/week07-review-key.md`
 - Submission channels: [SUBMISSION.md](../../SUBMISSION.md) · Rules of engagement:
   [ETHICS.md](../../ETHICS.md)
 
@@ -343,14 +287,11 @@ the course mark, course specification §4).
 
 | Risk | Mitigation |
 |---|---|
-| **Host port 8080 is a three-way clash.** `labs/week04-injection`, `labs/week05-xss-client-side` and `labs/week06-authn-authz` all publish `8080:5000`, and the mock CTF needs all three. A student who runs `docker compose up` in a second lab folder without stopping the first gets a bind failure | Run one target at a time — the six challenges are independent, so #1/#2 (W4), then #3 (W5), then #4/#5 (W6) — or override the published port in the second and third compose files. Note that macOS AirPlay squats on port **5000**, which here is the *container-side* port and therefore not the cause of this clash |
-| **Four `pip install` runs on the room network.** Each compose file installs at container start: `pycryptodome argon2-cffi` (W3), `flask` (W4), `flask` (W5), `flask pyjwt` (W6). In a teaching week that is one round-trip; today it is four per student, and a weak network takes down the whole mock CTF rather than one task | Pre-pull `python:3.12-slim` and bring all four targets up once the day before; keep the offline image copy (`docker save` / `docker load`) ready. Students who completed Weeks 3–6 on the same machine already have the layers cached. There is no break before the mock any more, so when students start their containers is ⬚ — no source says, and start-up that waits for 1:05 comes out of the 75 in-class minutes |
-| **Challenge 6 has an uninstalled prerequisite.** Cracking the hash needs `hashcat` or `john` plus the `rockyou.txt` wordlist (worksheet 3 prerequisites); the Week 3 compose file installs neither, so the challenge can silently be un-completable | Verify the cracker and wordlist on a representative machine before class. A student without them should do the challenge by reasoning — state why unsalted MD5 falls to a wordlist (CWE-916/327) and what argon2id changes — which is also what the Week 9 partial-credit column rewards. Remember to strip the comment lines from `hashes.txt` first |
-| **Challenges 4 and 5 need host-side `pyjwt`.** `pip install … pyjwt` inside the Week 6 container does not help the forging snippets, which run `python3` with `import jwt` on the *host* (worksheet 6 prerequisites) | Have students install `pyjwt` on the host before the session; failing that, pair them for the JWT challenges and require them to write the forged-token reasoning themselves |
-| **The Jeopardy board does not exist until someone makes it.** Nothing ships in the repo; if it is not prepared, the 35-min Jeopardy block has no content | Build the 6 × 5 board plus the Final Jeopardy wager beforehand from the item banks in `instructor/`. Fallback if it is unprepared: run the "Map of the half" cold-call recap from `slides/week07.md` and extend the mock-CTF block |
-| **The CTFd scoreboard may not be up.** AGENDA.md hedges it as "if running", so points from Jeopardy and the mock may have nowhere to land | Tally on the whiteboard during the session and enter CTFd Awards afterwards (`instructor/CTFd-SETUP.md` §6). Nothing today is graded on those points, so a missing scoreboard costs energy, not marks |
-| **A student cannot sit the Form quiz** — the review quizzes run as a Google Form locked to the school account (SUBMISSION.md) | Print `quizzes/quiz1.md`; it carries name/ID/date fields and marks up to the same 25 |
-| **Pairs on the mock hide an individual gap.** `mock-ctf.md` allows pairs; Week 9 does not | Require each student to name, in the debrief, one challenge they could not have landed alone — and put that name on the instructor's Week 8/9 support list |
+| **A student runs the checkpoint checker against their real `wk04`/`wk06` lab folder instead of a practice copy.** Their already-finished work would pass instantly, teaching nothing | Walk the room confirming students ran the `git archive ... ~/practice` step first; `mock-ctf.md` itself flags this ("if a check below passes before you have changed anything, ask your instructor") |
+| **The Week 7 portal quiz assessment does not exist yet.** `README.md` and the slides both point students to `learn.zcr.ai/quiz` | Confirm it is created well before 15 December, the same lead time other weeks' assessments get |
+| **The Jeopardy board does not exist until someone makes it.** Nothing ships in the repo; if it is not prepared, the 20-min Jeopardy block has no content | Build the 6 × 5 board plus the Final Jeopardy wager beforehand from the item banks in `instructor/`. Fallback if unprepared: run a cold-call recap of the revision map from `slides/week07.md` and extend the checkpoint block |
+| **The CTFd scoreboard may not be up.** Jeopardy points have nowhere to land without it | Tally on the whiteboard and enter CTFd Awards afterwards (`instructor/CTFd-SETUP.md` §6). Nothing today is graded on those points, so a missing scoreboard costs energy, not marks |
+| **A student's Week 4 or Week 6 image is missing or was pruned.** `docker run` then reports the image missing | `mock-ctf.md`'s own fallback: rebuild it in the real lab folder while online (`docker compose build` in `labs/week04-injection` or `labs/week06-authn-authz`) |
 | **Quiz-item leakage between cohorts.** `quiz1.md` is a static file reused each term | Swap two or three MCQs and/or the Part B/C alternates from the review-quiz item bank into a cohort copy, holding the total at 10 × 1 + 3 × 3 + 2 × 3 = 25 |
 
 ## 11. Post-teaching reflection
@@ -359,9 +300,8 @@ the course mark, course specification §4).
 
 - Attendance / completion: ⬚
 - Time actually taken per block (vs. plan): ⬚
-- Did Quiz 1 fit its 30 min? Did the Jeopardy board fit 35 min? ⬚
+- Did Quiz 1 fit its 30 min? Did Jeopardy fit 20 min? ⬚
 - Where the class got stuck, and what unblocked them: ⬚
-- Mock-CTF challenges still unsolved by more than a third of the room at the end of the in-class block: ⬚
-- How the mock's in-class / at-home split worked — how many students finished the remaining challenges at home: ⬚
+- How many students needed a rebuild of the Week 4 or Week 6 image: ⬚
 - Misconceptions from §6 that actually surfaced in the debrief (and any new ones): ⬚
 - Anything to change before this week runs again: ⬚

@@ -24,7 +24,7 @@ Explain hashing versus encryption versus encoding. For password storage, state w
 
 ## 4. B4 · Basic — 10 points, about 12 minutes
 
-Classify these defects and name a matching CWE: SQL string concatenation, raw untrusted HTML text, disabled JWT verification, and missing order ownership checks. State the affected boundary for two.
+Classify these defects and give a matching CWE number or name: SQL string concatenation, raw untrusted HTML text, disabled JWT verification, and missing order ownership checks. State the affected boundary for two.
 
 ## 5. B5 · Basic — 10 points, about 12 minutes
 

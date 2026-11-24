@@ -1,6 +1,6 @@
 # Weekly Quiz — Week 12 (Supply Chain Security)
 
-**~10 min · in-class · 6 questions · low-stakes** (drop lowest). No devices / locked browser.
+**~5 min · in-class · 5 questions · low-stakes** (drop lowest). No devices / locked browser.
 
 **Name:** ____________  **Student ID:** ________
 
@@ -15,6 +15,3 @@
    a) encrypt code  b) pin exact dependency versions  c) compress the repo  d) block commits
 5. An **SBOM** is a:
    a) build server  b) software bill of materials (inventory of components)  c) secret store  d) backup
-
-## Short answer — 🔒 your own work (1 × 3)
-6. Name **one vulnerable dependency** you found in the project (package + CVE/advisory) and how you would **remediate** it.

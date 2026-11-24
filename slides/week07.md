@@ -48,7 +48,7 @@ The practice checkpoints are not marked. Game, first-blood and House points are 
 
 ## Current examinations
 
-W8 written 8% + W9 individual practical 12%.
+W8 written exam: Tuesday 22 December. W9 individual practical: Tuesday 29 December. Both are closed-book paper exams (8% + 12%).
 
 Each midterm sitting: 165 minutes, 145 working minutes plus 20 administration.
 
@@ -61,8 +61,9 @@ Four practical stations; no hash-cracking or ECB requirement in current Software
 ## Before the examination
 
 - Review your own results and write a short revision sheet.
-- Confirm permitted aids and the announced sitting pack.
-- Verify tools before class; use only authorized targets.
+- Bring your student ID card and a pen (blue or black). No computer, phone, notes or AI.
+- Verify Docker before class for today's checkpoints; use only your own lab copies.
+- Practise writing the Week 4 and Week 6 fixes by hand.
 - Quiz category unchanged; drop the lowest one regular weekly quiz.
 
 [Current mock commands](../labs/week07-review-midterm-prep/mock-ctf.md) · [Review guide](../labs/week07-review-midterm-prep/README.md)

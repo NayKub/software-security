@@ -99,7 +99,7 @@ POST /api/users  { "username":"x", "password":"y", "is_admin":true, "balance":99
 mass-assign
 ```
 
-<!-- Walk it: the server takes the whole JSON body and binds it to the model, including fields the UI never exposes (is_admin, balance). The sim runs both create_user() implementations for real — edit the body, flip the toggle, watch which fields survive. This is today's local target's mass-assignment bug and the weekly quiz Q6. Fix = allow-list the bindable fields (ALLOWED_CREATE_FIELDS in solution_api.py). ~5 min. -->
+<!-- Walk it: the server takes the whole JSON body and binds it to the model, including fields the UI never exposes (is_admin, balance). The sim runs both create_user() implementations for real — edit the body, flip the toggle, watch which fields survive. This is today's local target's mass-assignment bug. Fix = allow-list the bindable fields (ALLOWED_CREATE_FIELDS in solution_api.py). ~5 min. -->
 
 ---
 

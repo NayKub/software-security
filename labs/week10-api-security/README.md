@@ -13,7 +13,7 @@ Your instructor may ask you to show or repeat any step. This only checks that th
 **Due:** Monday 11 January 2027, 23:59 (Thai time).
 
 ## ✅ This week — what to do
-1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); while online run `docker compose build` in this lab folder. It makes the `kosen-swsec-week10:local` image with Flask for both APIs and the checker. Skim last week's recap.
+1. **Before class** — Docker Desktop working (Week 1 *Lab 0*); while online run `docker compose build` in this lab folder. It makes the `kosen-swsec-week10:local` image with Flask for both APIs and the checker. Skim your Week 6 notes on access control (IDOR).
 2. **Slides, then class** — read `slides/week10.md` and the worksheet's Part 2 to prepare. Class opens with the weekly quiz (10 min) and a short explanation and demo (15 min).
 3. **Lab (in class)** — follow the worksheet's Part 3: probe the three bugs on ports 8080 and 8081 (35 min), write your two controls in `student_task.py` (35), run the checker (20) and explain the limits (10). Then do the written section for your student ID this week (odd: Conventional 40; even: AIR-Sec 20/10/10), after class if needed.
 4. **Submit by Monday 11 January 2027, 23:59** — worksheet PDF → `learn.zcr.ai/submit` · code → GitHub (commit link on branch `wk10`) · weekly quiz → `learn.zcr.ai/quiz`. (How: [SUBMISSION.md](../../SUBMISSION.md).)

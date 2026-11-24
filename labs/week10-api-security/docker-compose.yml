@@ -14,7 +14,7 @@ services:
       # 127.0.0.1 = this machine only. Lab apps are deliberately vulnerable; keep them off the classroom network.
       - "127.0.0.1:8080:5000"
     # PRACTICE build: with no .env the app serves public demo flags (FLAG{..._demo}).
-    # Graded flags come only from your hosted CTFd instance, never from this local run.
+    # The shared demo flags are this week's expected evidence; nothing is submitted on ctf.zcr.ai.
     environment:
       - FLAG_BOLA
       - FLAG_MASSASSIGN

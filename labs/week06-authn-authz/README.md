@@ -61,4 +61,4 @@ Exploits + your `student_patch.py` commit and positive/negative `student_checks.
 
 ## References
 - https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
-- https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html
+- https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html

@@ -1,6 +1,6 @@
 # Weekly Quiz — Week 13 (Cloud & Container Security)
 
-**~10 min · in-class · 6 questions · low-stakes** (drop lowest). No devices / locked browser.
+**~5 min · in-class · 5 questions · low-stakes** (drop lowest). No devices / locked browser.
 
 **Name:** ____________  **Student ID:** ________
 
@@ -15,6 +15,3 @@
    a) blocked  b) localhost only  c) open to the entire internet  d) VPN only
 5. Container **image scanning** primarily finds:
    a) slow code  b) known CVEs in base image/layers  c) bad indentation  d) missing tests
-
-## Short answer — 🔒 your own work (1 × 3)
-6. From the container/cloud lab, name **one misconfiguration you fixed** and the **security principle** it violated.

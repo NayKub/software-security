@@ -14,9 +14,7 @@ echo "$TOKEN"
 
 ## 1. IDOR — read another user's order (CWE-639)
 
-Alice's token reads bob's order #2 because there is no ownership check:
-
-The first command reads alice's own order (id 1), which is expected. The second reads bob's order (id 2), which should be forbidden, but the vulnerable app returns it:
+Alice's token reads bob's order #2 because there is no ownership check. The first command reads alice's own order (id 1), which is expected. The second reads bob's order (id 2), which should be forbidden, but the vulnerable app returns it:
 
 ```bash
 curl -s http://localhost:8080/api/orders/1 -H "Authorization: Bearer $TOKEN"

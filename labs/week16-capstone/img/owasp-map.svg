@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 670" role="img" aria-label="A course-wide lookup table for the capstone. Each row of the OWASP Top 10 (2025) is paired with the week that taught it, the lab file that demonstrated it, and a representative CWE. A01 Broken Access Control, weeks 6 and 10, vulnerable_app.py route slash orders slash 2, CWE-639 and CWE-862, marked deep coverage. A02 Security Misconfiguration, weeks 13 and 2, Dockerfile.insecure and the IAM policy, CWE-732 and CWE-250. A03 Software Supply Chain Failures, weeks 12 and 15, sca_scan.sh over requirements.txt, CWE-1104 and CWE-1357, marked deep coverage. A04 Cryptographic Failures, week 3, vulnerable_crypto.py, CWE-327 and CWE-916. A05 Injection, weeks 4, 5 and 2, the slash login SQL injection and the slash search cross-site scripting, CWE-89, CWE-78 and CWE-79, marked deep coverage. A06 Insecure Design, week 1, the sample-app data-flow diagram and STRIDE, CWE-501. A07 Authentication Failures, week 6, the JWT alg none forgery, CWE-347 and CWE-321. A08 Software and Data Integrity Failures, week 12, sign.sh and the CycloneDX SBOM, CWE-829 and CWE-1395. A09 Security Logging and Alerting Failures, week 15, logging in secure_service.py, CWE-532 and CWE-209. A10 Mishandling of Exceptional Conditions, week 15, the fail-open slash admin route of insecure_service.py, CWE-636. Three further rows sit beyond the web Top 10 but are still graded in the capstone CTF: API1 Broken Object Level Authorisation from week 10 in vulnerable_api.py on port 8080, CWE-639 and CWE-915; memory-safety exploitation from week 11 in vuln.c reaching win() through gets(), CWE-121 and CWE-787; and prompt injection and LLM abuse from week 14 in vulnerable_chatbot.py, LLM01, LLM02 and LLM05. The three categories flagged deep coverage, A01, A03 and A05, had the most lab hours and are where a team's capstone evidence will be strongest.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 670" role="img" aria-label="A course-wide lookup table for the capstone. Each row of the OWASP Top 10 (2025) is paired with the week that taught it, the lab file that demonstrated it, and a representative CWE. A01 Broken Access Control, weeks 6 and 10, vulnerable_app.py route slash orders slash 2, CWE-639, marked deep coverage. A02 Security Misconfiguration, weeks 13 and 2, Dockerfile.insecure and the IAM policy, CWE-732 and CWE-250. A03 Software Supply Chain Failures, weeks 12 and 15, sca_scan.sh over requirements.txt, CWE-1104 and CWE-1357, marked deep coverage. A04 Cryptographic Failures, week 3, vulnerable_crypto.py, CWE-327 and CWE-916. A05 Injection, weeks 4, 5 and 2, the slash login SQL injection and the slash search cross-site scripting, CWE-89, CWE-78 and CWE-79, marked deep coverage. A06 Insecure Design, week 1, the sample-app data-flow diagram and STRIDE, CWE-501. A07 Authentication Failures, week 6, the JWT alg none forgery, CWE-347 and CWE-321. A08 Software and Data Integrity Failures, week 12, sign.sh and the CycloneDX SBOM, CWE-829 and CWE-1395. A09 Security Logging and Alerting Failures, week 15, logging in secure_service.py, CWE-532 and CWE-209. A10 Mishandling of Exceptional Conditions, week 15, the fail-open slash admin route of insecure_service.py, CWE-636. Three further rows sit beyond the web Top 10 but are still graded in the capstone CTF: API1 Broken Object Level Authorisation from week 10 in vulnerable_api.py on port 8080, CWE-639; memory-safety exploitation from week 11 in vuln.c reaching win() through gets(), CWE-121 and CWE-787; and prompt injection and LLM abuse from week 14 in vulnerable_chatbot.py, LLM01, LLM02 and LLM05. The three categories flagged deep coverage, A01, A03 and A05, had the most lab hours and are where a team's capstone evidence will be strongest.">
 <title>OWASP Top 10 (2025) mapped to the week, the lab and the CWE that taught it</title>
 <style>
   .bg      { fill: #ffffff; }
@@ -66,7 +66,7 @@
 <text class="wk" x="284" y="106">W06 &#183; W10</text>
 <text class="wknote" x="284" y="120">deep coverage</text>
 <text class="lab" x="380" y="113">vulnerable_app.py /orders/2</text>
-<text class="cwe" x="566" y="113">CWE-639, CWE-862</text>
+<text class="cwe" x="566" y="113">CWE-639</text>
 
 <!-- A02 -->
 <rect class="bdg" x="18" y="138" width="34" height="18" rx="4"/>
@@ -164,7 +164,7 @@
 <text class="cat" x="60" y="523">Broken Object Level Auth</text>
 <text class="wk" x="284" y="523">W10</text>
 <text class="lab" x="380" y="523">vulnerable_api.py :8080</text>
-<text class="cwe" x="566" y="523">CWE-639, CWE-915</text>
+<text class="cwe" x="566" y="523">CWE-639</text>
 <line class="hair" x1="18" y1="538" x2="702" y2="538"/>
 
 <!-- MEM -->

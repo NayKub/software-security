@@ -38,7 +38,7 @@ Read the provided scenario/code and explain mechanisms, corrections, legitimate 
 - Answer the ten questions on the issued current paper
 - Closed book: bring your student ID card and a pen; no notes, phone, calculator or computer
 - State assumptions and scope; accept equivalent technically sound designs
-- Reserve the final 10 working minutes to check all answers
+- Reserve the final 25 working minutes to check all answers
 
 <!-- Owner decision 18 Nov 2026: closed book; bring student ID card and pen. -->
 

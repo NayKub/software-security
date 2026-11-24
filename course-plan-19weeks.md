@@ -89,8 +89,8 @@ AI-resilient structure (see [AGENDA.md](AGENDA.md) for time-boxing):
 - **Deliverable:** each student submits a one-page "cheat sheet" (allowed into the exam if you choose open-note).
 
 ## 📝 Weeks 8–9 — MIDTERM
-- **Week 8 — Written/concept exam:** threat modeling, CWE/OWASP mapping, "spot the vuln in this code," **applied SQL injection (a full 30-pt section: payload + reasoning, no fix credit — that's Section D)**, secure-design short answers.
-- **Week 9 — Hands-on CTF practical:** individually solve graded challenges covering injection, XSS, auth/IDOR, and crypto in the sandbox. Flags = points.
+- **Week 8 — Written exam (closed-book paper exam):** ten questions, Basic B1–B5 (trust boundaries/STRIDE, SAST/secret-scan/SCA triage, hashing vs. encryption vs. encoding, CWE classification, authN/authZ + least privilege) and Technical T1–T5 (SQL injection fix, command-injection-safe design, XSS output encoding, JWT verification + ownership checks, legacy-hash migration), 10 points each = 100. 165-minute slot = 10 + 145 + 10.
+- **Week 9 — Individual practical (closed-book paper exam):** four stations (threat model and scanner triage, password-record migration, injection fix, JWT and object ownership) answered by hand on printed code and test output; 165-minute slot = 10 + 145 + 10; 4 × 25 = 100 points. No flags and no computers.
 - *Covers Weeks 1–6.*
 
 ---
@@ -98,9 +98,9 @@ AI-resilient structure (see [AGENDA.md](AGENDA.md) for time-boxing):
 ## UNIT C — Systems & Modern Stack
 
 ### Week 10 — API Security
-- **Concept:** REST/GraphQL attack surface, **OWASP API Security Top 10** (BOLA, broken authn, excessive data exposure, mass assignment, rate limiting).
-- **🥷 Signature game — "crAPI Raid":** exploit **BOLA + mass assignment** in the crAPI target to take over accounts/vehicles. Round 2 = add authorization checks, schema validation, rate limiting.
-- **Why it's exciting:** real-world API takeover scenario; feels like a genuine bug-bounty find.
+- **Concept:** REST API attack surface, **OWASP API Security Top 10:2023** (API1 BOLA, API3 mass assignment / broken object property level authorization, API4 unrestricted resource consumption).
+- **🥷 Signature game — "Local API Raid":** probe a local insecure/secure API pair (`vulnerable_api.py` / `solution_api.py`) — read another user's orders by id (BOLA), smuggle `is_admin`/`balance` into account creation (mass assignment), and hammer `/api/login` with no rate limit (API4). Round 2 = write the two bounded policy functions in `student_task.py` (object-level authorization, allow-list binding) and verify with the checker. OWASP's crAPI is optional, ungraded home practice, not the graded target.
+- **Why it's exciting:** change one number in a URL and read a stranger's data — the #1 API bug, reproduced live against a target students actually control and fix themselves.
 
 ### Week 11 — Memory-Safety & Exploitation *(merged: old Wk 8 + 9)*
 - **Concept:** C/C++ memory model, stack buffer overflows, integer overflow, use-after-free, format-string bugs, mitigations (ASLR, canaries, NX/DEP); intro to `gdb`/Ghidra; **the global shift to memory-safe languages** (CISA/ONCD memory-safety roadmaps — why industry & government are mandating Rust/Go).
